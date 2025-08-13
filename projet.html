@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://ansaralmouyassar.github.io/pr-visualisez-l-application-beta/projet.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansar Projet</title>
+    <script src="./email.min(1).js.téléchargement"></script>
+    <script src="./saved_resource"></script>
+    <link rel="stylesheet" href="./all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #073332;
+            --secondary-color: #1f4a49;
+            --accent-color: #9b9c28;
+            --accent-glow: rgba(155, 156, 40, 0.4);
+            --bg-color: #073332;
+            --text-color: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .holographic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(
+                    circle at 30% 40%, 
+                    var(--secondary-color) 0%, 
+                    transparent 25%),
+                radial-gradient(
+                    circle at 70% 60%, 
+                    var(--primary-color) 0%, 
+                    transparent 25%);
+            opacity: 0.4;
+            z-index: -1;
+            animation: bgRotate 60s linear infinite;
+        }
+        
+        @keyframes bgRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .ansar-glass {
+            background: rgba(7, 51, 50, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(155, 156, 40, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(155, 156, 40, 0.1),
+                inset 0 0 30px rgba(31, 74, 73, 0.3);
+            border-radius: 20px;
+        }
+        
+        .holographic-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .holographic-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--accent-glow),
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: hologram 8s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes hologram {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+        
+        .counter-display {
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 15px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-ansar {
+            background: linear-gradient(135deg, rgba(155, 156, 40, 0.2), transparent);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-ansar:hover {
+            background: linear-gradient(135deg, rgba(155, 156, 40, 0.3), transparent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        
+        .btn-ansar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(155, 156, 40, 0.2),
+                transparent
+            );
+            transition: all 0.6s ease;
+        }
+        
+        .btn-ansar:hover::before {
+            left: 100%;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(7, 51, 50, 0.9);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 0 30px var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgba(7, 51, 50, 0.9);
+            border: 1px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: rgba(31, 74, 73, 0.5);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .modal-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        .form-input {
+            background: rgba(31, 74, 73, 0.5);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            padding: 12px 15px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--accent-glow);
+            border-color: var(--accent-color);
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .form-radio {
+            accent-color: var(--accent-color);
+        }
+        
+        .form-checkbox {
+            accent-color: var(--accent-color);
+        }
+        
+        .business-card {
+            transition: all 0.3s ease;
+            background: rgba(7, 51, 50, 0.6);
+            border: 1px solid rgba(155, 156, 40, 0.2);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px var(--accent-glow);
+        }
+        
+        .hidden-section {
+            display: none;
+        }
+        
+        .form-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        
+        .form-container.active {
+            max-height: 1500px;
+            transition: max-height 0.8s ease-in;
+        }
+        #admin-section,
+#success-promotion,
+#success-financement {
+    display: none; /* S'assurer qu'elles sont cachées par défaut */
+}
+        .page-transition {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .business-details {
+            animation: slideUp 0.4s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        @media (max-width: 640px) {
+            .counter-display {
+                font-size: 3rem;
+            }
+        }
+      
+      #success-promotion {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+      #success-promotion .popup-content {
+    background: #073332;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #9b9c28;
+    max-width: 80%;
+}
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.sticky{position:sticky}.inset-0{inset:0px}.bottom-0{bottom:0px}.z-50{z-index:50}.mb-2{margin-bottom:0.5rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:0.5rem}.mr-2{margin-right:0.5rem}.mt-6{margin-top:1.5rem}.mb-4{margin-bottom:1rem}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-5{height:1.25rem}.h-48{height:12rem}.h-full{height:100%}.max-h-\[90vh\]{max-height:90vh}.min-h-screen{min-height:100vh}.w-5{width:1.25rem}.w-full{width:100%}.min-w-full{min-width:100%}.max-w-4xl{max-width:56rem}.max-w-2xl{max-width:42rem}.max-w-md{max-width:28rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-end{justify-content:flex-end}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-6{gap:1.5rem}.gap-4{gap:1rem}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.rounded{border-radius:0.25rem}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.bg-\[\#073332\]{--tw-bg-opacity:1;background-color:rgb(7 51 50 / var(--tw-bg-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-\[\#9b9c28\]{--tw-bg-opacity:1;background-color:rgb(155 156 40 / var(--tw-bg-opacity, 1))}.bg-blue-500{--tw-bg-opacity:1;background-color:rgb(59 130 246 / var(--tw-bg-opacity, 1))}.bg-opacity-20{--tw-bg-opacity:0.2}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-gradient-to-r{background-image:linear-gradient(to right, var(--tw-gradient-stops))}.from-white{--tw-gradient-from:#fff var(--tw-gradient-from-position);--tw-gradient-to:rgb(255 255 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.object-cover{object-fit:cover}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-16{padding-bottom:4rem}.pt-4{padding-top:1rem}.pt-6{padding-top:1.5rem}.text-left{text-align:left}.text-center{text-align:center}.font-\[\'Orbitron\'\]{font-family:'Orbitron'}.text-2xl{font-size:1.5rem;line-height:2rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-5xl{font-size:3rem;line-height:1}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.text-transparent{color:transparent}.text-green-500{--tw-text-opacity:1;color:rgb(34 197 94 / var(--tw-text-opacity, 1))}.text-red-500{--tw-text-opacity:1;color:rgb(239 68 68 / var(--tw-text-opacity, 1))}.text-\[\#FFD700\]{--tw-text-opacity:1;color:rgb(255 215 0 / var(--tw-text-opacity, 1))}.text-emerald-500{--tw-text-opacity:1;color:rgb(16 185 129 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-\[\#FFDB58\]:hover{--tw-bg-opacity:1;background-color:rgb(255 219 88 / var(--tw-bg-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}</style></head>
+<body>
+    <div class="holographic-bg"></div>
+    
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <!-- Conteneur principal -->
+        <div class="ansar-glass w-full max-w-4xl overflow-hidden p-6 holographic-effect">
+            <!-- Page d'accueil -->
+            <div id="home-page" class="page-transition">
+                <!-- En-tête -->
+                <header class="text-center mb-8">
+                    <h1 class="text-4xl font-bold mb-2 font-[&#39;Orbitron&#39;] text-transparent bg-clip-text bg-gradient-to-r from-white to-var(--accent-color)">
+                        ANSAR PROJET
+                    </h1>
+                    <p class="text-var(--accent-color)">Plateforme de développement professionnel</p>
+                </header>
+
+                <!-- Boutons principaux -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                 
+                   
+                    <button onclick="navigateTo(&#39;business&#39;)" class="btn-ansar py-4 px-6 rounded-lg flex flex-col items-center justify-center">
+                        <i class="fas fa-briefcase text-2xl mb-2"></i>
+                        Nos professionnels
+                    </button>
+                </div>
+
+                <!-- Lien admin -->
+                <div class="text-center mt-6">
+                    <a href="https://ansaralmouyassar.github.io/pr-visualisez-l-application-beta/projet.html#" onclick="showAdminSection()" class="text-var(--accent-color) hover:text-white underline">Espace réservé aux membres</a>
+                </div>
+            </div>
+
+            <!-- Page Promotion -->
+            <div id="promotion-page" class="hidden-section page-transition">
+                <button onclick="navigateTo(&#39;home&#39;)" class="btn-ansar mb-6 py-2 px-4 rounded-lg">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour
+                </button>
+                
+                <div class="ansar-glass rounded-xl p-6">
+                    <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Promotion des Métiers</h2>
+                    <p class="text-center text-var(--accent-color)/80 mb-6">Objectif : Mettre en avant les compétences des membres</p>
+                    
+                    <form id="promotionForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label" for="nom">Nom &amp; Prénom</label>
+                                <input type="text" id="nom" class="form-input" required="">
+                            </div>
+                            <div>
+                                <label class="form-label" for="dob">Date de Naissance</label>
+                                <input type="date" id="dob" class="form-input" required="">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Êtes-vous membre de l'association ?</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="membre" value="oui" class="form-radio h-5 w-5" required="">
+                                    <span class="ml-2">Oui</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="membre" value="non" class="form-radio h-5 w-5">
+                                    <span class="ml-2">Non</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="metier">Métier</label>
+                            <input type="text" id="metier" class="form-input" required="">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="experience">Années d'expérience</label>
+                            <input type="number" id="experience" min="0" class="form-input" required="">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="description">Description</label>
+                            <textarea id="description" rows="4" class="form-input" required=""></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="adresse">Emplacement (Adresse)</label>
+                            <input type="text" id="adresse" class="form-input" required="">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="contact">Contact</label>
+                            <input type="tel" id="contact" class="form-input" required="">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="email">Adresse Gmail <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" class="form-input" required="">
+                        </div>
+                        
+                        <div class="pt-4">
+                            <label class="form-label">J'ai besoin de :</label>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="besoins" value="site web" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Un site web</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="besoins" value="affiche" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Une affiche</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="besoins" value="portfolio" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Un portfolio</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end pt-6">
+                            <button type="button" onclick="submitPromotionForm()" class="btn-ansar py-3 px-6 rounded-lg">
+                                Envoyer mon dossier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Page Financement -->
+            <div id="financement-page" class="hidden-section page-transition">
+                <button onclick="navigateTo(&#39;home&#39;)" class="btn-ansar mb-6 py-2 px-4 rounded-lg">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour
+                </button>
+                
+                <div class="ansar-glass rounded-xl p-6">
+                    <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Financement d'un Projet</h2>
+                    
+                    <form id="financementForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label" for="f-nom">Nom &amp; Prénom</label>
+                                <input type="text" id="f-nom" class="form-input" required="">
+                            </div>
+                            <div>
+                                <label class="form-label" for="f-dob">Date de Naissance</label>
+                                <input type="date" id="f-dob" class="form-input" required="">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Êtes-vous membre de l'association ?</label>
+                            <div class="flex space-x-4">
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="f-membre" value="oui" class="form-radio h-5 w-5" required="">
+                                    <span class="ml-2">Oui</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="radio" name="f-membre" value="non" class="form-radio h-5 w-5">
+                                    <span class="ml-2">Non</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="titre-projet">Titre de votre projet <span class="text-red-500">*</span></label>
+                            <input type="text" id="titre-projet" class="form-input" required="">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="description-projet">Description détaillée <span class="text-red-500">*</span></label>
+                            <textarea id="description-projet" rows="4" class="form-input" required=""></textarea>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label" for="budget">Budget <span class="text-red-500">*</span></label>
+                                <input type="number" id="budget" min="0" class="form-input" required="">
+                            </div>
+                            <div>
+                                <label class="form-label" for="delai">Délai <span class="text-red-500">*</span></label>
+                                <input type="text" id="delai" class="form-input" placeholder="Ex: 3 mois" required="">
+                            </div>
+                        </div>
+                        
+                        <div class="pt-4">
+                            <label class="form-label">J'ai besoin de :</label>
+                            <div class="flex flex-wrap gap-4">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="f-besoins" value="site web" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Un site web</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="f-besoins" value="affiche" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Une affiche</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" name="f-besoins" value="portfolio" class="form-checkbox h-5 w-5">
+                                    <span class="ml-2">Un portfolio</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end pt-6">
+                            <button type="button" onclick="submitFinancementForm()" class="btn-ansar py-3 px-6 rounded-lg">
+                                Envoyer mon dossier
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Page Business -->
+            <div id="business-page" class="hidden-section page-transition">
+                <button onclick="navigateTo(&#39;home&#39;)" class="btn-ansar mb-6 py-2 px-4 rounded-lg">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour
+                </button>
+                
+                    <h2 class="text-2xl font-bold text-center mb-8 font-[&#39;Orbitron&#39;]">Nos Professionnels</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="business-cards">
+        <div class="business-card">
+            <div class="h-48 bg-blue-500 flex items-center justify-center">
+                <img src="./image5.png" alt="Ingénieur Agronome" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-emerald-500 mb-2">Ingénieur Agronome</h3>
+                <p class="text-[#FFD700] mb-2">Mouhamed Niang</p>
+                <div class="flex items-center text-white mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>5 ans d'expérience</span>
+                </div>
+                <div class="flex items-center text-white mb-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Dakar, Sénégal</span>
+                </div>
+                <button onclick="showBusinessDetails(&#39;1&#39;, &#39;business&#39;)" class="w-full bg-[#9b9c28] hover:bg-[#FFDB58] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    En savoir plus
+                </button>
+            </div>
+        </div>
+    
+        <div class="business-card">
+            <div class="h-48 bg-blue-500 flex items-center justify-center">
+                <img src="./5791854121706441887.jpg" alt="Développeur" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-emerald-500 mb-2">Développeur</h3>
+                <p class="text-[#FFD700] mb-2">Ahmed Said Aidara</p>
+                <div class="flex items-center text-white mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>3 ans d'expérience</span>
+                </div>
+                <div class="flex items-center text-white mb-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Dakar, Sénégal</span>
+                </div>
+                <button onclick="showBusinessDetails(&#39;2&#39;, &#39;business&#39;)" class="w-full bg-[#9b9c28] hover:bg-[#FFDB58] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    En savoir plus
+                </button>
+            </div>
+        </div>
+    
+        <div class="business-card">
+            <div class="h-48 bg-blue-500 flex items-center justify-center">
+                <img src="./image10.png" alt="Enseignant Coranique" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-emerald-500 mb-2">Enseignant Coranique</h3>
+                <p class="text-[#FFD700] mb-2">Nazir Diaw</p>
+                <div class="flex items-center text-white mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>15 ans d'expérience</span>
+                </div>
+                <div class="flex items-center text-white mb-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Dakar, Sénégal</span>
+                </div>
+                <button onclick="showBusinessDetails(&#39;3&#39;, &#39;business&#39;)" class="w-full bg-[#9b9c28] hover:bg-[#FFDB58] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    En savoir plus
+                </button>
+            </div>
+        </div>
+    
+        <div class="business-card">
+            <div class="h-48 bg-blue-500 flex items-center justify-center">
+                <img src="./logo-11.png" alt="Technicien" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-emerald-500 mb-2">Technicien</h3>
+                <p class="text-[#FFD700] mb-2">Badou Badj</p>
+                <div class="flex items-center text-white mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>7 ans d'expérience</span>
+                </div>
+                <div class="flex items-center text-white mb-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>Dakar, Sénégal</span>
+                </div>
+                <button onclick="showBusinessDetails(&#39;4&#39;, &#39;business&#39;)" class="w-full bg-[#9b9c28] hover:bg-[#FFDB58] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    En savoir plus
+                </button>
+            </div>
+        </div>
+    </div>
+            </div>
+
+            <!-- Modal Business Details -->
+<div id="business-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-start justify-center p-4 z-50">
+  
+                <div class="ansar-glass rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 business-details">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 id="modal-title" class="text-2xl font-bold font-[&#39;Orbitron&#39;]"></h3>
+                        <button onclick="hideBusinessDetails()" class="text-var(--accent-color) hover:text-white">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                      
+                    <div id="modal-content" class="space-y-4">
+                        <!-- Content will be loaded here -->
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                        <button onclick="hideBusinessDetails()" class="btn-ansar py-2 px-4 rounded">
+                            Fermer
+                        </button>
+                    </div>
+                </div> 
+            </div>
+
+            <!-- Messages de succès -->
+            <div id="success-promotion" class="hidden-section fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="ansar-glass rounded-lg shadow-xl p-8 max-w-md w-full text-center">
+                    <div class="text-green-500 text-5xl mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Merci !</h3>
+                    <p class="mb-6" id="success-promotion-message">Le groupe Ansar projet vous contactera dans un délai de 48 à 72h.</p>
+                    <button onclick="hideSuccessMessage(&#39;promotion&#39;)" class="btn-ansar py-2 px-6 rounded-lg">
+                        OK
+                    </button>
+                </div>
+            </div>
+
+            <div id="success-financement" class="hidden-section fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="ansar-glass rounded-lg shadow-xl p-8 max-w-md w-full text-center">
+                    <div class="text-green-500 text-5xl mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                   <h3 class="text-2xl font-bold mb-4">Merci !</h3>
+                    <p class="mb-6" id="success-financement-message">Le groupe Ansar projet vous contactera dans un délai de 3 à 5 jours.</p>
+                    <button onclick="hideSuccessMessage(&#39;financement&#39;)" class="btn-ansar py-2 px-6 rounded-lg">
+                        OK
+                    </button>
+                </div>
+            </div>
+
+            <!-- Section Admin -->
+            <div id="admin-section" class="hidden-section fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div class="ansar-glass rounded-lg shadow-xl p-8 max-w-md w-full">
+                    <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">ESPACE RÉSERVÉ À L'ADMINISTRATION</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="form-label" for="code1">Code secret 1</label>
+                            <input type="password" id="code1" class="form-input">
+                        </div>
+                        
+                        <div>
+                            <label class="form-label" for="code2">Code secret 2</label>
+                            <input type="password" id="code2" class="form-input">
+                        </div>
+                        
+                        <div class="pt-4 flex justify-between">
+                            <button onclick="hideAdminSection()" class="btn-ansar py-2 px-4 rounded">
+                                Annuler
+                            </button>
+                            <button onclick="verifyAdminCodes()" class="btn-ansar py-2 px-4 rounded">
+                                Valider
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tableau de bord Admin -->
+            <div id="admin-dashboard" class="hidden-section page-transition pb-16">
+                <!-- Dans la section admin-dashboard -->
+<button onclick="navigateTo(&#39;home&#39;)" class="btn-ansar mb-6 py-2 px-4 rounded-lg">
+    <i class="fas fa-arrow-left mr-2"></i> Retour
+</button>
+                
+                <div class="ansar-glass rounded-xl p-6">
+                    <h2 class="text-3xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Tableau de bord Admin</h2>
+                    
+                    <div class="flex flex-wrap justify-center gap-4 mb-8">
+                        <button onclick="showAdminForm(&#39;promotion&#39;)" class="btn-ansar py-3 px-6 rounded-lg">
+                            <i class="fas fa-bullhorn mr-2"></i> Ajouter Métier
+                        </button>
+                        
+                        <button onclick="showAdminBusinessList()" class="btn-ansar py-3 px-6 rounded-lg">
+                            <i class="fas fa-briefcase mr-2"></i> Gérer Business
+                        </button>
+                        
+                    </div>
+
+                    <!-- Formulaire Admin Promotion -->
+                    <div id="admin-promotion-form" class="form-container hidden-section">
+                            <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Ajouter un Métier</h2>
+                            
+                            <form id="adminPromotionForm" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="form-label" for="a-nom">Nom &amp; Prénom</label>
+                                        <input type="text" id="a-nom" class="form-input" required="">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="a-dob">Date de Naissance</label>
+                                        <input type="date" id="a-dob" class="form-input">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-membre">Membre de l'association</label>
+                                    <select id="a-membre" class="form-input">
+                                        <option value="oui">Oui</option>
+                                        <option value="non">Non</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-metier">Métier</label>
+                                    <input type="text" id="a-metier" class="form-input" required="">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-experience">Années d'expérience</label>
+                                    <input type="number" id="a-experience" min="0" class="form-input" required="">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-description">Description</label>
+                                    <textarea id="a-description" rows="4" class="form-input" required=""></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-adresse">Emplacement (Adresse)</label>
+                                    <input type="text" id="a-adresse" class="form-input" required="">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-contact">Contact</label>
+                                    <input type="tel" id="a-contact" class="form-input" required="">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-email">Adresse Email</label>
+                                    <input type="email" id="a-email" class="form-input">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="a-image">Lien de l'image (PostImages ou autre)</label>
+                                    <input type="url" id="a-image" class="form-input" placeholder="https://postimages.org/example.jpg">
+                                </div>
+                                <div>
+    <label class="form-label" for="a-website">Site Web (URL)</label>
+    <input type="url" id="a-website" class="form-input" placeholder="https://example.com">
+</div>
+
+<div>
+    <label class="form-label" for="a-portfolio">Portfolio (URL)</label>
+    <input type="url" id="a-portfolio" class="form-input" placeholder="https://portfolio.example.com">
+</div>
+                                <div class="pt-4">
+                                    <label class="form-label">Services proposés</label>
+                                    <div class="flex flex-wrap gap-4">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="a-services" value="site web" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Site web</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="a-services" value="affiche" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Affiche</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="a-services" value="portfolio" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Portfolio</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 bg-[#073332] sticky bottom-0 border-t border-gray-700">
+                                    <button type="button" onclick="saveBusiness()" class="btn-ansar py-3 px-6 rounded-lg">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulaire Admin Financement -->
+                    <div id="admin-financement-form" class="form-container hidden-section">
+                        <div class="ansar-glass rounded-xl p-6">
+                            <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Ajouter un Projet</h2>
+                            
+                            <form id="adminFinancementForm" class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="form-label" for="af-nom">Nom &amp; Prénom</label>
+                                        <input type="text" id="af-nom" class="form-input" required="">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="af-dob">Date de Naissance</label>
+                                        <input type="date" id="af-dob" class="form-input">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="af-membre">Membre de l'association</label>
+                                    <select id="af-membre" class="form-input">
+                                        <option value="oui">Oui</option>
+                                        <option value="non">Non</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="af-titre">Titre du projet</label>
+                                    <input type="text" id="af-titre" class="form-input" required="">
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="af-description">Description</label>
+                                    <textarea id="af-description" rows="4" class="form-input" required=""></textarea>
+                                </div>
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="form-label" for="af-budget">Budget</label>
+                                        <input type="number" id="af-budget" min="0" class="form-input" required="">
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="af-delai">Délai</label>
+                                        <input type="text" id="af-delai" class="form-input" placeholder="Ex: 3 mois" required="">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="form-label" for="af-image">Lien de l'image (PostImages ou autre)</label>
+                                    <input type="url" id="af-image" class="form-input" placeholder="https://postimages.org/example.jpg">
+                                </div>
+                                
+                                <div class="pt-4">
+                                    <label class="form-label">Besoins</label>
+                                    <div class="flex flex-wrap gap-4">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="af-besoins" value="site web" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Site web</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="af-besoins" value="affiche" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Affiche</span>
+                                        </label>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" name="af-besoins" value="portfolio" class="form-checkbox h-5 w-5">
+                                            <span class="ml-2">Portfolio</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end pt-6">
+                                    <button type="button" onclick="saveProject()" class="btn-ansar py-3 px-6 rounded-lg">
+                                        Enregistrer
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Liste Admin Business -->
+                    <div id="admin-business-list" class="form-container hidden-section">
+                        <div class="ansar-glass rounded-xl p-6">
+                            <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Gérer les Professionnels</h2>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-opacity-20 bg-gray-800">
+                                    <thead>
+                                        <tr class="border-b border-gray-700">
+                                            <th class="px-4 py-3 text-left">Nom</th>
+                                            <th class="px-4 py-3 text-left">Métier</th>
+                                            <th class="px-4 py-3 text-left">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="business-list-body">
+                                        <!-- Les données seront chargées dynamiquement ici -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Liste Admin Projets -->
+                    <div id="admin-project-list" class="form-container hidden-section">
+                        <div class="ansar-glass rounded-xl p-6">
+                            <h2 class="text-2xl font-bold text-center mb-6 font-[&#39;Orbitron&#39;]">Gérer les Projets</h2>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full bg-opacity-20 bg-gray-800">
+                                    <thead>
+                                        <tr class="border-b border-gray-700">
+                                            <th class="px-4 py-3 text-left">Titre</th>
+                                            <th class="px-4 py-3 text-left">Porteur</th>
+                                            <th class="px-4 py-3 text-left">Budget</th>
+                                            <th class="px-4 py-3 text-left">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="project-list-body">
+                                        <!-- Les données seront chargées dynamiquement ici -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+    <script>
+    // Configuration EmailJS
+
+// Variables globales
+const adminCodes = {
+    code1: "000",
+    code2: "000"
+};
+// Ajoutez ceci au début de votre script (après les variables globales)
+const businesses = [
+    {
+        id: '1',
+        type: 'business',
+        nom: 'Mouhamed Niang',
+        metier: 'Ingénieur Agronome',
+        experience: 5,
+        description: 'En tant qu’ingénieur agronome, je vois la terre comme un livre vivant : chaque graine est un mot, chaque saison une page. Mon rôle, c’est d’orchestrer ce dialogue silencieux entre le sol, l’eau, le soleil et l’homme, pour que la récolte ne soit pas seulement abondante… mais durable',
+        adresse: 'Dakar, Sénégal',
+        contact: '+221777777777',
+        email: 'niang@gmail.com',
+        image: 'https://i.postimg.cc/QM9bTGDD/image5.png',
+        website: 'https://ansaralmouyassar.github.io/mouhamedniang/',
+        portfolio: 'https://ansaralmouyassar.github.io/mouhamedniang/',
+        services: ['site web', 'portfolio']
+    },
+    {
+        id: '2',
+        type: 'business',
+        nom: 'Ahmed Said Aidara',
+        metier: 'Développeur',
+        experience: 3,
+        description: 'En tant que développeur, je façonne des mondes invisibles avec du code, ligne après ligne. Mon clavier est mon atelier, mes algorithmes mes outils. Chaque bug est un défi, chaque fonctionnalité une victoire. Mon but ? Transformer des idées en expériences fluides, rapides, et élégantes, pour que la technologie serve l’humain, et non l’inverse. ',
+        adresse: 'Dakar, Sénégal',
+        contact: '+221777777777',
+        email: 'ahmedsaidaidara5@gmail.com',
+        image: 'https://i.postimg.cc/g2Pd5dMS/5791854121706441887.jpg',
+        website: 'https://sites.google.com/view/lavoiedusalut?usp=sharing',
+        portfolio: 'https://ansaralmouyassar.github.io/ahmedsaidaidara/',
+        services: ['affiche', 'portfolio']
+    },
+    {
+        id: '3',
+        type: 'business',
+        nom: 'Nazir Diaw',
+        metier: 'Enseignant Coranique',
+        experience: 15,
+        description: 'Transmettre le Coran, c’est bien plus que réciter des versets : c’est allumer une lumière intérieure, cultiver la paix du cœur, et tisser un lien vivant entre le Divin et l’humain. Chaque leçon ouvre une porte vers la sagesse ancestrale, chaque mot murmuré façonne l’âme et inspire la sérénité. ',
+        adresse: 'Dakar, Sénégal',
+        contact: '+221777777777',
+        email: 'nazirdiaw@gmail.com',
+        image: 'https://i.postimg.cc/fLkJLDQ7/image10.png',
+        services: []
+    },
+    {
+        id: '4',
+        type: 'business',
+        nom: 'Badou Badj',
+        metier: 'Technicien',
+        experience: 7,
+        description: ' Le travail du technicien, c’est dompter la mécanique et apprivoiser la technologie. Derrière chaque machine qui tourne ou chaque système qui fonctionne, il y a ses mains précises, son œil attentif et son savoir-faire discret. Il ne cherche pas la lumière, mais sans lui, elle ne s’allumerait pas.',
+        adresse: 'Dakar, Sénégal',
+        contact: '+777777777',
+        email: 'badou@gmail.com',
+        image: 'https://i.postimg.cc/Prq8xg15/logo-11.png',
+        services: ['site web', 'affiche']
+    }
+];
+// Fonctions de navigation
+function navigateTo(page) {
+    document.querySelectorAll('[id$="-page"]').forEach(el => {
+        el.classList.add('hidden-section');
+    });
+    document.getElementById(`${page}-page`).classList.remove('hidden-section');
+    
+    if (page === 'business') {
+        loadBusinessCards();
+    }
+}
+
+function showAdminSection() {
+    document.getElementById('admin-section').style.display = 'flex';
+}
+
+function hideAdminSection() {
+    document.getElementById('admin-section').style.display = 'none';
+}
+
+function showAdminDashboard() {
+    navigateTo('admin-dashboard');
+}
+
+function showAdminForm(formType) {
+    hideAllAdminForms();
+    document.getElementById(`admin-${formType}-form`).classList.add('active');
+    document.getElementById(`admin-${formType}-form`).style.display = 'block';
+}
+
+function showAdminBusinessList() {
+    hideAllAdminForms();
+    document.getElementById('admin-business-list').classList.add('active');
+    document.getElementById('admin-business-list').style.display = 'block';
+}
+
+function showAdminProjectList() {
+    hideAllAdminForms();
+    document.getElementById('admin-project-list').classList.add('active');
+    document.getElementById('admin-project-list').style.display = 'block';
+}
+function showBusinessDetails(id, type) {
+    const business = businesses.find(b => b.id === id);
+
+    if (business) {
+        document.getElementById('modal-title').textContent = business.metier;
+        
+        const content = `
+            <div class="flex flex-col md:flex-row gap-6">
+                <div class="md:w-1/3">
+                    <div class="h-48 bg-gray-200 rounded-lg overflow-hidden mb-4">
+                        <img src="${business.image}" alt="${business.metier}" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-bold">${business.nom}</h4>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span>${business.experience} ans d'expérience</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        <span>${business.adresse}</span>
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <i class="fas fa-phone mr-2"></i>
+                        <span>${business.contact}</span>
+                    </div>
+                    ${business.email ? `<div class="flex items-center mt-2">
+                        <i class="fas fa-envelope mr-2"></i>
+                        <span>${business.email}</span>
+                    </div>` : ''}
+                </div>
+                <div class="md:w-2/3">
+                    <h4 class="text-lg font-bold mb-2">À propos</h4>
+                    <p class="mb-4">${business.description}</p>
+                    
+                    ${business.website ? `
+                    <div class="mb-2">
+                        <a href="${business.website}" target="_blank" class="text-[#9b9c28] hover:underline">
+                            <i class="fas fa-globe mr-2"></i> Site Web
+                        </a>
+                    </div>` : ''}
+                    
+                    ${business.portfolio ? `
+                    <div class="mb-4">
+                        <a href="${business.portfolio}" target="_blank" class="text-[#9b9c28] hover:underline">
+                            <i class="fas fa-briefcase mr-2"></i> Portfolio
+                        </a>
+                    </div>` : ''}
+                </div>
+            </div>
+        `;
+        
+        document.getElementById('modal-content').innerHTML = content;
+        document.getElementById('business-modal').classList.remove('hidden');
+    } else {
+        alert('Professionnel non trouvé.');
+    }
+}
+// Charger la liste des métiers dans #admin-business-list
+function loadBusinessList() {
+    // Pour test statique, simuler liste vide ou statique
+    const businessTableBody = document.getElementById('business-list-body');
+    businessTableBody.innerHTML = '<tr><td colspan="3">Fonctionnalité admin non disponible en preview.</td></tr>';
+}
+
+function loadProjectList() {
+    // Pour test statique, simuler liste vide
+    const projectTableBody = document.getElementById('project-list-body');
+    projectTableBody.innerHTML = '<tr><td colspan="4">Fonctionnalité admin non disponible en preview.</td></tr>';
+}
+function hideBusinessDetails() {
+    document.getElementById('business-modal').classList.add('hidden');
+}
+
+function showSuccessMessage(type) {
+    document.getElementById(`success-${type}`).style.display = 'flex';
+}
+
+function hideSuccessMessage(type) {
+    document.getElementById(`success-${type}`).style.display = 'none';
+}
+
+// Fonctions utilitaires
+function hideAllAdminForms() {
+    const adminForms = document.querySelectorAll('#admin-dashboard .form-container');
+    adminForms.forEach(form => {
+        form.style.display = 'none';
+        form.classList.remove('active');
+    });
+}
+
+function resetForm(formId) {
+    document.getElementById(formId).reset();
+}
+
+function resetAdminForm(formType) {
+    document.getElementById(`admin${formType.charAt(0).toUpperCase() + formType.slice(1)}Form`).reset();
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Fonctions Firebase et EmailJS
+async function sendConfirmationEmail(nom, email) {
+    try {
+        // On utilise le compte SECONDARY pour la confirmation
+        await emailjs.init("b7VZLL9unc4ONEPby"); // Clé publique du 2ème compte
+        await emailjs.send("service_v9clrbi", "template_p5w3d7a", {
+            nom: nom,
+            email: email
+        });
+        console.log("✅ Email de confirmation envoyé à :", email);
+    } catch (error) {
+        console.error("❌ Erreur lors de l'envoi de la confirmation :", error);
+    }
+}
+
+// Fonction pour soumettre le formulaire de promotion
+function submitPromotionForm() {
+    // Récupérer les valeurs des champs
+    const nom = document.getElementById('nom').value;
+    const dob = document.getElementById('dob').value;
+    const membre = document.querySelector('input[name="membre"]:checked')?.value;
+    const metier = document.getElementById('metier').value;
+    const experience = document.getElementById('experience').value;
+    const description = document.getElementById('description').value;
+    const adresse = document.getElementById('adresse').value;
+    const contact = document.getElementById('contact').value;
+    const email = document.getElementById('email').value;
+    const besoins = Array.from(document.querySelectorAll('input[name="besoins"]:checked')).map(input => input.value).join(', ');
+
+    // Vérifier que tous les champs requis sont remplis
+    if (!nom || !dob || !membre || !metier || !experience || !description || !adresse || !contact || !email) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        return;
+    }
+
+    // Valider le format de l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Veuillez entrer une adresse email valide.');
+        return;
+    }
+
+    // Désactiver le bouton pendant l'envoi
+    const submitButton = document.querySelector('#promotionForm button[type="button"]');
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Envoi en cours...';
+
+    // Envoyer l'email via EmailJS
+    emailjs.send('service_s761d89', 'template_01ycegg', {
+        nom,
+        dob,
+        membre,
+        metier,
+        experience,
+        description,
+        adresse,
+        contact,
+        email,
+        besoins
+    })
+   .then(() => {
+    sendConfirmationEmail(nom, email);
+    
+    // Afficher le message
+    const successPopup = document.getElementById('success-promotion');
+    document.getElementById('success-promotion-message').textContent = 
+        `Votre message a été soumis, ${nom}. Ansar vous contactera dans un délai de 24 à 48H.`;
+    successPopup.style.display = 'flex'; // Afficher la popup
+    
+    // Réinitialiser le formulaire
+    document.getElementById('promotionForm').reset();
+    
+    // Réactiver le bouton
+    submitButton.disabled = false;
+    submitButton.innerHTML = 'Envoyer mon dossier';
+})
+    .catch(error => {
+        console.error('Erreur lors de l\'envoi de l\'email:', error);
+        alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer.');
+        // Réactiver le bouton
+        submitButton.disabled = false;
+        submitButton.innerHTML = 'Envoyer mon dossier';
+    });
+}
+
+function submitFinancementForm() {
+    // Pour test, simuler envoi
+    alert('Envoi simulé pour test.');
+    resetForm('financementForm');
+    showSuccessMessage('financement');
+}
+
+function saveBusiness() {
+    // Pour test, simuler sauvegarde
+    alert('Sauvegarde simulée pour test.');
+    document.getElementById('adminPromotionForm').reset();
+}
+
+function saveProject() {
+    // Pour test, simuler sauvegarde
+    alert('Sauvegarde simulée pour test.');
+    document.getElementById('adminFinancementForm').reset();
+}
+
+async function loadBusinessCards() {
+    console.log('loadBusinessCards: Début');
+    const businessCards = document.getElementById('business-cards');
+
+    if (!businessCards) {
+        console.error('Conteneur #business-cards introuvable');
+        return;
+    }
+
+    if (businesses.length === 0) {
+        businessCards.innerHTML = '<p class="text-gray-600 text-center">Aucun professionnel disponible.</p>';
+        return;
+    }
+
+    const cardHTML = businesses.map(business => `
+        <div class="business-card">
+            <div class="h-48 bg-blue-500 flex items-center justify-center">
+                <img src="${business.image}" alt="${business.metier}" class="w-full h-full object-cover">
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-emerald-500 mb-2">${business.metier}</h3>
+                <p class="text-[#FFD700] mb-2">${business.nom}</p>
+                <div class="flex items-center text-white mb-2">
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    <span>${business.experience} ans d'expérience</span>
+                </div>
+                <div class="flex items-center text-white mb-4">
+                    <i class="fas fa-map-marker-alt mr-2"></i>
+                    <span>${business.adresse}</span>
+                </div>
+                <button onclick="showBusinessDetails('${business.id}', 'business')" class="w-full bg-[#9b9c28] hover:bg-[#FFDB58] text-white font-bold py-2 px-4 rounded transition duration-300">
+                    En savoir plus
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    businessCards.innerHTML = cardHTML;
+}
+
+// Éditer un métier
+function editBusiness(businessId) {
+    alert('Edition simulée pour test.');
+}
+
+// Mise à jour d'un métier
+function updateBusiness(businessId) {
+    alert('Mise à jour simulée pour test.');
+}
+
+// Supprimer un métier
+function deleteBusiness(businessId) {
+    alert('Suppression simulée pour test.');
+}
+
+function editProject(projectId) {
+    alert('Edition simulée pour test.');
+}
+
+function updateProject(projectId) {
+    alert('Mise à jour simulée pour test.');
+}
+
+function deleteProject(projectId) {
+    alert('Suppression simulée pour test.');
+}
+
+function verifyAdminCodes() {
+    const code1 = document.getElementById('code1').value;
+    const code2 = document.getElementById('code2').value;
+
+    if (code1 === '000' && code2 === '000') {
+        document.getElementById('admin-section').classList.add('hidden-section');
+        document.getElementById('admin-dashboard').classList.remove('hidden-section');
+        loadBusinessList();
+        loadProjectList();
+    } else {
+        alert('Codes incorrects. Espace réservé aux admin.');
+    }
+}
+function navigateTo(page) {
+    document.querySelectorAll('[id$="-page"]').forEach(el => {
+        el.classList.add('hidden-section');
+    });
+    document.getElementById(`${page}-page`).classList.remove('hidden-section');
+    
+    if (page === 'business') {
+        loadBusinessCards();
+    }
+}
+// Initialisation au chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOMContentLoaded: Page chargée');
+    
+    // Charger les professionnels pour la section Business
+    loadBusinessCards();
+});
+    </script>
+
+
+</body></html>

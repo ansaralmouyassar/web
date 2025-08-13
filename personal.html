@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)https://ansaralmouyassar.github.io/pr-visualisez-l-application-beta/personal.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESPACE PERSONNEL | Accès Sécurisé</title>
+    <link rel="stylesheet" href="./all.min.css">
+ <link href="./css2(3)" rel="stylesheet">
+ 
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&family=Orbitron:wght@400;500;600;700&display=swap');
+        
+        :root {
+            /* VOTRE PALETTE */
+            --primary-color: #073332;
+            --secondary-color: #1f4a49;
+            --accent-color: #9b9c28;
+            --bg-color: #073332;
+            --text-color: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            
+            /* DÉRIVÉS POUR LES ANIMATIONS */
+            --primary-light: #0a4a48;
+            --accent-light: #b5b632;
+            --glass-intensity: 0.15;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+           margin: 0; /* Supprime les marges par défaut */
+    padding: 0; 
+        }
+        
+        /* ANIMATION DE FOND DYNAMIQUE */
+       /* Supprimer le .dynamic-bg ou le remplacer par : */
+/* Supprimez un des deux fonds et gardez celui avec l'animation */
+.dynamic-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        radial-gradient(circle at 30% 40%, var(--primary-light) 0%, transparent 25%),
+        radial-gradient(circle at 70% 60%, var(--secondary-color) 0%, transparent 25%);
+    opacity: 0.4;
+    z-index: -1;
+    animation: bgMovement 30s infinite alternate ease-in-out;
+}
+
+@keyframes bgMovement {
+    0% { 
+        transform: scale(1) rotate(0deg);
+        background-position: 0% 0%;
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        background-position: 50% 50%;
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        background-position: 100% 100%;
+    }
+}
+/* Supprimez le deuxième fond ou éléments superflus */
+.spotlight, .particles {
+    display: none; /* Optionnel - supprime les autres effets si trop chargé */
+}
+        
+        @keyframes bgRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* CONTAINER PRINCIPAL */
+  .auth-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre verticalement */
+    align-items: center; /* Centre horizontalement */
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto; /* Permet le défilement si nécessaire */
+}
+        
+        /* ESPACE PERSONNEL CONTENU */
+        #personal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            z-index: 10;
+            display: none;
+              height: calc(100vh - 4rem); /* Limite la hauteur */
+
+              overflow-y: auto; /* Permet le défilement uniquement si nécessaire */
+
+        }
+        
+        /* ICONE DE PROFIL PREMIUM */
+        .profile-trigger {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            box-shadow: 
+                0 0 0 4px rgba(155, 156, 40, 0.3),
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(31, 74, 73, 0.6);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 20;
+            overflow: hidden;
+              animation: triggerBounce 6s ease-in-out infinite;
+-webkit-tap-highlight-color: transparent;
+  outline: none;
+        }
+        
+        .profile-trigger::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        
+        .profile-trigger:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 0 0 6px rgba(155, 156, 40, 0.4),
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                inset 0 0 30px rgba(31, 74, 73, 0.8);
+        }
+        
+        .profile-trigger:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .profile-icon {
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            transition: all 0.4s ease;
+          
+        }
+        
+        .profile-trigger:hover .profile-icon {
+            transform: scale(1.1);
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(155, 156, 40, 0.6);
+        }
+        
+        .trigger-text {
+            position: absolute;
+            bottom: -30px;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease 0.2s;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .profile-trigger:hover .trigger-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* PANEL DE CONNEXION */
+        .auth-panel {
+            width: 100%;
+            background: rgba(7, 51, 50, 0.8);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.08),
+                inset 0 0 30px rgba(31, 74, 73, 0.5);
+            border: 1px solid rgba(155, 156, 40, 0.2);
+            transform: scale(0.9);
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transform-origin: top center;
+              transform: translateY(20px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55), 
+                box-shadow 0.5s ease,
+                transform 0.5s ease;
+        }
+        
+        .auth-panel.active {
+            height: auto;
+            opacity: 1;
+            transform: scale(1);
+            margin-top: 1rem;
+          transform: translateY(0) scale(1);
+    animation: panelGlow 3s infinite alternate;
+        }
+        
+        .auth-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--accent-color), 
+                transparent);
+            animation: panelShine 3s infinite;
+        }
+        
+        @keyframes panelShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* EN-TÊTE */
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .auth-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            color: var(--text-color);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .auth-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent-color);
+            border-radius: 2px;
+            animation: titlePulse 2s infinite ease;
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { width: 60px; opacity: 1; }
+            50% { width: 100px; opacity: 0.7; }
+        }
+        
+        /* CHAMPS DE FORMULAIRE */
+        .auth-field {
+            position: relative;
+            margin-bottom: 1.8rem;
+        }
+        
+        .auth-field input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(31, 74, 73, 0.3);
+            border: 1px solid rgba(155, 156, 40, 0.3);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 1rem;
+            transition: all 0.4s ease;
+        }
+        
+        .auth-field input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 
+                0 0 0 2px rgba(155, 156, 40, 0.2),
+                inset 0 0 15px rgba(31, 74, 73, 0.6);
+            background: rgba(31, 74, 73, 0.5);
+              animation: inputPulse 2s infinite;
+
+        }
+        
+        .auth-label {
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+        
+        .auth-field input:focus + .auth-label,
+        .auth-field input:not(:placeholder-shown) + .auth-label {
+            transform: translateY(-1.8rem) scale(0.9);
+            color: var(--accent-color);
+            left: 0;
+            background: var(--primary-color);
+            padding: 0 8px;
+        }
+        
+        /* BOUTON DE CONNEXION */
+        .auth-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+            border: none;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+              animation: buttonFloat 4s ease-in-out infinite;
+
+        }
+        
+        .auth-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .auth-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 6px 25px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(155, 156, 40, 0.4);
+        }
+        
+        .auth-submit:hover::before {
+            left: 100%;
+        }
+        
+        .auth-submit:active {
+            transform: translateY(0);
+        }
+        
+        /* PIED DE PAGE */
+        .auth-footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            position: relative;
+        }
+        
+        .auth-footer::before {
+            content: '';
+            position: absolute;
+            top: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(155, 156, 40, 0.5), 
+                transparent);
+        }
+        
+        .auth-policy {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-policy:hover {
+            color: #d5d66a;
+            text-shadow: 0 0 10px rgba(155, 156, 40, 0.4);
+        }
+        
+        /* ESPACE PERSONNEL STYLES */
+       .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3rem;
+    text-align: center;
+    margin-top: 2rem; /* Ajoutez cette ligne pour créer de l'espace en haut */
+    padding-top: 20px; /* Optionnel - espace supplémentaire */
+}
+        
+        .profile-container .profile-icon {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+            box-shadow: 
+                0 0 0 4px rgba(155, 156, 40, 0.3),
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(31, 74, 73, 0.6);
+        }
+        
+        .profile-container .profile-icon svg {
+            width: 80px;
+            height: 80px;
+            fill: var(--accent-color);
+        }
+        
+        .user-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .user-role {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .section {
+            background: rgba(7, 51, 50, 0.6);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(155, 156, 40, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.2),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
+        }
+        
+        .section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .info-section p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+        
+        .info-section strong {
+            color: var(--accent-color);
+        }
+        
+        .cotisations-section p {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(31, 74, 73, 0.3);
+            border-radius: 4px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .payment-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .payment-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        #suggestion-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        #suggestion-text {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(31, 74, 73, 0.3);
+            border: 1px solid rgba(155, 156, 40, 0.3);
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: 'Open Sans', sans-serif;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        #suggestion-text:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(155, 156, 40, 0.2);
+        }
+        
+        .cta-button {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+            border: none;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            align-self: flex-start;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .logout-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: transparent;
+            border: 1px solid rgba(155, 156, 40, 0.5);
+            border-radius: 8px;
+            color: var(--accent-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+              margin-bottom: 1rem; /* Réduit la marge sous le bouton */
+
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(155, 156, 40, 0.1);
+            border-color: var(--accent-color);
+        }
+        
+        /* PARTICULES D'ARRIÈRE-PLAN */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(1px);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* EFFET DE LUMIÈRE DYNAMIQUE */
+        .spotlight {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(
+                circle,
+                rgba(155, 156, 40, 0.1),
+                transparent 70%
+            );
+            filter: blur(20px);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        /* MESSAGE D'ERREUR */
+        #personal-error-message {
+            color: #ff6b6b;
+            margin-top: 1rem;
+            display: none;
+            text-align: center;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .payment-methods {
+                flex-direction: column;
+            }
+            
+            .auth-container, #personal-content {
+                width: 95%;
+                  padding-bottom: env(safe-area-inset-bottom); /* Gère les écrans avec encoches */
+
+                margin: 1rem auto;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+        }
+      .year-section {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(31, 74, 73, 0.3);
+  border-radius: 8px;
+}
+
+.months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.month {
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.month.paid {
+  background: rgba(0, 255, 0, 0.1);
+}
+
+.month.unpaid {
+  background: rgba(255, 0, 0, 0.1);
+}
+      
+      .profile-trigger.refreshing {
+    animation: spin 1s linear;
+    box-shadow: 
+        0 0 0 8px rgba(155, 156, 40, 0.5),
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 0 40px rgba(31, 74, 73, 0.9);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+      .user-name.refreshing {
+    animation: pulse 1s ease-in-out;
+    color: var(--accent-light);
+    text-shadow: 0 0 15px rgba(155, 156, 40, 0.8);
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+      /* Ajoutez ces nouvelles animations à la fin de votre CSS */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.5); opacity: 0.3; }
+}
+
+@keyframes panelGlow {
+    0% {
+        box-shadow: 
+            0 8px 32px rgba(0, 0, 0, 0.3),
+            0 0 0 1px rgba(255, 255, 255, 0.08),
+            inset 0 0 30px rgba(31, 74, 73, 0.5);
+    }
+    100% {
+        box-shadow: 
+            0 12px 40px rgba(0, 0, 0, 0.4),
+            0 0 0 2px rgba(155, 156, 40, 0.3),
+            inset 0 0 40px rgba(31, 74, 73, 0.7);
+    }
+}
+
+@keyframes inputPulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(155, 156, 40, 0.2); }
+    50% { box-shadow: 0 0 0 4px rgba(155, 156, 40, 0.3); }
+}
+
+@keyframes buttonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes buttonHover {
+    100% { 
+        transform: translateY(-5px) scale(1.03);
+        box-shadow: 0 10px 30px rgba(155, 156, 40, 0.5);
+    }
+}
+
+@keyframes triggerBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes iconRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes linePulse {
+    0%, 100% { width: 60px; opacity: 1; }
+    50% { width: 100px; opacity: 0.5; background-color: var(--accent-light); }
+}
+      
+      /* Privacy Modal */
+.privacy-modal {
+    position: fixed;
+    bottom: 0;
+  color: #000000; /* Appliquer la nouvelle couleur */
+    left: 0;
+    width: 100%;
+    height: 80vh; /* Hauteur de 80% de l'écran */
+    background: rgba(7, 51, 50, 0.95); /* Fond semi-transparent */
+    backdrop-filter: blur(12px); /* Effet de flou */
+    z-index: 100; /* Au-dessus des autres éléments */
+    transform: translateY(100%); /* Masquée en bas par défaut */
+    transition: transform 0.5s ease-in-out; /* Animation fluide */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+}
+
+.privacy-modal.active {
+    transform: translateY(0); /* Monte pour devenir visible */
+}
+
+.privacy-modal-content {
+    width: 100%;
+    max-width: 900px; /* Largeur maximale */
+    height: 100%;
+    background: #ffffff; /* Fond blanc */
+    border-radius: 16px 16px 0 0; /* Coins arrondis en haut */
+    overflow-y: auto; /* Défilement vertical si nécessaire */
+    position: relative;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3); /* Ombre en haut */
+    padding-bottom: 20px;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #9b9c28; /* Couleur accentuée */
+    color: #ffffff; /* Texte blanc */
+    border: none;
+    border-radius: 50%; /* Bouton circulaire */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.modal-close-btn:hover {
+    background: #b5b632; /* Couleur plus claire au survol */
+    transform: scale(1.1); /* Effet d'agrandissement */
+}
+
+/* Réutilisation des styles de la politique de confidentialité */
+.privacy-modal .policy-container {
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    box-shadow: none;
+}
+
+.privacy-modal .policy-header {
+    background: linear-gradient(135deg, #073332, #1f4a49);
+    padding: 30px;
+}
+
+.privacy-modal .policy-content {
+    padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .privacy-modal {
+        height: 90vh; /* Hauteur plus grande sur mobile */
+    }
+    .privacy-modal-content {
+        border-radius: 12px 12px 0 0;
+    }
+    .privacy-modal .policy-header {
+        padding: 16px;
+                  color: #ffffff;
+      align-items: center; /* Centrer horizontalement */
+    text-align: center;
+
+    }
+    .privacy-modal .policy-content {
+        padding: 15px;
+    }
+}
+      /* Style pour les icônes dans la modal de politique */
+.privacy-modal .policy-container i {
+    color: gold !important; /* Couleur dorée */
+    margin-right: 8px;
+}
+
+/* Style spécifique pour les icônes de check */
+.privacy-modal .policy-container .fa-check-circle {
+    color: #28a745 !important; /* Vert pour les validations */
+}
+
+/* Style pour l'icône du header */
+.privacy-modal .policy-header i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+     color: var(--text-color) !important;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Style pour les décorations */
+.privacy-modal .decoration i {
+    color: rgba(155, 156, 40, 0.3) !important;
+    font-size: 5rem;
+    position: absolute;
+    opacity: 0.5;
+}
+      /* ==================== AMÉLIORATIONS DE LA MODAL POLITIQUE ==================== */
+.privacy-modal {
+    perspective: 1000px;
+}
+
+.privacy-modal-content {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(155, 156, 40, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(7, 51, 50, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 0 20px rgba(155, 156, 40, 0.2);
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.privacy-modal.active .privacy-modal-content {
+    animation: modalEntrance 0.8s ease-out forwards;
+}
+
+@keyframes modalEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95);
+    backdrop-filter: blur(0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    backdrop-filter: blur(20px);
+  }
+}
+@keyframes modalExit {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.95);
+  }
+}
+.policy-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.policy-header {
+    position: relative;
+    padding: 40px 30px;
+    background: linear-gradient(135deg, rgba(7, 51, 50, 0.9), rgba(31, 74, 73, 0.9));
+    color: white;
+    text-align: center;
+    z-index: 1;
+}
+
+.policy-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(155, 156, 40, 0.3) 0%, transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(31, 74, 73, 0.4) 0%, transparent 30%);
+    z-index: -1;
+}
+
+.policy-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.policy-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    animation: titleUnderline 3s infinite ease-in-out;
+}
+
+@keyframes titleUnderline {
+    0%, 100% { width: 80px; opacity: 1; }
+    50% { width: 120px; opacity: 0.8; }
+}
+
+.policy-content {
+    padding: 30px;
+    position: relative;
+}
+
+.policy-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(155, 156, 40, 0.5), transparent);
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--primary-color);
+    margin: 25px 0 15px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.4s ease;
+}
+
+h2:hover::after {
+    width: 80px;
+}
+
+.highlight {
+    background: rgba(155, 156, 40, 0.1);
+    border-left: 3px solid var(--accent-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.4s ease;
+}
+
+.highlight:hover {
+    background: rgba(155, 156, 40, 0.15);
+    transform: translateX(5px);
+}
+
+.contact-info {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 30px;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.05),
+        inset 0 0 0 1px rgba(155, 156, 40, 0.2);
+    transition: all 0.4s ease;
+}
+
+.contact-info:hover {
+    box-shadow: 
+        0 8px 30px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px var(--accent-color);
+}
+
+.modal-close-btn {
+    background: var(--accent-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(155, 156, 40, 0.4);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: var(--accent-light);
+    box-shadow: 0 6px 20px rgba(155, 156, 40, 0.6);
+}
+
+/* Effets de particules décoratives */
+.policy-header::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 70% 60%, rgba(155, 156, 40, 0.1) 0%, transparent 20%);
+    animation: bgFloat 20s infinite linear;
+    z-index: -1;
+}
+
+@keyframes bgFloat {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animation des icônes */
+.privacy-modal i {
+    transition: all 0.3s ease;
+}
+
+.privacy-modal i:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px rgba(155, 156, 40, 0.7));
+}
+
+/* Effet de flottement pour les sections */
+.policy-content > div {
+    transition: all 0.4s ease;
+}
+
+.policy-content > div:hover {
+    transform: translateY(-3px);
+}
+      /* Ajoutez ce code à la fin de votre CSS existant */
+.privacy-modal .policy-container::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+  
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background-image: url('https://i.postimg.cc/Ls3kbFwV/photo2-1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.08; /* Très faible opacité pour le filigrane */
+    z-index: 0;
+    pointer-events: none; /* Permet de cliquer à travers */
+    filter: grayscale(100%) brightness(1.2);
+    animation: subtlePulse 15s infinite ease-in-out;
+}
+
+@keyframes subtlePulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.08; }
+    50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.12; }
+}
+
+/* Assurez-vous que le contenu reste au-dessus du filigrane */
+.policy-header,
+.policy-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Version responsive pour petits écrans */
+@media (max-width: 768px) {
+    .privacy-modal .policy-container::before {
+        width: 200px;
+        height: 200px;
+    }
+}
+      /* Supprime l'outline bleu par défaut sur tous les éléments interactifs */
+button, 
+input, 
+textarea, 
+select, 
+a {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* Alternative plus accessible - remplace l'outline par un style personnalisé */
+button:focus, 
+input:focus, 
+textarea:focus, 
+select:focus, 
+a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-color);
+}
+      <!-- Ajoutez ce style dans la balise <style> -->
+.notification-test {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(7, 51, 50, 0.9);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 15px 25px;
+    color: var(--accent-color);
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(155, 156, 40, 0.5);
+    z-index: 1000;
+    animation: pulseGlow 2s infinite alternate;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notification-test i {
+    font-size: 1.2em;
+    animation: iconPulse 1.5s infinite;
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(155, 156, 40, 0.3);
+        transform: translateX(-50%) scale(1);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(155, 156, 40, 0.7);
+        transform: translateX(-50%) scale(1.02);
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+      <style>
+/* Ajoutez ceci à la fin de votre section <style> */
+.demo-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(7, 51, 50, 0.9);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.demo-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.demo-modal-content {
+    background: var(--primary-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(155, 156, 40, 0.6);
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+    position: relative;
+}
+
+.demo-modal.active .demo-modal-content {
+    transform: scale(1);
+}
+
+.demo-modal h2 {
+    color: var(--accent-color);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.demo-modal p {
+    color: var(--text-color);
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.demo-modal-btn {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-light));
+    border: none;
+    border-radius: 8px;
+    color: var(--text-color);
+    padding: 12px 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.demo-modal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.demo-modal-icon {
+    font-size: 3rem;
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+      /* Dans votre section <style> */
+#personal-content .demo-modal {
+    position: absolute; /* Changez de fixed à absolute */
+    background: rgba(7, 51, 50, 0.95); /* Fond plus opaque */
+}
+
+#personal-content .demo-modal-content {
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 0 40px rgba(155, 156, 40, 0.8);
+}
+    </style>
+</head>
+<body>
+    <script>
+        // Configuration Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyA-TpblN0YnekG2tKFRhjOwwEd80qke5pk",
+            authDomain: "ansar-69617.firebaseapp.com",
+            projectId: "ansar-69617",
+            storageBucket: "ansar-69617.appspot.com",
+            messagingSenderId: "1075104578958",
+            appId: "1:1075104578958:web:b5d55c76def4d1d430b8df",
+            measurementId: "G-5XLSPLXH81"
+        };
+
+        // Initialisation
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth();
+      // ==================== FONCTIONS UTILITAIRES ====================
+// Fonction pour sauvegarder des données
+async function saveData(collectionName, data) {
+    try {
+        await db.collection(collectionName).add(data);
+        return true;
+    } catch (error) {
+        console.error("Erreur lors de la sauvegarde:", error);
+        throw error;
+    }
+}
+
+// Formatage de date simple
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString('fr-FR', options);
+}
+    </script>
+
+    <!-- Votre contenu existant (dynamic-bg, spotlight, etc.) -->
+    <div class="dynamic-bg"></div>
+    <div class="spotlight"></div>
+    <div class="particles" id="particles-js"></div>
+    
+    <!-- Page de connexion -->
+    <div class="auth-container" id="personal-login">
+        <!-- Icône de profil animée -->
+        <div class="profile-trigger" id="profileTrigger">
+            <i class="fas fa-user profile-icon"></i>
+            <div class="trigger-text">Cliquez pour vous connecter</div>
+        </div>
+        
+        <!-- Panel de connexion -->
+        <div class="auth-panel" id="authPanel">
+            <div class="auth-header">
+                <h1 class="auth-title">ESPACE PERSONNEL</h1>
+            </div>
+            
+            <form class="auth-form" id="personal-login-form">
+                <div class="auth-field">
+                    <input type="text" id="personal-member-code" placeholder=" " required="">
+                    <label for="personal-member-code" class="auth-label">Code d'accès</label>
+                </div>
+                
+                <div class="auth-field">
+                    <input type="password" id="personal-password" placeholder=" " required="">
+                    <label for="personal-password" class="auth-label">Mot de passe</label>
+                </div>
+                
+                <div id="personal-error-message"></div>
+                
+                <button type="submit" class="auth-submit">SE CONNECTER</button>
+                
+                <div class="auth-footer">
+    En vous connectant, vous acceptez notre <span class="auth-policy" onclick="openPrivacyModal()" style="color: gold; cursor: pointer;">Politique de Confidentialité</span>.
+</div>
+            </form>
+        </div> 
+    </div>
+
+  <div class="privacy-modal" id="privacyModal">
+    <div class="privacy-modal-content">
+        <button class="modal-close-btn" onclick="closePrivacyModal()">✖</button>
+        <div class="policy-container">
+            <div class="policy-header">
+                <div class="policy-icon">
+                </div>
+                <h1 class="policy-title">Politique de Confidentialité</h1>
+                <div class="policy-date">Dernière mise à jour: 19 Juillet 2025</div>
+                <div class="decoration decoration-1">
+                </div>
+            </div>
+            <div class="policy-content">
+                <div class="decoration decoration-2">
+                </div>
+                <h2><i class="fas fa-file-contract"></i> 1. Généralités</h2>
+                <p>L'application ANSAR ALMOUYASSAR est une plateforme interne destinée aux membres de l'association. Cette politique explique comment les informations des membres sont gérées au sein de l'application.</p>
+                <h2><i class="fas fa-database"></i> 2. Collecte et utilisation des données</h2>
+                <p>L'application elle-même ne collecte pas directement de données personnelles auprès des utilisateurs publics. Cependant :</p>
+                <ul>
+                    <li>Les administrateurs de l'association peuvent enregistrer et gérer les informations des membres via l'espace administratif sécurisé et caché dans l'application</li>
+                    <li>Ces informations incluent : noms, contacts, rôles dans l'association, info personnel et participation aux activités</li>
+                    <li>Les données sont utilisées exclusivement pour les besoins internes de l'association</li>
+                </ul>
+                <h2><i class="fas fa-lock"></i> 3. Protection des données</h2>
+                <p>Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger les données des membres :</p>
+                <ul>
+                    <li>Accès restreint aux espaces administratifs avec authentification forte</li>
+                    <li>Stockage sécurisé des données</li>
+                    <li>Accès limité aux seules personnes autorisées</li>
+                </ul>
+                <h2><i class="fas fa-user-check"></i> 4. Droits des membres</h2>
+                <p>Les membres de l'association ont le droit :</p>
+                <ul>
+                    <li>De consulter les données les concernant</li>
+                    <li>De demander la rectification des informations inexactes</li>
+                    <li>De demander la suppression de leurs données dans les limites permises par le règlement interne avec une validation du président (M. Niang)</li>
+                </ul>
+                <h2><i class="fas fa-cookie-bite"></i> 5. Cookies et technologies similaires</h2>
+                <div class="highlight">
+                    <p><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 8px;"></i> L'application n'utilise pas de cookies de suivi</p>
+                    <p><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 8px;"></i> Aucune donnée sensible collectée automatiquement</p>
+                    <p><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 8px;"></i> Pas de suivi publicitaire ni analytique</p>
+                    <p><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 8px;"></i> Données gérées uniquement par les administrateurs</p>
+                    <p><i class="fas fa-check-circle" style="color: var(--accent-color); margin-right: 8px;"></i> Conforme aux normes RGPD</p>
+                </div>
+                <h2><i class="fas fa-key"></i> 6. Autorisations demandées</h2>
+                <p>Dans le cadre de ses fonctionnalités, l'application ANSAR ALMOUYASSAR peut solliciter les autorisations suivantes :</p>
+                <ul>
+                    <li><strong>Accès à Internet</strong> : nécessaire pour charger les contenus, recevoir les messages administratifs, et synchroniser les données avec le serveur sécurisé.</li>
+                    <li><strong>Accès à la localisation (GPS)</strong> : utilisé pour déterminer la direction de la Qibla et pour calculer les heures de prière précises selon la position de l'utilisateur. Ces données ne sont ni stockées, ni partagées.</li>
+                    <li><strong>Notifications push</strong> : utilisées pour informer les membres des annonces importantes de l'association et des rappels d'événements.</li>
+                </ul>
+                <p>Ces autorisations sont exclusivement utilisées pour améliorer le fonctionnement de l'application et ne donnent lieu à aucune collecte ou revente de données personnelles. L'utilisateur peut à tout moment gérer ou révoquer ces autorisations depuis les paramètres de son appareil.</p>
+                <h2><i class="fas fa-envelope"></i> 7. Contact</h2>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px; color: var(--accent-color);"></i> <strong>Email:</strong> ansarmouyassar@gmail.com</p>
+                    <p><i class="fas fa-user-tie" style="margin-right: 10px; color: var(--accent-color);"></i> <strong>Responsable des données:</strong> Vice Secrétaire de l'Association ANSAR ALMOUYASSAR</p>
+                              <h2>  </h2>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Espace personnel (masqué par défaut) -->
+    <div id="personal-content">
+        <div class="main">
+            <div class="top-section">
+                <div class="profile-container">
+                    <div class="profile-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path>
+                        </svg>
+                    </div>
+                    <p id="personal-title" class="user-name" style="cursor: pointer;"></p>
+                    <p id="personal-role" class="user-role"></p>
+                </div>
+            </div>
+
+            <div class="bottom-section">
+                <div class="container">
+                    <h1>Compte</h1>
+
+                    <div id="personal-info" class="section info-section">
+                        <!-- Contenu dynamique -->
+                    </div>
+
+                    <div id="personal-contributions" class="section cotisations-section">
+                        <h2>Cotisations Mensuelles</h2>
+                        <div id="cotisations-content"></div>
+                        <h2>Autres Cotisations</h2>
+                        <div id="global-cotisations-content"></div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <button class="payment-btn" onclick="payViaWave()">Payer via Wave</button>
+                        <button class="payment-btn" onclick="payViaOrangeMoney()">Payer via Orange Money</button>
+                    </div>
+
+                    <div class="section suggestions-section">
+                        <h2>Suggestions</h2>
+                        <form id="suggestion-form">
+                            <textarea id="suggestion-text" placeholder="Écrivez vos suggestions ici..." rows="4" required=""></textarea>
+                            <button type="submit" class="cta-button">Envoyer</button>
+                        </form>
+                    </div>
+
+                    <button class="logout-btn" onclick="logoutPersonal()">Se Déconnecter</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+ <script>
+    // Données fictives pour la démo
+    const demoMember = {
+        code: "DEMONSTRATION",
+        firstname: "Moussa",
+        lastname: "Ndiaye",
+        dob: "01/01/2000",
+        birthplace: "Dakar",
+        phone: "77 123 45 67",
+        email: "moussa.ndiaye@example.com",
+        address: "Rue 12, Dakar Plateau",
+        activity: "Commerçant",
+        residence: "12345678",
+        role: "Membre Actif",
+        status: "Actif",
+        contributions: {
+            Mensuelle: {
+                2023: [true, true, true, true, true, false, false, true, true, true, false, false],
+                2024: [true, true, true, true, true, true, true, true, false, false, false, false],
+                2025: [true, true, true, true, false, false, false, false, false, false, false, false]
+            },
+            globalContributions: {
+                "Participation Conférence 2023": { paid: true, note: "Payé le 15/07/2023" },
+            }
+        }
+    };
+
+    const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+
+   function showDemoModal() {
+    const modal = document.getElementById('demoModal');
+    modal.classList.add('active');
+}
+
+function closeDemoModal() {
+    const modal = document.getElementById('demoModal');
+    modal.classList.remove('active');
+}
+
+    // Fonction pour afficher les détails du membre
+function showMemberDetail() {
+    // Masquer login et afficher content
+    document.querySelector('#personal-login').style.display = 'none';
+    const personalContent = document.querySelector('#personal-content');
+    personalContent.style.display = 'block';
+    
+    // Afficher la modale UNIQUEMENT ici (après la connexion)
+    showDemoModal();
+    
+        // Infos de base
+        document.querySelector('#personal-title').textContent = `${demoMember.firstname} ${demoMember.lastname}`;
+        document.querySelector('#personal-role').textContent = `Rôle: ${demoMember.role}`;
+
+        // Informations personnelles
+        const personalInfo = document.querySelector('#personal-info');
+        personalInfo.innerHTML = `
+            <p><strong>Code:</strong> ${demoMember.code}</p>
+            <p><strong>Nom complet:</strong> ${demoMember.firstname} ${demoMember.lastname}</p>
+            <p><strong>Date de naissance:</strong> ${demoMember.dob}</p>
+            <p><strong>Lieu de naissance:</strong> ${demoMember.birthplace}</p>
+            <p><strong>Téléphone:</strong> ${demoMember.phone}</p>
+            <p><strong>Email:</strong> ${demoMember.email}</p>
+            <p><strong>Adresse:</strong> ${demoMember.address}</p>
+            <p><strong>Activité:</strong> ${demoMember.activity}</p>
+            <p><strong>Num. CIN:</strong> ${demoMember.residence}</p>
+            <p><strong>Statut:</strong> ${demoMember.status}</p>
+        `;
+
+        // Cotisations mensuelles
+        const cotisationsContent = document.querySelector('#cotisations-content');
+        const currentYear = new Date().getFullYear();
+        const years = [currentYear - 2, currentYear - 1, currentYear];
+
+        cotisationsContent.innerHTML = years.map(year => {
+            const paidMonths = demoMember.contributions.Mensuelle[year] || Array(12).fill(false);
+            
+            return `
+                <div class="year-section">
+                    <h3>${year}</h3>
+                    <div class="months-grid">
+                        ${paidMonths.map((paid, index) => `
+                            <div class="month ${paid ? 'paid' : 'unpaid'}">
+                                <span class="month-name">${months[index]}</span>
+                                <span class="status">${paid ? '✅' : '❌'}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        // Cotisations globales
+        const globalCotisationsContent = document.querySelector('#global-cotisations-content');
+        globalCotisationsContent.innerHTML = `
+            <div class="contribution-item">
+                <p><strong>Participation 2023:</strong> ✅ Effectué <br><em>Note: Complet</em></p>
+            </div>
+           
+        `;
+    }
+
+    // Gestion de la connexion (accepte n'importe quelle valeur)
+    document.querySelector('#personal-login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        showMemberDetail();
+    });
+
+    function logoutPersonal() {
+        document.querySelector('#personal-content').style.display = 'none';
+        document.querySelector('#personal-login').style.display = 'flex';
+        document.querySelector('#personal-login-form').reset();
+        document.querySelector('#personal-error-message').style.display = 'none';
+    }
+
+    function payViaWave() {
+        alert("Démonstration: Redirection vers Wave désactivée en mode démo");
+    }
+
+    function payViaOrangeMoney() {
+        alert("Démonstration: Redirection vers Orange Money désactivée en mode démo");
+    }
+
+    // Modal Functions
+    function openPrivacyModal() {
+        const modal = document.getElementById('privacyModal');
+        modal.classList.add('active');
+    }
+
+    function closePrivacyModal() {
+        const modal = document.getElementById('privacyModal');
+        modal.classList.remove('active');
+    }
+
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation du bouton de profil
+        const trigger = document.getElementById('profileTrigger');
+        const panel = document.getElementById('authPanel');
+        
+        trigger.addEventListener('click', function() {
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                trigger.style.transform = 'translateY(-20px) scale(1.1)';
+                trigger.style.boxShadow = 
+                    '0 0 0 8px rgba(155, 156, 40, 0.2), ' +
+                    '0 20px 50px rgba(0, 0, 0, 0.5), ' +
+                    'inset 0 0 30px rgba(31, 74, 73, 0.8)';
+                const icon = trigger.querySelector('.profile-icon');
+                icon.style.transform = 'scale(1.2) rotateY(360deg)';
+                icon.style.color = 'var(--accent-color)';
+                setTimeout(() => {
+                    icon.style.transform = 'scale(1.1)';
+                }, 600);
+            } else {
+                trigger.style.transform = 'translateY(0) scale(1)';
+                trigger.style.boxShadow = 
+                    '0 0 0 4px rgba(155, 156, 40, 0.3), ' +  
+                    '0 10px 30px rgba(0, 0, 0, 0.4), ' +
+                    'inset 0 0 20px rgba(31, 74, 73, 0.6)';
+            }
+        });
+
+        // Gestion du formulaire de suggestion
+        document.querySelector('#suggestion-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const suggestionText = document.getElementById('suggestion-text').value.trim();
+            
+            if (!suggestionText) {
+                alert("Veuillez écrire une suggestion avant d'envoyer");
+                return;
+            }
+            
+            alert("Démonstration: Suggestion envoyée!\n\n" + suggestionText);
+            document.getElementById('suggestion-text').value = '';
+        });
+
+        // Rafraîchissement des données
+        document.getElementById('personal-title').addEventListener('click', function() {
+            this.classList.add('refreshing');
+            setTimeout(() => {
+                this.classList.remove('refreshing');
+                alert("Démonstration: Données rafraîchies");
+            }, 1000);
+        });
+    });
+</script>
+  <!-- Ajoutez ceci avant </body> -->
+<div id="personal-content" style="display: none;">
+    <div class="demo-modal" id="demoModal">
+        <div class="demo-modal-content">
+            <i class="fas fa-exclamation-triangle demo-modal-icon"></i>
+            <h2>ATTENTION</h2>
+        <p>CE CI EST UN TEST FICTIF<br>Les données affichées sont des simulations pour démonstration</p>
+        <button class="demo-modal-btn" onclick="closeDemoModal()">J'ai compris</button>
+    </div>
+</div>
+
+
+</div></body></html>

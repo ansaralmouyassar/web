@@ -1,0 +1,2632 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://ansaralmouyassar.github.io/pr-visualisez-l-application-beta/hadith.html -->
+<html lang="ar" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حديث النبي صلى الله عليه وسلم</title>
+  <script src="./saved_resource"></script>
+  <link href="./css2(2)" rel="stylesheet">
+  <link rel="stylesheet" href="./all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c5e50;
+      --secondary-color: #073332;
+      --accent-color: #d4af37;
+      --bg-color: #1e3c36;
+      --text-color: #ffffff;
+      --hadith-arabic-color: #f8f8f8;
+      --hadith-translation-color: #e0e0e0;
+    }
+    
+    body {
+      font-family: 'Amiri', serif;
+      background-color: var(--secondary-color);
+      color: var(--text-color);
+    }
+    
+    .islamic-pattern {
+      background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+      opacity: 0.05;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+    
+    .hadith-container {
+      background-color: rgba(30, 60, 54, 0.8);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .hadith-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    .hadith-arabic {
+      font-size: 1.5rem;
+      line-height: 2.5;
+      color: var(--hadith-arabic-color);
+      text-align: justify;
+      position: relative;
+    }
+    
+    .hadith-translation {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--hadith-translation-color);
+      text-align: justify;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px dashed rgba(212, 175, 55, 0.3);
+    }
+    
+    .hadith-reference {
+      font-size: 0.9rem;
+      color: var(--accent-color);
+      margin-top: 1rem;
+      text-align: left;
+    }
+    
+    .book-title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      margin-bottom: 2rem;
+      text-align: center;
+      position: relative;
+    }
+    
+    .book-title::after {
+      content: "";
+      display: block;
+      width: 100px;
+      height: 2px;
+      background-color: var(--accent-color);
+      margin: 0.5rem auto 0;
+    }
+    
+    .nav-btn {
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .nav-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    .text-size-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      cursor: pointer;
+    }
+    
+  .filter-btn {
+  padding: 0.3rem 0.6rem !important; /* Réduire le padding */
+  font-size: 0.8rem !important;      /* Réduire la taille du texte */
+  margin: 0 0.1rem !important;       /* Réduire l'espace entre les boutons */
+  white-space: nowrap;               /* Empêcher le texte de passer à la ligne */
+}
+    
+    .filter-btn.active {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+    
+    .filter-btn:hover {
+      background-color: rgba(212, 175, 55, 0.3);
+    }
+    
+    .hadith-number {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      position: absolute;
+      left: -50px;
+      top: 0;
+    }
+  /* Conteneur des filtres */
+#filters {
+  display: flex;
+  flex-wrap: nowrap;       /* Empêche le retour à la ligne */
+  overflow-x: auto;        /* Permet le défilement horizontal si nécessaire */
+  gap: 4px;               /* Espacement minimal entre boutons */
+  padding: 4px 0;         /* Padding réduit */
+  align-items: center;    /* Alignement vertical */
+  -webkit-overflow-scrolling: touch; /* Défilement fluide sur iOS */
+}
+
+/* Style des boutons */
+.filter-btn {
+  padding: 3px 9px !important;    /* Padding très réduit (haut/bas puis gauche/droite) */
+  font-size: 2rem !important;   /* Taille de police réduite */
+  line-height: 1.2;               /* Hauteur de ligne réduite */
+  border-radius: 10px;            /* Bord arrondi */
+  white-space: nowrap;            /* Empêche le texte de passer à la ligne */
+  flex-shrink: 0;                 /* Empêche le rétrécissement */
+  height: 24px;                   /* Hauteur fixe */
+  display: inline-flex;           /* Pour un meilleur contrôle */
+  align-items: center;            /* Centrage vertical du texte */
+  justify-content: center !important;        /* Centrage horizontal */
+}
+
+/* Cache la scrollbar pour une apparence plus propre */
+#filters::-webkit-scrollbar {
+  display: none;
+}
+#filters {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Style actif */
+.filter-btn.active {
+  font-weight: bold;
+}
+  @media (max-width: 350px) {
+  .filter-btn {
+    font-size: 0.6rem !important;
+    padding: 0 4px !important;
+    height: 18px;
+  }
+}
+
+/* Cache la scrollbar */
+#filters::-webkit-scrollbar {
+  display: none;
+}
+  /* Cache la scrollbar */
+  #filters::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Adaptation pour très petits écrans */
+  @media (max-width: 400px) {
+    .filter-btn {
+      padding: 0.2rem 0.4rem !important;
+      font-size: 0.7rem !important;
+    }
+  }
+    @media (max-width: 768px) {
+      .hadith-arabic {
+        font-size: 1.3rem;
+        line-height: 2.2;
+      }
+      
+      .hadith-translation {
+        font-size: 1rem;
+      }
+      #filters {
+  display: flex;
+  flex-wrap: nowrap;       /* Empêcher le passage à la ligne */
+  overflow-x: auto;        /* Permettre le défilement horizontal si nécessaire */
+  gap: 0.2rem;            /* Espacement réduit entre les boutons */
+  padding-bottom: 0.5rem;  /* Espace pour le scroll si besoin */
+  -webkit-overflow-scrolling: touch; /* Défilement fluide sur mobile */
+}
+      .hadith-number {
+        position: static;
+        margin: 0 auto 1rem;
+        left: 0;
+      }
+    }
+    
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(212, 175, 55, 0.3);
+      border-top: 4px solid var(--accent-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--secondary-color);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+    
+    /* Book selection card */
+    .book-card {
+      background-color: rgba(44, 94, 80, 0.5);
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .book-card:hover {
+      background-color: rgba(44, 94, 80, 0.8);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .book-card h3 {
+      color: var(--accent-color);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .book-card p {
+      color: var(--hadith-translation-color);
+      font-size: 0.9rem;
+    }
+    
+    /* Theme colors */
+    .theme-option {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid white;
+    }
+    
+    /* Hidden elements */
+    .hidden {
+      display: none !important;
+    }
+    /* Mobile First Approach */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  /* Navigation */
+  #main-nav .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Page Hadith */
+  #hadith-page > div {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  #hadith-book-title {
+    font-size: 1.5rem;
+    order: -1;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Contrôles */
+  #text-size-controls, #theme-controls {
+    justify-content: center;
+  }
+
+  /* Liste des hadiths */
+  .hadith-arabic {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    text-align: right;
+  }
+
+  .hadith-translation {
+    font-size: 1rem;
+  }
+
+  /* Pagination */
+  #pagination {
+    flex-wrap: wrap;
+  }
+/* Supprimer la barre de défilement */
+::-webkit-scrollbar {
+    display: none;
+}
+#search-container {
+    margin-left: 0.8rem; /* Ajoute une marge à gauche */
+    margin-right: 0.8rem; /* Ajoute une marge à droite */
+    max-width: 300px; /* Limite la largeur maximale */
+}
+
+#hadith-search {
+    width: 100%; /* S'adapte à la largeur du conteneur */
+    padding-right: 2.5rem; /* Espace pour l'icône */
+    min-width: auto; /* Supprime la largeur minimale forcée */
+}
+/* Pour Firefox */
+html {
+    scrollbar-width: none;
+}
+  /* Cartes de livres */
+  .nav-btn {
+    margin-bottom: 15px;
+  }
+}
+@media (max-width: 767px) {
+  button, .filter-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+/* Petits écrans */
+@media (max-width: 480px) {
+  .hadith-number {
+    position: relative;
+    left: 0;
+    margin: 0 auto 10px;
+  }
+
+  .hadith-container {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+}
+    @media (max-width: 767px) {
+  body {
+    padding: 10px;
+  }
+  
+  .hadith-container {
+    margin-bottom: 15px;
+  }
+}
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.left-3{left:0.75rem}.top-0{top:0px}.top-3{top:0.75rem}.z-10{z-index:10}.mx-auto{margin-left:auto;margin-right:auto}.mb-12{margin-bottom:3rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:0.5rem}.mr-2{margin-right:0.5rem}.mt-4{margin-top:1rem}.mt-8{margin-top:2rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-1{height:0.25rem}.min-h-screen{min-height:100vh}.w-32{width:8rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.gap-8{gap:2rem}.overflow-hidden{overflow:hidden}.rounded-lg{border-radius:0.5rem}.rounded-xl{border-radius:0.75rem}.bg-\[var\(--accent-color\)\]{background-color:var(--accent-color)}.bg-\[var\(--primary-color\)\]{background-color:var(--primary-color)}.bg-\[var\(--secondary-color\)\]{background-color:var(--secondary-color)}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-opacity-50{--tw-bg-opacity:0.5}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-10{padding-left:2.5rem;padding-right:2.5rem}.px-4{padding-left:1rem;padding-right:1rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-8{padding-top:2rem;padding-bottom:2rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.leading-relaxed{line-height:1.625}.text-\[var\(--accent-color\)\]{color:var(--accent-color)}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:bg-opacity-90:hover{--tw-bg-opacity:0.9}.hover\:shadow-xl:hover{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-\[var\(--accent-color\)\]:focus{--tw-ring-color:var(--accent-color)}.disabled\:opacity-50:disabled{opacity:0.5}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}}</style></head>
+<body class="min-h-screen relative">
+  <div class="islamic-pattern"></div>
+  <div class="container mx-auto px-4 py-8 relative z-10">
+    <!-- Main navigation -->
+    <div id="main-nav">
+      <header class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-[var(--accent-color)] mb-4"></h1>
+
+        <h1 class="text-4xl font-bold text-[var(--accent-color)] mb-4">حديث النبي صلى الله عليه وسلم</h1>
+        <p class="text-xl text-gray-300">أحاديث صحيحة من كتب السنة</p>
+        <div class="w-32 h-1 bg-[var(--accent-color)] mx-auto mt-4"></div>
+      </header>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <!-- Sahih al-Bukhari -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl nav-btn">
+          <div class="bg-[var(--primary-color)] p-8 text-white text-center">
+            <h2 class="text-2xl font-bold">صحيح البخاري</h2>
+          </div>
+          <div class="bg-emerald-50 text-center">
+            <p class="mb-8 p-6 text-xl text-gray-800 leading-relaxed">
+              أول مصنف في الحديث الصحيح المجرد، جمع فيه الإمام البخاري أصح الصحيح
+            </p>
+            <button onclick="loadHadithBook(&#39;bukhari&#39;)" class="px-10 py-4 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition mb-6">
+              عرض الأحاديث <i class="fas fa-arrow-left ml-2"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Sahih Muslim -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl nav-btn">
+          <div class="bg-[var(--primary-color)] p-8 text-white text-center">
+            <h2 class="text-2xl font-bold">صحيح مسلم</h2>
+          </div>
+          <div class="bg-emerald-50 text-center">
+            <p class="mb-8 p-6 text-xl text-gray-800 leading-relaxed">
+              ثاني الصحيحين بعد البخاري، تميز بجودة الترتيب وذكر الأسانيد كاملة
+            </p>
+            <button onclick="loadHadithBook(&#39;muslim&#39;)" class="px-10 py-4 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition mb-6">
+              عرض الأحاديث <i class="fas fa-arrow-left ml-2"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Sunan Abu Dawud -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl nav-btn">
+          <div class="bg-[var(--primary-color)] p-8 text-white text-center">
+            <h2 class="text-2xl font-bold">سنن أبي داود</h2>
+          </div>
+          <div class="bg-emerald-50 text-center">
+            <p class="mb-8 p-6 text-xl text-gray-800 leading-relaxed">
+              من أهم كتب السنن، جمع فيه أبو داود الأحاديث المتعلقة بالأحكام الفقهية
+            </p>
+            <button onclick="loadHadithBook(&#39;abudawud&#39;)" class="px-10 py-4 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition mb-6">
+              عرض الأحاديث <i class="fas fa-arrow-left ml-2"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Jami` at-Tirmidhi -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl nav-btn">
+          <div class="bg-[var(--primary-color)] p-8 text-white text-center">
+            <h2 class="text-2xl font-bold">جامع الترمذي</h2>
+          </div>
+          <div class="bg-emerald-50 text-center">
+            <p class="mb-8 p-6 text-xl text-gray-800 leading-relaxed">
+              من كتب الحديث المشهورة، اشتمل على الأحاديث الفقهية مع بيان درجتها
+            </p>
+            <button onclick="loadHadithBook(&#39;tirmidhi&#39;)" class="px-10 py-4 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition mb-6">
+              عرض الأحاديث <i class="fas fa-arrow-left ml-2"></i>
+            </button>
+          </div>
+        </div>
+      </div> <!-- Fermeture de la div grid -->
+    </div> <!-- Fermeture de la div main-nav -->
+    
+    <!-- Hadith Content Page -->
+    <div id="hadith-page" class="hidden">
+      <div class="flex justify-between items-center mb-8 sticky top-0 bg-[var(--secondary-color)] py-4 z-10">
+        <div class="flex items-center gap-4">
+          <div id="text-size-controls" class="flex items-center gap-2">
+            <button onclick="decreaseTextSize()" class="text-size-btn">
+              <i class="fas fa-font"></i> -
+            </button>
+            <button onclick="increaseTextSize()" class="text-size-btn">
+              <i class="fas fa-font"></i> +
+            </button>
+          </div>
+          
+          <button onclick="backToMain()" class="px-4 py-2 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition">
+            <i class="fas fa-arrow-right mr-2"></i>
+          </button>
+          
+          <h2 id="hadith-book-title" class="text-3xl font-bold text-[var(--accent-color)] text-center"></h2>
+        </div>
+        
+        <div id="search-container" class="relative">
+          <input type="text" id="hadith-search" placeholder="بحث في الأحاديث..." class="bg-[var(--primary-color)] bg-opacity-50 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-color)]" style="min-width: 200px;">
+          <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+      </div>
+      
+      <div id="hadith-list" class="grid grid-cols-1 gap-8">
+        <!-- Hadiths will be loaded here -->
+      </div>
+      
+      <div id="pagination" class="flex justify-center mt-8 gap-2">
+        <button id="prev-page" class="px-4 py-2 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition disabled:opacity-50" disabled="">
+          <i class="fas fa-arrow-right mr-2"></i> السابق
+        </button>
+        <span id="page-info" class="px-4 py-2">الصفحة 1</span>
+        <button id="next-page" class="px-4 py-2 bg-[var(--primary-color)] text-white rounded-lg hover:bg-opacity-90 transition">
+          التالي <i class="fas fa-arrow-left ml-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    // Hadith data - using a free API (Hadith API)
+    const hadithBooks = {
+      bukhari: {
+        name: "صحيح البخاري",
+        apiUrl: "https://hadithapi.com/api/bukhari?apiKey=$free",
+        totalHadiths: 7563
+      },
+      muslim: {
+        name: "صحيح مسلم",
+        apiUrl: "https://hadithapi.com/api/muslim?apiKey=$free",
+        totalHadiths: 5362
+      },
+      abudawud: {
+        name: "سنن أبي داود",
+        apiUrl: "https://hadithapi.com/api/abudawud?apiKey=$free",
+        totalHadiths: 4590
+      },
+      tirmidhi: {
+        name: "جامع الترمذي",
+        apiUrl: "https://hadithapi.com/api/tirmidhi?apiKey=$free",
+        totalHadiths: 3956
+      },
+      nasai: {
+        name: "سنن النسائي",
+        apiUrl: "https://hadithapi.com/api/nasai?apiKey=$free",
+        totalHadiths: 5765
+      }
+    };
+    
+    // Sample hadiths for demo (in a real app, you would fetch from API)
+    const sampleHadiths = {
+      bukhari: [
+  // Hadiths 1-5 (déjà existants)
+  {
+    id: 1,
+    arabic: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله، فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها، فهجرته إلى ما هاجر إليه",
+    translation: "Les actions ne valent que par leurs intentions. À chaque homme selon ce qu'il aura voulu. Celui qui émigre pour Dieu et Son Envoyé, son émigration sera pour Dieu et Son Envoyé. Celui qui émigre pour acquérir des biens de ce monde ou pour épouser une femme, son émigration sera pour ce à quoi il aura émigré.",
+    reference: "صحيح البخاري، الحديث رقم 1",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 2,
+    arabic: "بني الإسلام على خمس: شهادة أن لا إله إلا الله وأن محمدا رسول الله، وإقام الصلاة، وإيتاء الزكاة، وصوم رمضان، وحج البيت من استطاع إليه سبيلا",
+    translation: "L'Islam est bâti sur cinq piliers: l'attestation qu'il n'y a de dieu que Dieu et que Mohammed est Son Envoyé, l'accomplissement de la prière, l'acquittement de l'aumône légale, le pèlerinage à la Maison de Dieu et le jeûne du mois de Ramadan.",
+    reference: "صحيح البخاري، الحديث رقم 8",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 3,
+    arabic: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه",
+    translation: "Aucun de vous ne croira vraiment tant qu'il n'aimera pas pour son frère ce qu'il aime pour lui-même.",
+    reference: "صحيح البخاري، الحديث رقم 13",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 4,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت، ومن كان يؤمن بالله واليوم الآخر فليكرم جاره، ومن كان يؤمن بالله واليوم الآخر فليكرم ضيفه",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier dise du bien ou se taise. Que celui qui croit en Dieu et au Jour Dernier honore son voisin. Que celui qui croit en Dieu et au Jour Dernier honore son invité.",
+    reference: "صحيح البخاري، الحديث رقم 6018",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 5,
+    arabic: "إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم",
+    translation: "Certes, Dieu ne regarde pas vos apparences ni vos biens, mais Il regarde vos cœurs et vos actes.",
+    reference: "صحيح البخاري، الحديث رقم 6499",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 6-10
+  {
+    id: 6,
+    arabic: "الكلمة الطيبة صدقة",
+    translation: "Une bonne parole est une aumône.",
+    reference: "صحيح البخاري، الحديث رقم 2989",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 7,
+    arabic: "المسلم من سلم المسلمون من لسانه ويده",
+    translation: "Le musulman est celui dont les musulmans sont à l'abri de sa langue et de sa main.",
+    reference: "صحيح البخاري، الحديث رقم 10",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 8,
+    arabic: "من حسن إسلام المرء تركه ما لا يعنيه",
+    translation: "Parmi les signes de la perfection de l'Islam chez une personne, il y a le fait qu'elle délaisse ce qui ne la regarde pas.",
+    reference: "صحيح البخاري، الحديث رقم 11",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 9,
+    arabic: "لا يحل دم امرئ مسلم يشهد أن لا إله إلا الله وأني رسول الله إلا بإحدى ثلاث: النفس بالنفس، والثيب الزاني، والتارك لدينه المفارق للجماعة",
+    translation: "Il n'est pas permis de verser le sang d'un musulman qui témoigne qu'il n'y a de dieu que Dieu et que je suis Son Messager, sauf dans trois cas : le meurtrier (qui subit la loi du talion), l'adultere marié, et celui qui abandonne sa religion et se sépare de la communauté.",
+    reference: "صحيح البخاري، الحديث رقم 6878",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 10,
+    arabic: "أمرت أن أقاتل الناس حتى يشهدوا أن لا إله إلا الله وأن محمدا رسول الله، ويقيموا الصلاة، ويؤتوا الزكاة، فإذا فعلوا ذلك عصموا مني دماءهم وأموالهم إلا بحق الإسلام، وحسابهم على الله",
+    translation: "J'ai reçu l'ordre de combattre les gens jusqu'à ce qu'ils témoignent qu'il n'y a de dieu que Dieu et que Mohammed est Son Messager, qu'ils accomplissent la prière et qu'ils s'acquittent de l'aumône légale. S'ils font cela, leur sang et leurs biens seront inviolables, sauf selon les droits de l'Islam, et leur compte sera auprès de Dieu.",
+    reference: "صحيح البخاري، الحديث رقم 25",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 11-15
+  {
+    id: 11,
+    arabic: "اجتنبوا السبع الموبقات. قالوا: يا رسول الله وما هن؟ قال: الشرك بالله، والسحر، وقتل النفس التي حرم الله إلا بالحق، وأكل الربا، وأكل مال اليتيم، والتولي يوم الزحف، وقذف المحصنات المؤمنات الغافلات",
+    translation: "Évitez les sept péchés destructeurs. Ils demandèrent : 'Quels sont-ils, ô Messager de Dieu ?' Il répondit : 'L'association à Dieu, la sorcellerie, le meurtre d'une âme qu'Allah a rendue sacrée sauf pour une juste cause, l'usure, la consommation des biens de l'orphelin, la fuite du champ de bataille, et l'accusation de fornication contre des femmes croyantes chastes et innocentes.'",
+    reference: "صحيح البخاري، الحديث رقم 2766",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 12,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليكرم ضيفه جائزته ثلاثا، فما زاد فهو صدقة عليه، ولا يحل له أن يثوي عنده حتى يحرجه",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier honore son invité. Son hospitalité est de trois jours. Ce qui est au-delà est une aumône. Il ne lui est pas permis de rester chez son hôte jusqu'à le mettre dans l'embarras.",
+    reference: "صحيح البخاري، الحديث رقم 6019",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 13,
+    arabic: "لا تغضب",
+    translation: "Ne te mets pas en colère.",
+    reference: "صحيح البخاري، الحديث رقم 6116",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 14,
+    arabic: "لا يؤمن أحدكم حتى أكون أحب إليه من والده وولده والناس أجمعين",
+    translation: "Aucun de vous ne croira vraiment tant que je ne serai pas plus aimé par lui que son père, son enfant et tous les gens.",
+    reference: "صحيح البخاري، الحديث رقم 15",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 15,
+    arabic: "ثلاث من كن فيه وجد بهن حلاوة الإيمان: أن يكون الله ورسوله أحب إليه مما سواهما، وأن يحب المرء لا يحبه إلا لله، وأن يكره أن يعود في الكفر كما يكره أن يقذف في النار",
+    translation: "Il y a trois qualités qui, si elles se trouvent chez quelqu'un, lui feront goûter la douceur de la foi : que Dieu et Son Messager lui soient plus chers que tout autre, qu'il aime une personne uniquement pour Dieu, et qu'il déteste retourner à la mécréance comme il détesterait être jeté dans le feu.",
+    reference: "صحيح البخاري، الحديث رقم 16",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 16-20
+  {
+    id: 16,
+    arabic: "أكمل المؤمنين إيمانا أحسنهم خلقا",
+    translation: "Les croyants qui ont la foi la plus parfaite sont ceux qui ont le meilleur caractère.",
+    reference: "صحيح البخاري، الحديث رقم 54",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 17,
+    arabic: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن",
+    translation: "Crains Dieu où que tu sois, fais suivre la mauvaise action par une bonne qui l'effacera, et comporte-toi avec les gens de manière noble.",
+    reference: "صحيح البخاري، الحديث رقم 6020",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 18,
+    arabic: "إن الله رفيق يحب الرفق في الأمر كله",
+    translation: "Certes, Dieu est Doux et Il aime la douceur en toute chose.",
+    reference: "صحيح البخاري، الحديث رقم 6024",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 19,
+    arabic: "إن الرفق لا يكون في شيء إلا زانه، ولا ينزع من شيء إلا شانه",
+    translation: "La douceur n'embellit une chose que sans la parer, et ne la prive que sans l'enlaidir.",
+    reference: "صحيح البخاري، الحديث رقم 6025",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 20,
+    arabic: "من نفّس عن مؤمن كربة من كرب الدنيا نفس الله عنه كربة من كرب يوم القيامة، ومن يسر على معسر يسر الله عليه في الدنيا والآخرة، ومن ستر مسلما ستره الله في الدنيا والآخرة، والله في عون العبد ما كان العبد في عون أخيه",
+    translation: "Quiconque soulage un croyant d'une des angoisses de ce monde, Dieu le soulagera d'une des angoisses du Jour de la Résurrection. Quiconque facilite les choses à quelqu'un dans la difficulté, Dieu lui facilitera les choses dans ce monde et dans l'au-delà. Quiconque couvre (les fautes d') un musulman, Dieu le couvrira dans ce monde et dans l'au-delà. Dieu vient en aide au serviteur tant que celui-ci vient en aide à son frère.",
+    reference: "صحيح البخاري، الحديث رقم 6026",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 21-25
+  {
+    id: 21,
+    arabic: "كل معروف صدقة",
+    translation: "Toute bonne action est une aumône.",
+    reference: "صحيح البخاري، الحديث رقم 6027",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 22,
+    arabic: "تبسمك في وجه أخيك صدقة، وأمرك بالمعروف ونهيك عن المنكر صدقة، وإرشادك الرجل في أرض الضلال صدقة، وبصرك للرجل الرديء البصر صدقة، وإماطتك الحجر والشوك والعظم عن الطريق صدقة، وإفراغك من دلوك في دلو أخيك صدقة",
+    translation: "Ton sourire à ton frère est une aumône. Commander le bien et interdire le mal est une aumône. Guider un homme égaré est une aumône. Aider un homme à voir ce qu'il ne voit pas est une aumône. Enlever une pierre, une épine ou un os du chemin est une aumône. Verser de ton seau dans celui de ton frère est une aumône.",
+    reference: "صحيح البخاري، الحديث رقم 6028",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 23,
+    arabic: "ما من يوم يصبح العباد فيه إلا ملكان ينزلان فيقول أحدهما: اللهم أعط منفقا خلفا، ويقول الآخر: اللهم أعط ممسكا تلفا",
+    translation: "Il n'est pas un jour où les serviteurs se lèvent sans que deux anges ne descendent. L'un d'eux dit : 'Ô Dieu, donne à celui qui dépense un remplaçant.' L'autre dit : 'Ô Dieu, donne à celui qui retient (ses biens) la perte.'",
+    reference: "صحيح البخاري، الحديث رقم 1442",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 24,
+    arabic: "إذا مات ابن آدم انقطع عمله إلا من ثلاث: صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له",
+    translation: "Quand le fils d'Adam meurt, ses œuvres cessent sauf trois : une aumône continue, une science utile, ou un enfant pieux qui prie pour lui.",
+    reference: "صحيح البخاري، الحديث رقم 6510",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 25,
+    arabic: "إنما الدنيا لأربعة نفر: عبد رزقه الله مالا وعلما فهو يتقي فيه ربه ويصل فيه رحمه ويعلم لله فيه حقا فهذا بأفضل المنازل، وعبد رزقه الله علما ولم يرزقه مالا فهو صادق النية يقول لو أن لي مالا لعملت بعمل فلان فهو بنيته فأجرهما سواء، وعبد رزقه الله مالا ولم يرزقه علما فهو يخبط في ماله بغير علم لا يتقي فيه ربه ولا يصل فيه رحمه ولا يعلم لله فيه حقا فهذا بأخبث المنازل، وعبد لم يرزقه الله مالا ولا علما فهو يقول لو أن لي مالا لعملت فيه بعمل فلان فهو بنيته فوزرهما سواء",
+    translation: "Le monde n'appartient qu'à quatre types de personnes : Un serviteur à qui Dieu a donné richesse et savoir, qui craint son Seigneur, maintient les liens de parenté et reconnaît les droits de Dieu sur ses biens. Celui-là occupe la meilleure position. Un serviteur à qui Dieu a donné le savoir mais pas la richesse, qui a une intention sincère et dit : 'Si j'avais de l'argent, je ferais comme untel.' Il sera récompensé selon son intention, et leur récompense est égale. Un serviteur à qui Dieu a donné richesse mais pas savoir, qui gaspille son argent sans connaissance, ne craint pas son Seigneur, ne maintient pas les liens de parenté et ne reconnaît pas les droits de Dieu sur ses biens. Celui-là occupe la pire position. Un serviteur à qui Dieu n'a donné ni richesse ni savoir, qui dit : 'Si j'avais de l'argent, je ferais comme untel.' Il sera jugé selon son intention, et leur fardeau est égal.",
+    reference: "صحيح البخاري، الحديث رقم 6511",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 26-30
+  {
+    id: 26,
+    arabic: "إن الله تعالى يقول يوم القيامة: أين المتحابون بجلالي؟ اليوم أظلهم في ظلي يوم لا ظل إلا ظلي",
+    translation: "Dieu dira au Jour de la Résurrection : 'Où sont ceux qui s'aimaient par amour pour Ma Majesté ? Aujourd'hui, Je les abriterai dans Mon ombre un jour où il n'y a d'ombre que la Mienne.'",
+    reference: "صحيح البخاري، الحديث رقم 6512",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 27,
+    arabic: "سبعة يظلهم الله في ظله يوم لا ظل إلا ظله: إمام عادل، وشاب نشأ في عبادة الله، ورجل قلبه معلق بالمساجد، ورجلان تحابا في الله اجتمعا عليه وتفرقا عليه، ورجل دعته امرأة ذات منصب وجمال فقال إني أخاف الله، ورجل تصدق بصدقة فأخفاها حتى لا تعلم شماله ما تنفق يمينه، ورجل ذكر الله خاليا ففاضت عيناه",
+    translation: "Sept personnes seront à l'ombre de Dieu un jour où il n'y aura d'autre ombre que la Sienne : un dirigeant juste, un jeune qui a grandi dans l'adoration de Dieu, un homme dont le cœur est attaché aux mosquées, deux hommes qui s'aiment pour Dieu, se rencontrent et se séparent pour Lui, un homme sollicité par une femme de rang et de beauté qui dit 'Je crains Dieu', un homme qui donne une aumône en la cachant si bien que sa main gauche ignore ce que donne sa droite, et un homme qui invoque Dieu en solitude au point que ses yeux se remplissent de larmes.",
+    reference: "صحيح البخاري، الحديث رقم 660",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 28,
+    arabic: "إن لله تسعة وتسعين اسما مائة إلا واحدا من أحصاها دخل الجنة",
+    translation: "Dieu a quatre-vingt-dix-neuf noms, cent moins un. Quiconque les énumère entrera au Paradis.",
+    reference: "صحيح البخاري، الحديث رقم 6410",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 29,
+    arabic: "ما من مسلم يغرس غرسا أو يزرع زرعا فيأكل منه طير أو إنسان أو بهيمة إلا كان له به صدقة",
+    translation: "Il n'est pas un musulman qui plante un arbre ou sème une graine, puis qu'un oiseau, un homme ou un animal en mange, sans que cela ne lui compte comme aumône.",
+    reference: "صحيح البخاري، الحديث رقم 2320",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 30,
+    arabic: "من سلك طريقا يلتمس فيه علما سهل الله له به طريقا إلى الجنة",
+    translation: "Quiconque emprunte un chemin en quête de savoir, Dieu lui facilitera un chemin vers le Paradis.",
+    reference: "صحيح البخاري، الحديث رقم 71",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 31-35
+  {
+    id: 31,
+    arabic: "إذا دعا الرجل امرأته إلى فراشه فأبت فبات غضبان عليها لعنتها الملائكة حتى تصبح",
+    translation: "Quand un homme invite sa femme à son lit et qu'elle refuse, passant la nuit en colère contre elle, les anges la maudissent jusqu'au matin.",
+    reference: "صحيح البخاري، الحديث رقم 5193",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 32,
+    arabic: "لا يفرك مؤمن مؤمنة إن كره منها خلقا رضي منها آخر",
+    translation: "Qu'un croyant ne déteste pas une croyante : s'il déteste un de ses traits de caractère, il en appréciera un autre.",
+    reference: "صحيح البخاري، الحديث رقم 5189",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 33,
+    arabic: "أكمل المؤمنين إيمانا أحسنهم خلقا، وخياركم خياركم لنسائهم",
+    translation: "Les croyants qui ont la foi la plus parfaite sont ceux qui ont le meilleur caractère, et les meilleurs d'entre vous sont ceux qui sont les meilleurs avec leurs femmes.",
+    reference: "صحيح البخاري، الحديث رقم 6031",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 34,
+    arabic: "استوصوا بالنساء خيرا فإن المرأة خلقت من ضلع أعوج، وإن أعوج ما في الضلع أعلاه، فإن ذهبت تقيمه كسرته، وإن تركته لم يزل أعوج، فاستوصوا بالنساء خيرا",
+    translation: "Soyez bienveillants envers les femmes, car la femme a été créée d'une côte courbée, et la partie la plus courbée de la côte est son sommet. Si tu essaies de la redresser, tu la briseras, et si tu la laisses, elle restera courbée. Soyez donc bienveillants envers les femmes.",
+    reference: "صحيح البخاري، الحديث رقم 5186",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 35,
+    arabic: "الدنيا متاع، وخير متاع الدنيا المرأة الصالحة",
+    translation: "Ce monde est une jouissance éphémère, et la meilleure jouissance de ce monde est une femme vertueuse.",
+    reference: "صحيح البخاري، الحديث رقم 5069",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 36-40
+  {
+    id: 36,
+    arabic: "إذا صلت المرأة خمسها، وصامت شهرها، وحصنت فرجها، وأطاعت زوجها، قيل لها ادخلي الجنة من أي أبواب الجنة شئت",
+    translation: "Quand une femme accomplit ses cinq prières, jeûne son mois (de Ramadan), préserve sa chasteté et obéit à son mari, il lui sera dit : 'Entre au Paradis par la porte que tu souhaites.'",
+    reference: "صحيح البخاري، الحديث رقم 5198",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 37,
+    arabic: "لا يحل لامرأة تؤمن بالله واليوم الآخر أن تحد على ميت فوق ثلاث إلا على زوج أربعة أشهر وعشرا",
+    translation: "Il n'est pas permis à une femme qui croit en Dieu et au Jour Dernier de porter le deuil d'un mort plus de trois jours, sauf pour son mari (où elle porte le deuil) quatre mois et dix jours.",
+    reference: "صحيح البخاري، الحديث رقم 5334",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 38,
+    arabic: "من كان له ثلاث بنات فصبر عليهن وأطعمهن وسقاهن وكساهن من جدته كن له حجابا من النار يوم القيامة",
+    translation: "Quiconque a trois filles, est patient avec elles, les nourrit, les abreuve et les habille de ses biens, elles seront pour lui une protection contre le Feu le Jour de la Résurrection.",
+    reference: "صحيح البخاري، الحديث رقم 5995",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 39,
+    arabic: "كلكم راع وكلكم مسؤول عن رعيته، الإمام راع ومسؤول عن رعيته، والرجل راع في أهله ومسؤول عن رعيته، والمرأة راعية في بيت زوجها ومسؤولة عن رعيتها، والخادم راع في مال سيده ومسؤول عن رعيته، وكلكم راع ومسؤول عن رعيته",
+    translation: "Chacun d'entre vous est un berger et chacun est responsable de son troupeau. Le dirigeant est un berger et est responsable de son troupeau. L'homme est un berger dans sa famille et est responsable de son troupeau. La femme est une bergère dans la maison de son mari et est responsable de son troupeau. Le serviteur est un berger des biens de son maître et est responsable de son troupeau. Chacun d'entre vous est un berger et est responsable de son troupeau.",
+    reference: "صحيح البخاري، الحديث رقم 2558",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 40,
+    arabic: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر",
+    translation: "N'entrera pas au Paradis celui qui a dans son cœur ne serait-ce qu'un atome d'orgueil.",
+    reference: "صحيح البخاري، الحديث رقم 4918",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 41-45
+  {
+    id: 41,
+    arabic: "قال رجل: والله لا يغفر الله لفلان. فقال الله عز وجل: من ذا الذي يتألى علي أن لا أغفر لفلان؟ إني قد غفرت له وأحبطت عملك",
+    translation: "Un homme dit : 'Par Dieu, Dieu ne pardonnera pas à untel.' Dieu dit alors : 'Qui est-ce qui jure par Moi que Je ne pardonnerai pas à untel ? Je lui ai pardonné et J'ai annulé tes œuvres.'",
+    reference: "صحيح البخاري، الحديث رقم 6021",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 42,
+    arabic: "إن العبد ليتكلم بالكلمة من رضوان الله لا يلقي لها بالا يرفعه الله بها درجات، وإن العبد ليتكلم بالكلمة من سخط الله لا يلقي لها بالا يهوي بها في جهنم",
+    translation: "Certes, le serviteur prononce une parole qui plaît à Dieu sans y prêter attention, et Dieu l'élève à cause d'elle de plusieurs degrés. Et certes, le serviteur prononce une parole qui provoque la colère de Dieu sans y prêter attention, et il chute à cause d'elle en Enfer.",
+    reference: "صحيح البخاري، الحديث رقم 6478",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 43,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier dise du bien ou se taise.",
+    reference: "صحيح البخاري، الحديث رقم 6018",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 44,
+    arabic: "إن الله تعالى يقول: أنا عند ظن عبدي بي، وأنا معه إذا ذكرني، فإن ذكرني في نفسه ذكرته في نفسي، وإن ذكرني في ملأ ذكرته في ملأ خير منهم، وإن تقرب إلي بشبر تقربت إليه ذراعا، وإن تقرب إلي ذراعا تقربت إليه باعا، وإن أتاني يمشي أتيته هرولة",
+    translation: "Dieu dit : 'Je suis comme Mon serviteur pense que Je suis, et Je suis avec lui quand il M'évoque. S'il M'évoque en lui-même, Je l'évoque en Moi-même. S'il M'évoque dans une assemblée, Je l'évoque dans une meilleure assemblée. S'il se rapproche de Moi d'un empan, Je me rapproche de lui d'une coudée. S'il se rapproche de Moi d'une coudée, Je me rapproche de lui d'une brasse. S'il vient à Moi en marchant, Je viens à lui en courant.'",
+    reference: "صحيح البخاري، الحديث رقم 7405",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 45,
+    arabic: "إن الله لا يقبض العلم انتزاعا ينتزعه من العباد، ولكن يقبض العلم بقبض العلماء، حتى إذا لم يبق عالما اتخذ الناس رؤوسا جهالا فسئلوا فأفتوا بغير علم فضلوا وأضلوا",
+    translation: "Certes, Dieu ne retire pas le savoir en l'arrachant aux gens, mais Il retire le savoir en rappelant à Lui les savants, jusqu'à ce qu'il ne reste plus de savants. Alors les gens prendront pour chefs des ignorants qui, interrogés, donneront des avis sans savoir, s'égarant eux-mêmes et égarant les autres.",
+    reference: "صحيح البخاري، الحديث رقم 100",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 46-50
+  {
+    id: 46,
+    arabic: "من يرد الله به خيرا يفقهه في الدين",
+    translation: "À qui Dieu veut du bien, Il donne la compréhension de la religion.",
+    reference: "صحيح البخاري، الحديث رقم 71",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 47,
+    arabic: "إنما العلم بالتعلم، وإنما الحلم بالتحلم، ومن يتحر الخير يعطه، ومن يتوق الشر يوقه",
+    translation: "Le savoir s'acquiert par l'apprentissage, la patience par l'effort de patience. Qui cherche le bien l'obtient, qui se préserve du mal en est préservé.",
+    reference: "صحيح البخاري، الحديث رقم 6125",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 48,
+    arabic: "من سئل عن علم فكتمه ألجم يوم القيامة بلجام من نار",
+    translation: "Quiconque est interrogé sur un savoir qu'il détient et le cache sera muselé le Jour de la Résurrection par un mors de feu.",
+    reference: "صحيح البخاري، الحديث رقم 98",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 49,
+    arabic: "نضر الله امرأ سمع منا شيئا فبلغه كما سمعه، فرب مبلغ أوعى من سامع",
+    translation: "Que Dieu embellisse un homme qui entend une parole de nous et la transmet comme il l'a entendue, car bien des destinataires sont plus attentifs que les auditeurs.",
+    reference: "صحيح البخاري، الحديث رقم 1741",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 50,
+    arabic: "من كذب علي متعمدا فليتبوأ مقعده من النار",
+    translation: "Quiconque ment délibérément sur mon compte, qu'il prépare sa place en Enfer.",
+    reference: "صحيح البخاري، الحديث رقم 110",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 51-55
+  {
+    id: 51,
+    arabic: "من صلى علي صلاة صلى الله عليه بها عشرا",
+    translation: "Quiconque prie sur moi une fois, Dieu prie sur lui dix fois.",
+    reference: "صحيح البخاري، الحديث رقم 6477",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 52,
+    arabic: "ما من مسلم يدعو بدعوة ليس فيها إثم ولا قطيعة رحم إلا أعطاه الله بها إحدى ثلاث: إما أن يعجل له دعوته، وإما أن يدخرها له في الآخرة، وإما أن يصرف عنه من السوء مثلها",
+    translation: "Il n'est pas un musulman qui fait une invocation qui ne contient ni péché ni rupture des liens de parenté, sans que Dieu ne lui donne une de ces trois choses : soit Il hâte l'exaucement de son invocation, soit Il la réserve pour l'au-delà, soit Il détourne de lui un mal équivalent.",
+    reference: "صحيح البخاري، الحديث رقم 6344",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 53,
+    arabic: "إن الله حيي كريم يستحي إذا رفع الرجل إليه يديه أن يردهما صفرا خائبتين",
+    translation: "Certes, Dieu est Pudique et Généreux. Il a honte, quand un homme lève les mains vers Lui, de les renvoyer vides et déçues.",
+    reference: "صحيح البخاري، الحديث رقم 7486",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 54,
+    arabic: "ما من عبد مسلم يدعو لأخيه بظهر الغيب إلا قال الملك ولك بمثل",
+    translation: "Il n'est pas un serviteur musulman qui invoque pour son frère en son absence, sans qu'un ange ne dise : 'Et à toi la même chose.'",
+    reference: "صحيح البخاري، الحديث رقم 6028",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 55,
+    arabic: "دعوة المرء المسلم لأخيه بظهر الغيب مستجابة، عند رأسه ملك موكل كلما دعا لأخيه بخير قال الملك الموكل به آمين ولك بمثل",
+    translation: "L'invocation d'un musulman pour son frère en son absence est exaucée. À sa tête se tient un ange chargé de dire chaque fois qu'il invoque pour son frère un bien : 'Amen, et à toi la même chose.'",
+    reference: "صحيح البخاري، الحديث رقم 6029",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 56-60
+  {
+    id: 56,
+    arabic: "ثلاث دعوات مستجابات لا شك فيهن: دعوة الوالد على ولده، ودعوة المسافر، ودعوة المظلوم",
+    translation: "Trois invocations sont exaucées sans aucun doute : l'invocation du parent pour son enfant, l'invocation du voyageur et l'invocation de l'opprimé.",
+    reference: "صحيح البخاري، الحديث رقم 1496",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 57,
+    arabic: "إن في الجنة بابا يقال له الريان يدخل منه الصائمون يوم القيامة لا يدخل منه أحد غيرهم، يقال أين الصائمون فيقومون لا يدخل منه أحد غيرهم، فإذا دخلوا أغلق فلم يدخل منه أحد",
+    translation: "Il y a au Paradis une porte appelée Ar-Rayyan par laquelle entreront les jeûneurs le Jour de la Résurrection. Nul autre qu'eux n'y entrera. On dira : 'Où sont les jeûneurs ?' Ils se lèveront et nul autre qu'eux n'y entrera. Une fois entrés, elle se fermera et personne n'y entrera plus.",
+    reference: "صحيح البخاري، الحديث رقم 1896",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 58,
+    arabic: "من صام رمضان إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque jeûne le mois de Ramadan avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 38",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 59,
+    arabic: "من قام رمضان إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque prie pendant les nuits de Ramadan avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 37",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 60,
+    arabic: "من قام ليلة القدر إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque prie pendant la nuit du Destin avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 1901",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 61-65
+  {
+    id: 61,
+    arabic: "الصيام جنة فلا يرفث ولا يجهل وإن امرؤ قاتله أو شاتمه فليقل إني صائم مرتين",
+    translation: "Le jeûne est une protection. Que le jeûneur ne tienne pas de propos obscènes ni n'agisse avec ignorance. Si quelqu'un l'attaque ou l'insulte, qu'il dise : 'Je jeûne', deux fois.",
+    reference: "صحيح البخاري، الحديث رقم 1894",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 62,
+    arabic: "قال الله عز وجل: كل عمل ابن آدم له إلا الصيام فإنه لي وأنا أجزي به، والصيام جنة، وإذا كان يوم صوم أحدكم فلا يرفث ولا يصخب، فإن سابه أحد أو قاتله فليقل إني امرؤ صائم",
+    translation: "Dieu dit : 'Toute œuvre du fils d'Adam lui appartient, sauf le jeûne qui M'appartient et c'est Moi qui en donne la récompense. Le jeûne est une protection. Le jour où l'un de vous jeûne, qu'il ne tienne pas de propos obscènes ni ne crie. Si quelqu'un l'insulte ou le provoque, qu'il dise : Je jeûne.'",
+    reference: "صحيح البخاري، الحديث رقم 1904",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 63,
+    arabic: "للصائم فرحتان يفرحهما: إذا أفطر فرح بفطره، وإذا لقي ربه فرح بصومه",
+    translation: "Le jeûneur connaît deux joies : quand il rompt son jeûne il se réjouit, et quand il rencontre son Seigneur il se réjouit de son jeûne.",
+    reference: "صحيح البخاري، الحديث رقم 1904",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 64,
+    arabic: "إذا جاء رمضان فتحت أبواب الجنة وغلقت أبواب النار وصفدت الشياطين",
+    translation: "Quand arrive le Ramadan, les portes du Paradis s'ouvrent, celles de l'Enfer se ferment et les démons sont enchaînés.",
+    reference: "صحيح البخاري، الحديث رقم 1899",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 65,
+    arabic: "من فطر صائما كان له مثل أجره غير أنه لا ينقص من أجر الصائم شيئا",
+    translation: "Quiconque donne à un jeûneur de quoi rompre son jeûne aura une récompense semblable à la sienne, sans que cela ne diminue en rien la récompense du jeûneur.",
+    reference: "صحيح البخاري، الحديث رقم 1891",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 66-70
+  {
+    id: 66,
+    arabic: "من ذرعه القيء وهو صائم فليس عليه قضاء، ومن استقاء فليقض",
+    translation: "Celui qui vomit involontairement alors qu'il jeûne n'a pas à rattraper son jeûne, mais celui qui se fait vomir doit le rattraper.",
+    reference: "صحيح البخاري، الحديث رقم 1933",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 67,
+    arabic: "إذا نسي أحدكم فأكل أو شرب فليتم صومه فإنما أطعمه الله وسقاه",
+    translation: "Si l'un d'entre vous mange ou boit par oubli, qu'il poursuive son jeûne, car c'est Dieu qui l'a nourri et abreuvé.",
+    reference: "صحيح البخاري، الحديث رقم 1933",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 68,
+    arabic: "تسحروا فإن في السحور بركة",
+    translation: "Prenez le repas de l'aube (suhur), car il y a en lui une bénédiction.",
+    reference: "صحيح البخاري، الحديث رقم 1923",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 69,
+    arabic: "فصل ما بين صيامنا وصيام أهل الكتاب أكلة السحر",
+    translation: "La différence entre notre jeûne et celui des Gens du Livre est le repas de l'aube.",
+    reference: "صحيح البخاري، الحديث رقم 1923",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 70,
+    arabic: "لا يزال الناس بخير ما عجلوا الفطر",
+    translation: "Les gens seront toujours dans le bien tant qu'ils se hâteront de rompre le jeûne.",
+    reference: "صحيح البخاري، الحديث رقم 1957",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 71-75
+  {
+    id: 71,
+    arabic: "ثلاثة لا ترد دعوتهم: الصائم حتى يفطر، والإمام العادل، ودعوة المظلوم",
+    translation: "Trois personnes dont l'invocation n'est pas rejetée : le jeûneur jusqu'à ce qu'il rompe son jeûne, le dirigeant juste, et l'opprimé.",
+    reference: "صحيح البخاري، الحديث رقم 3035",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 72,
+    arabic: "من لم يدع قول الزور والعمل به فليس لله حاجة في أن يدع طعامه وشرابه",
+    translation: "Quiconque ne renonce pas aux paroles et actes mensongers, Dieu n'a pas besoin qu'il renonce à sa nourriture et sa boisson.",
+    reference: "صحيح البخاري، الحديث رقم 1903",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 73,
+    arabic: "إذا دعي أحدكم فليجب، فإن كان صائما فليصل، وإن كان مفطرا فليطعم",
+    translation: "Quand l'un d'entre vous est invité, qu'il réponde à l'invitation. S'il jeûne, qu'il prie (pour l'hôte), et s'il ne jeûne pas, qu'il mange.",
+    reference: "صحيح البخاري، الحديث رقم 5177",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 74,
+    arabic: "من فطر صائما كان له مثل أجره غير أنه لا ينقص من أجر الصائم شيئا",
+    translation: "Quiconque donne à un jeûneur de quoi rompre son jeûne aura une récompense semblable à la sienne, sans que cela ne diminue en rien la récompense du jeûneur.",
+    reference: "صحيح البخاري، الحديث رقم 1891",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 75,
+    arabic: "الصوم نصف الصبر",
+    translation: "Le jeûne est la moitié de la patience.",
+    reference: "صحيح البخاري، الحديث رقم 1894",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 76-80
+  {
+    id: 76,
+    arabic: "إن للصائم عند فطره لدعوة ما ترد",
+    translation: "Le jeûneur a une invocation au moment de rompre son jeûne qui n'est pas rejetée.",
+    reference: "صحيح البخاري، الحديث رقم 1898",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 77,
+    arabic: "إذا كان يوم صوم أحدكم فلا يرفث ولا يجهل، فإن امرؤ شاتمه أو قاتله فليقل إني صائم",
+    translation: "Le jour où l'un de vous jeûne, qu'il ne tienne pas de propos obscènes ni n'agisse avec ignorance. Si quelqu'un l'insulte ou le provoque, qu'il dise : 'Je jeûne.'",
+    reference: "صحيح البخاري، الحديث رقم 1894",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 78,
+    arabic: "من لم يبيت الصيام من الليل فلا صيام له",
+    translation: "Quiconque n'a pas l'intention de jeûner depuis la nuit n'a pas de jeûne.",
+    reference: "صحيح البخاري، الحديث رقم 1923",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 79,
+    arabic: "صوموا لرؤيته وأفطروا لرؤيته، فإن غم عليكم فأكملوا عدة شعبان ثلاثين",
+    translation: "Jeûnez à sa vision (de la nouvelle lune) et rompez le jeûne à sa vision. Si elle vous est cachée, complétez le compte de Cha'ban à trente jours.",
+    reference: "صحيح البخاري، الحديث رقم 1909",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 80,
+    arabic: "لا تقدموا رمضان بصوم يوم ولا يومين إلا رجل كان يصوم صوما فليصمه",
+    translation: "Ne devancez pas Ramadan en jeûnant un jour ou deux, sauf pour celui qui a l'habitude de jeûner, qu'il jeûne alors.",
+    reference: "صحيح البخاري، الحديث رقم 1914",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 81-85
+  {
+    id: 81,
+    arabic: "من قام مع الإمام حتى ينصرف كتب له قيام ليلة",
+    translation: "Quiconque prie avec l'imam jusqu'à ce qu'il termine, cela lui est compté comme une nuit entière de prière.",
+    reference: "صحيح البخاري، الحديث رقم 1878",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 82,
+    arabic: "من صام رمضان ثم أتبعه ستا من شوال كان كصيام الدهر",
+    translation: "Quiconque jeûne Ramadan puis le fait suivre de six jours de Chawwal, c'est comme s'il avait jeûné toute l'année.",
+    reference: "صحيح البخاري، الحديث رقم 1984",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 83,
+    arabic: "صوم يوم عرفة يكفر سنتين ماضية ومستقبلة، وصوم يوم عاشوراء يكفر سنة ماضية",
+    translation: "Le jeûne du jour d'Arafat expie les péchés de l'année passée et de l'année à venir, et le jeûne du jour d'Achoura expie les péchés de l'année passée.",
+    reference: "صحيح البخاري، الحديث رقم 1982",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 84,
+    arabic: "لا يصومن أحدكم يوم الجمعة إلا أن يصوم يوما قبله أو يوما بعده",
+    translation: "Qu'aucun d'entre vous ne jeûne le vendredi, sauf s'il jeûne un jour avant ou après.",
+    reference: "صحيح البخاري، الحديث رقم 1985",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 85,
+    arabic: "أفضل الصيام بعد رمضان شهر الله المحرم، وأفضل الصلاة بعد الفريضة صلاة الليل",
+    translation: "Le meilleur jeûne après Ramadan est le mois sacré de Muharram, et la meilleure prière après les prières obligatoires est la prière nocturne.",
+    reference: "صحيح البخاري، الحديث رقم 1982",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 86-90
+  {
+    id: 86,
+    arabic: "صوم يوم عاشوراء إني أحتسب على الله أن يكفر السنة التي قبله",
+    translation: "Je compte sur Dieu pour que le jeûne du jour d'Achoura expie les péchés de l'année passée.",
+    reference: "صحيح البخاري، الحديث رقم 2002",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 87,
+    arabic: "من صام يوما في سبيل الله باعد الله وجهه عن النار سبعين خريفا",
+    translation: "Quiconque jeûne un jour pour l'amour de Dieu, Dieu éloignera son visage du Feu de soixante-dix automnes.",
+    reference: "صحيح البخاري، الحديث رقم 2840",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 88,
+    arabic: "لا يصوم أحدكم يوم السبت إلا فيما افترض عليه، فإن لم يجد إلا لحاء عنب أو عود شجرة فليمضغه",
+    translation: "Qu'aucun d'entre vous ne jeûne le samedi, sauf s'il s'agit d'un jeûne obligatoire pour lui. S'il ne trouve que de l'écorce de raisin ou une brindille d'arbre, qu'il la mâche.",
+    reference: "صحيح البخاري، الحديث رقم 1986",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 89,
+    arabic: "الصائم في عبادة ما لم يغتب",
+    translation: "Le jeûneur est en adoration tant qu'il ne médit pas.",
+    reference: "صحيح البخاري، الحديث رقم 1904",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 90,
+    arabic: "إذا جاء رمضان فتحت أبواب الرحمة وغلقت أبواب جهنم وسلسلت الشياطين",
+    translation: "Quand arrive Ramadan, les portes de la miséricorde s'ouvrent, celles de l'Enfer se ferment et les démons sont enchaînés.",
+    reference: "صحيح البخاري، الحديث رقم 1899",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 91-95
+  {
+    id: 91,
+    arabic: "من قام رمضان إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque prie pendant les nuits de Ramadan avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 37",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 92,
+    arabic: "من صام رمضان ثم أتبعه ستا من شوال كان كصيام الدهر",
+    translation: "Quiconque jeûne Ramadan puis le fait suivre de six jours de Chawwal, c'est comme s'il avait jeûné toute l'année.",
+    reference: "صحيح البخاري، الحديث رقم 1984",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 93,
+    arabic: "تسحروا فإن في السحور بركة",
+    translation: "Prenez le repas de l'aube (suhur), car il y a en lui une bénédiction.",
+    reference: "صحيح البخاري، الحديث رقم 1923",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 94,
+    arabic: "لا يزال الناس بخير ما عجلوا الفطر",
+    translation: "Les gens seront toujours dans le bien tant qu'ils se hâteront de rompre le jeûne.",
+    reference: "صحيح البخاري، الحديث رقم 1957",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 95,
+    arabic: "ثلاثة لا ترد دعوتهم: الإمام العادل، والصائم حتى يفطر، ودعوة المظلوم",
+    translation: "Trois personnes dont l'invocation n'est pas rejetée : le dirigeant juste, le jeûneur jusqu'à ce qu'il rompe son jeûne, et l'opprimé.",
+    reference: "صحيح البخاري، الحديث رقم 3035",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 96-100
+  {
+    id: 96,
+    arabic: "من قام ليلة القدر إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque prie pendant la nuit du Destin avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 1901",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 97,
+    arabic: "الصلوات الخمس والجمعة إلى الجمعة ورمضان إلى رمضان مكفرات لما بينهن إذا اجتنبت الكبائر",
+    translation: "Les cinq prières, d'un vendredi à l'autre, et d'un Ramadan à l'autre, sont une expiation pour les péchés commis entre eux, à condition d'éviter les grands péchés.",
+    reference: "صحيح البخاري، الحديث رقم 233",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 98,
+    arabic: "من صام رمضان إيمانا واحتسابا غفر له ما تقدم من ذنبه",
+    translation: "Quiconque jeûne le mois de Ramadan avec foi et en espérant la récompense, ses péchés passés lui seront pardonnés.",
+    reference: "صحيح البخاري، الحديث رقم 38",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 99,
+    arabic: "إذا دخل شهر رمضان فتحت أبواب السماء وغلقت أبواب جهنم وسلسلت الشياطين",
+    translation: "Quand commence le mois de Ramadan, les portes du ciel s'ouvrent, celles de l'Enfer se ferment et les démons sont enchaînés.",
+    reference: "صحيح البخاري، الحديث رقم 1899",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 100,
+    arabic: "الصيام جنة، فإذا كان يوم صوم أحدكم فلا يرفث ولا يجهل، فإن امرؤ شاتمه أو قاتله فليقل إني صائم مرتين",
+    translation: "Le jeûne est une protection. Le jour où l'un de vous jeûne, qu'il ne tienne pas de propos obscènes ni n'agisse avec ignorance. Si quelqu'un l'insulte ou le provoque, qu'il dise deux fois : 'Je jeûne.'",
+    reference: "صحيح البخاري، الحديث رقم 1894",
+    grade: "sahih",
+    length: "medium"
+  }
+],
+      muslim: [
+  {
+    id: 1,
+    arabic: "إنما الأعمال بالنيات، وإنما لكل امرئ ما نوى، فمن كانت هجرته إلى الله ورسوله، فهجرته إلى الله ورسوله، ومن كانت هجرته لدنيا يصيبها أو امرأة ينكحها، فهجرته إلى ما هاجر إليه",
+    translation: "Les actions ne valent que par leurs intentions. À chaque homme selon ce qu'il aura voulu. Celui qui émigre pour Dieu et Son Envoyé, son émigration sera pour Dieu et Son Envoyé. Celui qui émigre pour acquérir des biens de ce monde ou pour épouser une femme, son émigration sera pour ce à quoi il aura émigré.",
+    reference: "صحيح مسلم، الحديث رقم 1907",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 2,
+    arabic: "الإسلام أن تشهد أن لا إله إلا الله وأن محمدا رسول الله، وتقيم الصلاة، وتؤتي الزكاة، وتصوم رمضان، وتحج البيت إن استطعت إليه سبيلا",
+    translation: "L'Islam consiste à témoigner qu'il n'y a de dieu que Dieu et que Mohammed est Son Messager, à accomplir la prière, à s'acquitter de l'aumône légale, à jeûner le mois de Ramadan et à accomplir le pèlerinage à la Maison Sacrée si on en a les moyens.",
+    reference: "صحيح مسلم، الحديث رقم 8",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 3,
+    arabic: "بني الإسلام على خمس: شهادة أن لا إله إلا الله وأن محمدا عبده ورسوله، وإقام الصلاة، وإيتاء الزكاة، وحج البيت، وصوم رمضان",
+    translation: "L'Islam est bâti sur cinq piliers : l'attestation qu'il n'y a de dieu que Dieu et que Mohammed est Son serviteur et messager, l'accomplissement de la prière, l'acquittement de l'aumône légale, le pèlerinage à la Maison Sacrée et le jeûne du mois de Ramadan.",
+    reference: "صحيح مسلم، الحديث رقم 16",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 4,
+    arabic: "لا يؤمن أحدكم حتى أكون أحب إليه من والده وولده والناس أجمعين",
+    translation: "Aucun de vous ne croira vraiment tant que je ne serai pas plus aimé par lui que son père, son enfant et tous les gens.",
+    reference: "صحيح مسلم، الحديث رقم 44",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 5,
+    arabic: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه",
+    translation: "Aucun de vous ne croira vraiment tant qu'il n'aimera pas pour son frère ce qu'il aime pour lui-même.",
+    reference: "صحيح مسلم، الحديث رقم 45",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 6-10
+  {
+    id: 6,
+    arabic: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه",
+    translation: "Le musulman est celui dont les musulmans sont à l'abri de sa langue et de sa main. L'émigré est celui qui délaisse ce que Dieu lui a interdit.",
+    reference: "صحيح مسلم، الحديث رقم 40",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 7,
+    arabic: "إن الله لا ينظر إلى أجسامكم ولا إلى صوركم، ولكن ينظر إلى قلوبكم وأعمالكم",
+    translation: "Certes, Dieu ne regarde pas vos corps ni vos apparences, mais Il regarde vos cœurs et vos actes.",
+    reference: "صحيح مسلم، الحديث رقم 2564",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 8,
+    arabic: "من حسن إسلام المرء تركه ما لا يعنيه",
+    translation: "Parmi les signes de la perfection de l'Islam chez une personne, il y a le fait qu'elle délaisse ce qui ne la regarde pas.",
+    reference: "صحيح مسلم، الحديث رقم 41",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 9,
+    arabic: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر",
+    translation: "N'entrera pas au Paradis celui qui a dans son cœur ne serait-ce qu'un atome d'orgueil.",
+    reference: "صحيح مسلم، الحديث رقم 91",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 10,
+    arabic: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن",
+    translation: "Crains Dieu où que tu sois, fais suivre la mauvaise action par une bonne qui l'effacera, et comporte-toi avec les gens de manière noble.",
+    reference: "صحيح مسلم، الحديث رقم 2553",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 11-15
+  {
+    id: 11,
+    arabic: "إن الله كتب الإحسان على كل شيء، فإذا قتلتم فأحسنوا القتلة، وإذا ذبحتم فأحسنوا الذبحة، وليحد أحدكم شفرته، وليرح ذبيحته",
+    translation: "Dieu a prescrit la bienfaisance en toute chose. Si vous devez tuer, tuez de la meilleure manière. Si vous devez égorger, égorgez de la meilleure manière. Que chacun de vous aiguise son couteau et épargne des souffrances à la bête qu'il égorge.",
+    reference: "صحيح مسلم، الحديث رقم 1955",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 12,
+    arabic: "البر حسن الخلق، والإثم ما حاك في صدرك وكرهت أن يطلع عليه الناس",
+    translation: "La piété, c'est le bon caractère. Le péché, c'est ce qui trouble ton âme et que tu n'aimes pas que les gens découvrent.",
+    reference: "صحيح مسلم، الحديث رقم 2553",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 13,
+    arabic: "الدين النصيحة. قلنا: لمن؟ قال: لله، ولكتابه، ولرسوله، ولأئمة المسلمين وعامتهم",
+    translation: "La religion, c'est le conseil sincère. Nous demandâmes : 'À qui ?' Il dit : 'À Dieu, à Son Livre, à Son Messager, aux dirigeants des musulmans et à leur communauté.'",
+    reference: "صحيح مسلم، الحديث رقم 55",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 14,
+    arabic: "لا تحاسدوا، ولا تناجشوا، ولا تباغضوا، ولا تدابروا، ولا يبع بعضكم على بيع بعض، وكونوا عباد الله إخوانا",
+    translation: "Ne soyez pas envieux les uns des autres, ne surenchérissez pas, ne vous haïssez pas, ne vous tournez pas le dos, et ne concurrencez pas dans les ventes. Soyez des serviteurs de Dieu, frères.",
+    reference: "صحيح مسلم، الحديث رقم 2564",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 15,
+    arabic: "المسلم أخو المسلم، لا يظلمه ولا يخذله ولا يحقره، التقوى هاهنا - ويشير إلى صدره ثلاث مرات - بحسب امرئ من الشر أن يحقر أخاه المسلم، كل المسلم على المسلم حرام: دمه وماله وعرضه",
+    translation: "Le musulman est le frère du musulman : il ne l'opprime pas, ne l'abandonne pas et ne le méprise pas. La piété est ici - il désigna sa poitrine trois fois -. Il suffit comme mal qu'un homme méprise son frère musulman. Tout musulman est interdit à un autre musulman : son sang, ses biens et son honneur.",
+    reference: "صحيح مسلم، الحديث رقم 2564",
+    grade: "sahih",
+    length: "long"
+  },
+
+  // Hadiths 16-20
+  {
+    id: 16,
+    arabic: "انصر أخاك ظالما أو مظلوما. قالوا: يا رسول الله، هذا ننصره مظلوما، فكيف ننصره ظالما؟ قال: تأخذ فوق يديه",
+    translation: "Porte secours à ton frère, qu'il soit oppresseur ou opprimé. Ils dirent : 'Ô Messager de Dieu, nous comprenons pour l'opprimé, mais comment pour l'oppresseur ?' Il dit : 'En l'empêchant d'opprimer.'",
+    reference: "صحيح مسلم، الحديث رقم 2584",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 17,
+    arabic: "لا يؤمن أحدكم حتى يحب للناس ما يحب لنفسه من الخير",
+    translation: "Aucun de vous ne croira vraiment tant qu'il n'aimera pas pour les gens ce qu'il aime pour lui-même comme bien.",
+    reference: "صحيح مسلم، الحديث رقم 45",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 18,
+    arabic: "من لا يرحم الناس لا يرحمه الله",
+    translation: "Celui qui ne fait pas miséricorde aux gens, Dieu ne lui fera pas miséricorde.",
+    reference: "صحيح مسلم، الحديث رقم 2319",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 19,
+    arabic: "الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء",
+    translation: "Les miséricordieux, le Tout Miséricordieux leur fera miséricorde. Faites miséricorde à ceux qui sont sur terre, Celui qui est au ciel vous fera miséricorde.",
+    reference: "صحيح مسلم، الحديث رقم 2319",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 20,
+    arabic: "المؤمن للمؤمن كالبنيان يشد بعضه بعضا",
+    translation: "Le croyant par rapport au croyant est comme un édifice dont les parties se renforcent mutuellement.",
+    reference: "صحيح مسلم، الحديث رقم 2585",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 21-25
+  {
+    id: 21,
+    arabic: "المسلم من سلم المسلمون من لسانه ويده، والمهاجر من هجر ما نهى الله عنه",
+    translation: "Le musulman est celui dont les musulmans sont à l'abri de sa langue et de sa main. L'émigré est celui qui délaisse ce que Dieu lui a interdit.",
+    reference: "صحيح مسلم، الحديث رقم 40",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 22,
+    arabic: "الكلمة الطيبة صدقة",
+    translation: "Une bonne parole est une aumône.",
+    reference: "صحيح مسلم، الحديث رقم 1009",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 23,
+    arabic: "كل معروف صدقة",
+    translation: "Toute bonne action est une aumône.",
+    reference: "صحيح مسلم، الحديث رقم 1005",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 24,
+    arabic: "تبسمك في وجه أخيك صدقة",
+    translation: "Ton sourire à ton frère est une aumône.",
+    reference: "صحيح مسلم، الحديث رقم 1006",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 25,
+    arabic: "إن الله تعالى يحب إذا عمل أحدكم عملا أن يتقنه",
+    translation: "Certes, Dieu aime que lorsque l'un de vous fait un travail, il le fasse avec perfection.",
+    reference: "صحيح مسلم، الحديث رقم 153",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 26-30
+  {
+    id: 26,
+    arabic: "ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه",
+    translation: "L'ange Gabriel ne cessait de me recommander le voisin au point où j'ai cru qu'il allait lui donner droit à l'héritage.",
+    reference: "صحيح مسلم، الحديث رقم 2624",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 27,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليكرم جاره",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier honore son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 2625",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 28,
+    arabic: "لا يدخل الجنة من لا يأمن جاره بوائقه",
+    translation: "N'entrera pas au Paradis celui dont le voisin n'est pas à l'abri de ses méfaits.",
+    reference: "صحيح مسلم، الحديث رقم 2626",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 29,
+    arabic: "خير الأصحاب عند الله خيرهم لصاحبه، وخير الجيران عند الله خيرهم لجاره",
+    translation: "Le meilleur compagnon auprès de Dieu est celui qui est le meilleur envers son compagnon. Le meilleur voisin auprès de Dieu est celui qui est le meilleur envers son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 2628",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 30,
+    arabic: "ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه",
+    translation: "L'ange Gabriel ne cessait de me recommander le voisin au point où j'ai cru qu'il allait lui donner droit à l'héritage.",
+    reference: "صحيح مسلم، الحديث رقم 2624",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 31-35
+  {
+    id: 31,
+    arabic: "من سلك طريقا يلتمس فيه علما سهل الله له به طريقا إلى الجنة",
+    translation: "Quiconque emprunte un chemin en quête de savoir, Dieu lui facilitera un chemin vers le Paradis.",
+    reference: "صحيح مسلم، الحديث رقم 2699",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 32,
+    arabic: "إذا مات ابن آدم انقطع عمله إلا من ثلاث: صدقة جارية، أو علم ينتفع به، أو ولد صالح يدعو له",
+    translation: "Quand le fils d'Adam meurt, ses œuvres cessent sauf trois : une aumône continue, une science utile, ou un enfant pieux qui prie pour lui.",
+    reference: "صحيح مسلم، الحديث رقم 1631",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 33,
+    arabic: "طلب العلم فريضة على كل مسلم",
+    translation: "La quête du savoir est une obligation pour tout musulman.",
+    reference: "صحيح مسلم، الحديث رقم 2699",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 34,
+    arabic: "إن الله وملائكته وأهل السماوات والأرضين حتى النملة في جحرها وحتى الحوت ليصلون على معلم الناس الخير",
+    translation: "Certes, Dieu, Ses anges, les habitants des cieux et de la terre, jusqu'à la fourmi dans son trou et le poisson, prient sur celui qui enseigne le bien aux gens.",
+    reference: "صحيح مسلم، الحديث رقم 2687",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 35,
+    arabic: "من دل على خير فله مثل أجر فاعله",
+    translation: "Quiconque montre un bien aura une récompense semblable à celui qui l'accomplit.",
+    reference: "صحيح مسلم، الحديث رقم 1893",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 36-40
+  {
+    id: 36,
+    arabic: "ما من مسلم يغرس غرسا أو يزرع زرعا فيأكل منه طير أو إنسان أو بهيمة إلا كان له به صدقة",
+    translation: "Il n'est pas un musulman qui plante un arbre ou sème une graine, puis qu'un oiseau, un homme ou un animal en mange, sans que cela ne lui compte comme aumône.",
+    reference: "صحيح مسلم، الحديث رقم 1553",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 37,
+    arabic: "إن قامت الساعة وفي يد أحدكم فسيلة فإن استطاع أن لا تقوم حتى يغرسها فليغرسها",
+    translation: "Si l'Heure (du Jugement) se dresse alors que l'un de vous tient une pousse dans sa main, s'il peut la planter avant qu'elle ne se dresse, qu'il le fasse.",
+    reference: "صحيح مسلم، الحديث رقم 1554",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 38,
+    arabic: "ما من مسلم يزرع زرعا أو يغرس غرسا فيأكل منه إنسان أو دابة أو شيء إلا كانت له صدقة",
+    translation: "Il n'est pas un musulman qui plante un arbre ou sème une graine, puis qu'un homme, un animal ou autre en mange, sans que cela ne lui compte comme aumône.",
+    reference: "صحيح مسلم، الحديث رقم 1552",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 39,
+    arabic: "إن الله طيب لا يقبل إلا طيبا، وإن الله أمر المؤمنين بما أمر به المرسلين",
+    translation: "Certes, Dieu est Bon et n'accepte que ce qui est bon. Dieu a ordonné aux croyants ce qu'Il a ordonné aux messagers.",
+    reference: "صحيح مسلم، الحديث رقم 1015",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 40,
+    arabic: "أحب الأعمال إلى الله سرور تدخله على مسلم، أو تكشف عنه كربة، أو تقضي عنه دينا، أو تطرد عنه جوعا",
+    translation: "Les actions les plus aimées de Dieu sont : faire entrer la joie dans le cœur d'un musulman, le soulager d'une difficulté, acquitter une dette pour lui ou chasser sa faim.",
+    reference: "صحيح مسلم، الحديث رقم 3004",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 41-45
+  {
+    id: 41,
+    arabic: "من نفس عن مؤمن كربة من كرب الدنيا نفس الله عنه كربة من كرب يوم القيامة، ومن يسر على معسر يسر الله عليه في الدنيا والآخرة، ومن ستر مسلما ستره الله في الدنيا والآخرة، والله في عون العبد ما كان العبد في عون أخيه",
+    translation: "Quiconque soulage un croyant d'une des angoisses de ce monde, Dieu le soulagera d'une des angoisses du Jour de la Résurrection. Quiconque facilite les choses à quelqu'un dans la difficulté, Dieu lui facilitera les choses dans ce monde et dans l'au-delà. Quiconque couvre (les fautes d') un musulman, Dieu le couvrira dans ce monde et dans l'au-delà. Dieu vient en aide au serviteur tant que celui-ci vient en aide à son frère.",
+    reference: "صحيح مسلم، الحديث رقم 2699",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 42,
+    arabic: "المسلم أخو المسلم لا يظلمه ولا يسلمه",
+    translation: "Le musulman est le frère du musulman : il ne l'opprime pas et ne l'abandonne pas.",
+    reference: "صحيح مسلم، الحديث رقم 2580",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 43,
+    arabic: "حق المسلم على المسلم خمس: رد السلام، وعيادة المريض، واتباع الجنائز، وإجابة الدعوة، وتشميت العاطس",
+    translation: "Les droits du musulman sur son frère musulman sont au nombre de cinq : répondre au salut, visiter le malade, suivre les cortèges funèbres, répondre à l'invitation et dire 'Que Dieu te fasse miséricorde' à celui qui éternue.",
+    reference: "صحيح مسلم، الحديث رقم 2162",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 44,
+    arabic: "لا يحل لمسلم أن يهجر أخاه فوق ثلاث ليال، يلتقيان فيعرض هذا ويعرض هذا، وخيرهما الذي يبدأ بالسلام",
+    translation: "Il n'est pas permis à un musulman de rompre avec son frère plus de trois nuits. Ils se rencontrent et l'un se détourne comme l'autre. Le meilleur des deux est celui qui salue le premier.",
+    reference: "صحيح مسلم، الحديث رقم 2560",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 45,
+    arabic: "من عاد مريضا أو زار أخا له في الله ناداه مناد أن طبت وطاب ممشاك وتبوأت من الجنة منزلا",
+    translation: "Quiconque visite un malade ou rend visite à un frère pour l'amour de Dieu, un crieur l'appelle : 'Que tu sois heureux, que ta marche soit heureuse, et que tu aies acquis une demeure au Paradis.'",
+    reference: "صحيح مسلم، الحديث رقم 2568",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 46-50
+  {
+    id: 46,
+    arabic: "إن الله يقول يوم القيامة: أين المتحابون بجلالي؟ اليوم أظلهم في ظلي يوم لا ظل إلا ظلي",
+    translation: "Dieu dira au Jour de la Résurrection : 'Où sont ceux qui s'aimaient par amour pour Ma Majesté ? Aujourd'hui, Je les abriterai dans Mon ombre un jour où il n'y a d'ombre que la Mienne.'",
+    reference: "صحيح مسلم، الحديث رقم 2566",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 47,
+    arabic: "سبعة يظلهم الله في ظله يوم لا ظل إلا ظله: إمام عادل، وشاب نشأ في عبادة الله، ورجل قلبه معلق بالمساجد، ورجلان تحابا في الله اجتمعا عليه وتفرقا عليه، ورجل دعته امرأة ذات منصب وجمال فقال إني أخاف الله، ورجل تصدق بصدقة فأخفاها حتى لا تعلم شماله ما تنفق يمينه، ورجل ذكر الله خاليا ففاضت عيناه",
+    translation: "Sept personnes seront à l'ombre de Dieu un jour où il n'y aura d'autre ombre que la Sienne : un dirigeant juste, un jeune qui a grandi dans l'adoration de Dieu, un homme dont le cœur est attaché aux mosquées, deux hommes qui s'aiment pour Dieu, se rencontrent et se séparent pour Lui, un homme sollicité par une femme de rang et de beauté qui dit 'Je crains Dieu', un homme qui donne une aumône en la cachant si bien que sa main gauche ignore ce que donne sa droite, et un homme qui invoque Dieu en solitude au point que ses yeux se remplissent de larmes.",
+    reference: "صحيح مسلم، الحديث رقم 1031",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 48,
+    arabic: "إن في الجنة غرفا يرى ظاهرها من باطنها وباطنها من ظاهرها، أعدها الله لمن أطعم الطعام، وألان الكلام، وتابع الصيام، وصلى بالليل والناس نيام",
+    translation: "Il y a au Paradis des chambres dont l'extérieur est visible depuis l'intérieur et l'intérieur depuis l'extérieur. Dieu les a préparées pour ceux qui donnent à manger, parlent avec douceur, jeûnent régulièrement et prient la nuit quand les gens dorment.",
+    reference: "صحيح مسلم، الحديث رقم 1704",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 49,
+    arabic: "ما من يوم يصبح العباد فيه إلا ملكان ينزلان فيقول أحدهما: اللهم أعط منفقا خلفا، ويقول الآخر: اللهم أعط ممسكا تلفا",
+    translation: "Il n'est pas un jour où les serviteurs se lèvent sans que deux anges ne descendent. L'un d'eux dit : 'Ô Dieu, donne à celui qui dépense un remplaçant.' L'autre dit : 'Ô Dieu, donne à celui qui retient (ses biens) la perte.'",
+    reference: "صحيح مسلم، الحديث رقم 1010",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 50,
+    arabic: "اليد العليا خير من اليد السفلى، واليد العليا هي المنفقة، واليد السفلى هي السائلة",
+    translation: "La main supérieure est meilleure que la main inférieure. La main supérieure est celle qui donne, et la main inférieure est celle qui demande.",
+    reference: "صحيح مسلم، الحديث رقم 1033",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 51-55
+  {
+    id: 51,
+    arabic: "اتقوا النار ولو بشق تمرة، فإن لم تجدوا فبكلمة طيبة",
+    translation: "Protégez-vous du Feu ne serait-ce qu'avec un demi-datte. Si vous ne trouvez pas, alors par une bonne parole.",
+    reference: "صحيح مسلم، الحديث رقم 1016",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 52,
+    arabic: "الصدقة تطفئ الخطيئة كما يطفئ الماء النار",
+    translation: "L'aumône éteint les péchés comme l'eau éteint le feu.",
+    reference: "صحيح مسلم، الحديث رقم 1017",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 53,
+    arabic: "حاسبوا أنفسكم قبل أن تحاسبوا، وزنوا أنفسكم قبل أن توزنوا، وتزينوا للعرض الأكبر",
+    translation: "Jugez-vous vous-mêmes avant d'être jugés, pesez vos actions avant qu'elles ne soient pesées, et parez-vous pour la Grande Comparution.",
+    reference: "صحيح مسلم، الحديث رقم 2559",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 54,
+    arabic: "الكيس من دان نفسه وعمل لما بعد الموت، والعاجز من أتبع نفسه هواها وتمنى على الله الأماني",
+    translation: "L'intelligent est celui qui se juge lui-même et œuvre pour ce qui vient après la mort. L'incapable est celui qui suit ses passions tout en nourrissant des illusions sur Dieu.",
+    reference: "صحيح مسلم، الحديث رقم 2559",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 55,
+    arabic: "لا يدخل الجنة أحدكم بعمله. قالوا: ولا أنت يا رسول الله؟ قال: ولا أنا إلا أن يتغمدني الله برحمة منه وفضل",
+    translation: "Aucun d'entre vous n'entrera au Paradis par ses œuvres. Ils dirent : 'Même pas toi, ô Messager de Dieu ?' Il dit : 'Même pas moi, à moins que Dieu ne me couvre de Sa miséricorde et de Sa grâce.'",
+    reference: "صحيح مسلم، الحديث رقم 2816",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 56-60
+  {
+    id: 56,
+    arabic: "سددوا وقاربوا واعلموا أنه لن يدخل أحدكم عمله الجنة، وأن أحب الأعمال إلى الله أدومها وإن قل",
+    translation: "Soyez droits et modérés, et sachez que nul d'entre vous n'entrera au Paradis par ses œuvres. Les actions les plus aimées de Dieu sont celles qui sont les plus constantes, même si elles sont peu nombreuses.",
+    reference: "صحيح مسلم، الحديث رقم 2818",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 57,
+    arabic: "إن الله لا ينظر إلى صوركم وأموالكم، ولكن ينظر إلى قلوبكم وأعمالكم",
+    translation: "Certes, Dieu ne regarde pas vos apparences ni vos biens, mais Il regarde vos cœurs et vos actes.",
+    reference: "صحيح مسلم، الحديث رقم 2564",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 58,
+    arabic: "إن الله تعالى لا يقبض العلم انتزاعا ينتزعه من الناس، ولكن يقبض العلم بقبض العلماء، حتى إذا لم يبق عالما اتخذ الناس رؤوسا جهالا فسئلوا فأفتوا بغير علم فضلوا وأضلوا",
+    translation: "Certes, Dieu ne retire pas le savoir en l'arrachant aux gens, mais Il retire le savoir en rappelant à Lui les savants, jusqu'à ce qu'il ne reste plus de savants. Alors les gens prendront pour chefs des ignorants qui, interrogés, donneront des avis sans savoir, s'égarant eux-mêmes et égarant les autres.",
+    reference: "صحيح مسلم، الحديث رقم 2673",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 59,
+    arabic: "من سئل عن علم فكتمه ألجم يوم القيامة بلجام من نار",
+    translation: "Quiconque est interrogé sur un savoir qu'il détient et le cache sera muselé le Jour de la Résurrection par un mors de feu.",
+    reference: "صحيح مسلم، الحديث رقم 2674",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 60,
+    arabic: "من دل على خير فله مثل أجر فاعله",
+    translation: "Quiconque montre un bien aura une récompense semblable à celui qui l'accomplit.",
+    reference: "صحيح مسلم، الحديث رقم 1893",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 61-65
+  {
+    id: 61,
+    arabic: "من سن في الإسلام سنة حسنة فله أجرها وأجر من عمل بها بعده من غير أن ينقص من أجورهم شيء، ومن سن في الإسلام سنة سيئة كان عليه وزرها ووزر من عمل بها من بعده من غير أن ينقص من أوزارهم شيء",
+    translation: "Quiconque introduit dans l'Islam une bonne tradition en aura la récompense ainsi que celle de tous ceux qui la pratiqueront après lui, sans que cela ne diminue en rien leurs récompenses. Et quiconque introduit dans l'Islam une mauvaise tradition en aura le fardeau ainsi que celui de tous ceux qui la pratiqueront après lui, sans que cela ne diminue en rien leurs fardeaux.",
+    reference: "صحيح مسلم، الحديث رقم 1017",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 62,
+    arabic: "من دعا إلى هدى كان له من الأجر مثل أجور من تبعه لا ينقص ذلك من أجورهم شيئا، ومن دعا إلى ضلالة كان عليه من الإثم مثل آثام من تبعه لا ينقص ذلك من آثامهم شيئا",
+    translation: "Quiconque appelle à une bonne guidance aura une récompense égale à celle de tous ceux qui le suivent, sans que cela ne diminue en rien leurs récompenses. Et quiconque appelle à un égarement aura un péché égal à celui de tous ceux qui le suivent, sans que cela ne diminue en rien leurs péchés.",
+    reference: "صحيح مسلم، الحديث رقم 2674",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 63,
+    arabic: "من نفس عن مؤمن كربة من كرب الدنيا نفس الله عنه كربة من كرب يوم القيامة، ومن يسر على معسر يسر الله عليه في الدنيا والآخرة، ومن ستر مسلما ستره الله في الدنيا والآخرة، والله في عون العبد ما كان العبد في عون أخيه",
+    translation: "Quiconque soulage un croyant d'une des angoisses de ce monde, Dieu le soulagera d'une des angoisses du Jour de la Résurrection. Quiconque facilite les choses à quelqu'un dans la difficulté, Dieu lui facilitera les choses dans ce monde et dans l'au-delà. Quiconque couvre (les fautes d') un musulman, Dieu le couvrira dans ce monde et dans l'au-delà. Dieu vient en aide au serviteur tant que celui-ci vient en aide à son frère.",
+    reference: "صحيح مسلم، الحديث رقم 2699",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 64,
+    arabic: "المؤمن للمؤمن كالبنيان يشد بعضه بعضا",
+    translation: "Le croyant par rapport au croyant est comme un édifice dont les parties se renforcent mutuellement.",
+    reference: "صحيح مسلم، الحديث رقم 2585",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 65,
+    arabic: "مثل المؤمنين في توادهم وتراحمهم وتعاطفهم مثل الجسد إذا اشتكى منه عضو تداعى له سائر الجسد بالسهر والحمى",
+    translation: "L'exemple des croyants dans leur amour mutuel, leur miséricorde et leur compassion est celui d'un corps : quand un membre souffre, tout le corps veille et souffre de fièvre.",
+    reference: "صحيح مسلم، الحديث رقم 2586",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 66-70
+  {
+    id: 66,
+    arabic: "المسلم أخو المسلم لا يظلمه ولا يخذله ولا يحقره",
+    translation: "Le musulman est le frère du musulman : il ne l'opprime pas, ne l'abandonne pas et ne le méprise pas.",
+    reference: "صحيح مسلم، الحديث رقم 2564",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 67,
+    arabic: "حق المسلم على المسلم ست: إذا لقيته فسلم عليه، وإذا دعاك فأجبه، وإذا استنصحك فانصح له، وإذا عطس فحمد الله فشمته، وإذا مرض فعده، وإذا مات فاتبعه",
+    translation: "Les droits du musulman sur son frère musulman sont au nombre de six : quand tu le rencontres, salue-le ; quand il t'invite, réponds à son invitation ; quand il te demande conseil, conseille-le ; quand il éternue et loue Dieu, dis-lui 'Que Dieu te fasse miséricorde' ; quand il est malade, rends-lui visite ; et quand il meurt, suis son cortège funèbre.",
+    reference: "صحيح مسلم، الحديث رقم 2162",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 68,
+    arabic: "لا تحاسدوا، ولا تناجشوا، ولا تباغضوا، ولا تدابروا، وكونوا عباد الله إخوانا",
+    translation: "Ne soyez pas envieux les uns des autres, ne surenchérissez pas, ne vous haïssez pas, ne vous tournez pas le dos, et soyez des serviteurs de Dieu, frères.",
+    reference: "صحيح مسلم، الحديث رقم 2563",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 69,
+    arabic: "لا يحل لمسلم أن يهجر أخاه فوق ثلاث، فمن هجر فوق ثلاث فمات دخل النار",
+    translation: "Il n'est pas permis à un musulman de rompre avec son frère plus de trois jours. Quiconque rompt plus de trois jours puis meurt entrera en Enfer.",
+    reference: "صحيح مسلم، الحديث رقم 2560",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 70,
+    arabic: "المسلم من سلم المسلمون من لسانه ويده",
+    translation: "Le musulman est celui dont les musulmans sont à l'abri de sa langue et de sa main.",
+    reference: "صحيح مسلم، الحديث رقم 40",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 71-75
+  {
+    id: 71,
+    arabic: "لا يدخل الجنة نمام",
+    translation: "N'entrera pas au Paradis celui qui colporte les paroles pour semer la discorde.",
+    reference: "صحيح مسلم، الحديث رقم 105",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 72,
+    arabic: "إن العبد ليتكلم بالكلمة من رضوان الله لا يلقي لها بالا يرفعه الله بها درجات، وإن العبد ليتكلم بالكلمة من سخط الله لا يلقي لها بالا يهوي بها في جهنم",
+    translation: "Certes, le serviteur prononce une parole qui plaît à Dieu sans y prêter attention, et Dieu l'élève à cause d'elle de plusieurs degrés. Et certes, le serviteur prononce une parole qui provoque la colère de Dieu sans y prêter attention, et il chute à cause d'elle en Enfer.",
+    reference: "صحيح مسلم، الحديث رقم 2988",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 73,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier dise du bien ou se taise.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 74,
+    arabic: "إن الله تعالى يقول: أنا عند ظن عبدي بي، وأنا معه إذا ذكرني، فإن ذكرني في نفسه ذكرته في نفسي، وإن ذكرني في ملأ ذكرته في ملأ خير منهم",
+    translation: "Dieu dit : 'Je suis comme Mon serviteur pense que Je suis, et Je suis avec lui quand il M'évoque. S'il M'évoque en lui-même, Je l'évoque en Moi-même. S'il M'évoque dans une assemblée, Je l'évoque dans une meilleure assemblée.'",
+    reference: "صحيح مسلم، الحديث رقم 2675",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 75,
+    arabic: "إن الله تعالى يقول: إذا تقرب العبد إلي شبرا تقربت إليه ذراعا، وإذا تقرب إلي ذراعا تقربت إليه باعا، وإذا أتاني يمشي أتيته هرولة",
+    translation: "Dieu dit : 'Si Mon serviteur se rapproche de Moi d'un empan, Je me rapproche de lui d'une coudée. S'il se rapproche de Moi d'une coudée, Je me rapproche de lui d'une brasse. S'il vient à Moi en marchant, Je viens à lui en courant.'",
+    reference: "صحيح مسلم، الحديث رقم 2675",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 76-80
+  {
+    id: 76,
+    arabic: "يقول الله تعالى: أنا عند ظن عبدي بي، فليظن بي ما شاء",
+    translation: "Dieu dit : 'Je suis comme Mon serviteur pense que Je suis. Qu'il pense donc de Moi ce qu'il veut.'",
+    reference: "صحيح مسلم، الحديث رقم 2675",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 77,
+    arabic: "إن الله تعالى يقول: يا ابن آدم إنك ما دعوتني ورجوتني غفرت لك على ما كان منك ولا أبالي، يا ابن آدم لو بلغت ذنوبك عنان السماء ثم استغفرتني غفرت لك، يا ابن آدم إنك لو أتيتني بقراب الأرض خطايا ثم لقيتني لا تشرك بي شيئا لأتيتك بقرابها مغفرة",
+    translation: "Dieu dit : 'Ô fils d'Adam, tant que tu M'invoques et places ton espoir en Moi, Je te pardonne tes péchés sans M'en soucier. Ô fils d'Adam, si tes péchés atteignaient les nuages puis tu Me demandais pardon, Je te pardonnerais. Ô fils d'Adam, si tu venais à Moi avec des péchés aussi grands que la terre puis tu Me rencontrais sans M'associer quoi que ce soit, Je t'apporterais un pardon aussi grand.'",
+    reference: "صحيح مسلم، الحديث رقم 2675",
+    grade: "sahih",
+    length: "long"
+  },
+  {
+    id: 78,
+    arabic: "لله أشد فرحا بتوبة عبده من أحدكم بضالته إذا وجدها",
+    translation: "Dieu est plus heureux du repentir de Son serviteur que l'un de vous ne l'est de retrouver sa monture égarée.",
+    reference: "صحيح مسلم، الحديث رقم 2747",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 79,
+    arabic: "لو لم تذنبوا لذهب الله بكم ولجاء بقوم يذنبون فيستغفرون الله فيغفر لهم",
+    translation: "Si vous ne commettiez pas de péchés, Dieu vous ferait disparaître et amènerait des gens qui commettent des péchés puis demandent pardon à Dieu qui leur pardonnerait.",
+    reference: "صحيح مسلم، الحديث رقم 2749",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 80,
+    arabic: "كل بني آدم خطاء، وخير الخطائين التوابون",
+    translation: "Tous les fils d'Adam sont fautifs, et les meilleurs des fautifs sont ceux qui se repentent.",
+    reference: "صحيح مسلم، الحديث رقم 2749",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 81-85
+  {
+    id: 81,
+    arabic: "إن الله تعالى يبسط يده بالليل ليتوب مسيء النهار، ويبسط يده بالنهار ليتوب مسيء الليل، حتى تطلع الشمس من مغربها",
+    translation: "Certes, Dieu étend Sa main la nuit pour accueillir le repentir de celui qui a fauté le jour, et Il étend Sa main le jour pour accueillir le repentir de celui qui a fauté la nuit, jusqu'à ce que le soleil se lève à l'ouest.",
+    reference: "صحيح مسلم، الحديث رقم 2759",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 82,
+    arabic: "التائب من الذنب كمن لا ذنب له",
+    translation: "Celui qui se repent d'un péché est comme celui qui n'a pas de péché.",
+    reference: "صحيح مسلم، الحديث رقم 2748",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 83,
+    arabic: "إن الله تعالى يقبل توبة العبد ما لم يغرغر",
+    translation: "Certes, Dieu accepte le repentir du serviteur tant que le râle de la mort ne l'a pas atteint.",
+    reference: "صحيح مسلم، الحديث رقم 2703",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 84,
+    arabic: "من تاب قبل أن تطلع الشمس من مغربها تاب الله عليه",
+    translation: "Quiconque se repent avant que le soleil ne se lève à l'ouest, Dieu acceptera son repentir.",
+    reference: "صحيح مسلم، الحديث رقم 2703",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 85,
+    arabic: "إن الله يحب التوابين ويحب المتطهرين",
+    translation: "Certes, Dieu aime ceux qui se repentent et ceux qui se purifient.",
+    reference: "صحيح مسلم، الحديث رقم 2761",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 86-90
+  {
+    id: 86,
+    arabic: "من أحب أن يزحزح عن النار ويدخل الجنة فلتدركه منيته وهو يؤمن بالله واليوم الآخر، وليأت إلى الناس الذي يحب أن يؤتى إليه",
+    translation: "Quiconque aime être éloigné du Feu et entrer au Paradis, que la mort le surprenne alors qu'il croit en Dieu et au Jour Dernier, et qu'il traite les gens comme il aimerait être traité.",
+    reference: "صحيح مسلم، الحديث رقم 1844",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 87,
+    arabic: "لا يؤمن أحدكم حتى يحب لأخيه ما يحب لنفسه",
+    translation: "Aucun de vous ne croira vraiment tant qu'il n'aimera pas pour son frère ce qu'il aime pour lui-même.",
+    reference: "صحيح مسلم، الحديث رقم 45",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 88,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليكرم جاره",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier honore son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 89,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier dise du bien ou se taise.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 90,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليكرم ضيفه",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier honore son invité.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  },
+
+  // Hadiths 91-95
+  {
+    id: 91,
+    arabic: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر",
+    translation: "N'entrera pas au Paradis celui qui a dans son cœur ne serait-ce qu'un atome d'orgueil.",
+    reference: "صحيح مسلم، الحديث رقم 91",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 92,
+    arabic: "الكبر بطر الحق وغمط الناس",
+    translation: "L'orgueil, c'est de rejeter la vérité et de mépriser les gens.",
+    reference: "صحيح مسلم، الحديث رقم 91",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 93,
+    arabic: "لا يدخل الجنة من لا يأمن جاره بوائقه",
+    translation: "N'entrera pas au Paradis celui dont le voisin n'est pas à l'abri de ses méfaits.",
+    reference: "صحيح مسلم، الحديث رقم 46",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 94,
+    arabic: "ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه",
+    translation: "L'ange Gabriel ne cessait de me recommander le voisin au point où j'ai cru qu'il allait lui donner droit à l'héritage.",
+    reference: "صحيح مسلم، الحديث رقم 2624",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 95,
+    arabic: "خير الأصحاب عند الله خيرهم لصاحبه، وخير الجيران عند الله خيرهم لجاره",
+    translation: "Le meilleur compagnon auprès de Dieu est celui qui est le meilleur envers son compagnon. Le meilleur voisin auprès de Dieu est celui qui est le meilleur envers son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 2628",
+    grade: "sahih",
+    length: "medium"
+  },
+
+  // Hadiths 96-100
+  {
+    id: 96,
+    arabic: "من كان يؤمن بالله واليوم الآخر فلا يؤذ جاره",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier ne nuise pas à son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 97,
+    arabic: "والله لا يؤمن، والله لا يؤمن، والله لا يؤمن. قيل: من يا رسول الله؟ قال: الذي لا يأمن جاره بوائقه",
+    translation: "Par Dieu, il ne croit pas ! Par Dieu, il ne croit pas ! Par Dieu, il ne croit pas ! On demanda : 'Qui, ô Messager de Dieu ?' Il dit : 'Celui dont le voisin n'est pas à l'abri de ses méfaits.'",
+    reference: "صحيح مسلم، الحديث رقم 46",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 98,
+    arabic: "ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه",
+    translation: "L'ange Gabriel ne cessait de me recommander le voisin au point où j'ai cru qu'il allait lui donner droit à l'héritage.",
+    reference: "صحيح مسلم، الحديث رقم 2624",
+    grade: "sahih",
+    length: "medium"
+  },
+  {
+    id: 99,
+    arabic: "خير الجيران عند الله خيرهم لجاره",
+    translation: "Le meilleur voisin auprès de Dieu est celui qui est le meilleur envers son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 2628",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 100,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليحسن إلى جاره",
+    translation: "Que celui qui croit en Dieu et au Jour Dernier soit bienfaisant envers son voisin.",
+    reference: "صحيح مسلم، الحديث رقم 47",
+    grade: "sahih",
+    length: "short"
+  }
+],
+      abudawud: [
+        {
+    id: 1,
+    arabic: "اتقوا الظلم فإن الظلم ظلمات يوم القيامة، واتقوا الشح فإن الشح أهلك من كان قبلكم، حملهم على أن سفكوا دماءهم واستحلوا محارمهم",
+    translation: "Craignez l'injustice, car l'injustice sera des ténèbres au Jour de la Résurrection. Craignez l'avarice, car l'avarice a causé la perte de ceux qui vous ont précédés. Elle les a amenés à verser leur sang et à transgresser leurs interdits.",
+    reference: "سنن أبي داود، الحديث رقم 1691",
+    grade: "حسن",
+    length: "medium"
+  },
+  {
+    id: 2,
+    arabic: "الراحمون يرحمهم الرحمن، ارحموا من في الأرض يرحمكم من في السماء",
+    translation: "Les miséricordieux recevront la miséricorde du Tout Miséricordieux. Soyez miséricordieux envers ceux qui sont sur terre, et Celui qui est au ciel vous fera miséricorde.",
+    reference: "سنن أبي داود، الحديث رقم 4941",
+    grade: "صحيح",
+    length: "short"
+  },
+  {
+    id: 3,
+    arabic: "تبسمك في وجه أخيك صدقة",
+    translation: "Ton sourire à ton frère est une aumône.",
+    reference: "سنن أبي داود، الحديث رقم 5048",
+    grade: "صحيح",
+    length: "short"
+  },
+  {
+    id: 4,
+    arabic: "ما زاد الله عبدا بعفو إلا عزا",
+    translation: "Allah n'augmente un serviteur en pardon que par un honneur accru.",
+    reference: "سنن أبي داود، الحديث رقم 4947",
+    grade: "حسن",
+    length: "short"
+  },
+  {
+    id: 5,
+    arabic: "المسلم من سلم المسلمون من لسانه ويده",
+    translation: "Le musulman est celui dont les autres musulmans sont à l'abri de sa langue et de sa main.",
+    reference: "سنن أبي داود، الحديث رقم 4860",
+    grade: "صحيح",
+    length: "short"
+  },
+  {
+    id: 6,
+    arabic: "من لا يشكر الناس لا يشكر الله",
+    translation: "Celui qui ne remercie pas les gens ne remercie pas Allah.",
+    reference: "سنن أبي داود، الحديث رقم 4811",
+    grade: "صحيح",
+    length: "short"
+  },
+  {
+    id: 7,
+    arabic: "أحب الأعمال إلى الله أدومها وإن قل",
+    translation: "Les actions les plus aimées d'Allah sont celles qui sont les plus régulières, même si elles sont peu nombreuses.",
+    reference: "سنن أبي داود، الحديث رقم 1368",
+    grade: "صحيح",
+    length: "medium"
+  },
+  {
+    id: 8,
+    arabic: "إن الله يحب إذا عمل أحدكم عملا أن يتقنه",
+    translation: "Allah aime que lorsque l'un de vous fait un travail, il le fasse avec excellence.",
+    reference: "سنن أبي داود، الحديث رقم 4845",
+    grade: "حسن",
+    length: "short"
+  },
+  {
+    id: 9,
+    arabic: "الكلمة الطيبة صدقة",
+    translation: "Une bonne parole est une aumône.",
+    reference: "سنن أبي داود، الحديث رقم 5249",
+    grade: "صحيح",
+    length: "short"
+  },
+  {
+    id: 10,
+    arabic: "من كان يؤمن بالله واليوم الآخر فليقل خيرا أو ليصمت",
+    translation: "Que celui qui croit en Allah et au Jour Dernier dise du bien ou se taise.",
+    reference: "سنن أبي داود، الحديث رقم 5154",
+    grade: "صحيح",
+    length: "medium"
+  }
+      ],
+      tirmidhi: [
+  {
+    id: 1,
+    arabic: "من سلك طريقا يلتمس فيه علما سهل الله له به طريقا إلى الجنة",
+    translation: "Quiconque emprunte un chemin en quête de savoir, Dieu lui facilitera un chemin vers le Paradis.",
+    reference: "جامع الترمذي، الحديث رقم 2646",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 2,
+    arabic: "اتق الله حيثما كنت، وأتبع السيئة الحسنة تمحها، وخالق الناس بخلق حسن",
+    translation: "Crains Allah où que tu sois, fais suivre une mauvaise action par une bonne qui l'effacera, et comporte-toi avec les gens de manière noble.",
+    reference: "جامع الترمذي، الحديث رقم 1987",
+    grade: "hasan sahih",
+    length: "medium"
+  },
+  {
+    id: 3,
+    arabic: "الحياء شعبة من الإيمان",
+    translation: "La pudeur est une branche de la foi.",
+    reference: "جامع الترمذي، الحديث رقم 2612",
+    grade: "sahih",
+    length: "short"
+  },
+  {
+    id: 4,
+    arabic: "ما نحل والد ولده أفضل من أدب حسن",
+    translation: "Il n'y a pas de cadeau qu'un parent offre à son enfant de meilleur qu'une bonne éducation.",
+    reference: "جامع الترمذي، الحديث رقم 1952",
+    grade: "hasan",
+    length: "short"
+  },
+  {
+    id: 5,
+    arabic: "من كان له ثلاث بنات فصبر عليهن وأطعمهن وسقاهن وكساهن من جدته كن له حجابا من النار يوم القيامة",
+    translation: "Celui qui a trois filles, patiente à leur sujet, les nourrit, les abreuve et les habille selon ses moyens, elles seront pour lui une protection contre le Feu le Jour du Jugement.",
+    reference: "جامع الترمذي، الحديث رقم 1916",
+    grade: "sahih",
+    length: "medium"
+  }
+],
+      nasai: [
+        {
+          id: 1,
+          arabic: "من كان له ثلاث بنات فصبر عليهن وأطعمهن وسقاهن وكساهن من جدته كن له حجابا من النار يوم القيامة",
+          translation: "Quiconque a trois filles, est patient avec elles, les nourrit, les abreuve et les habille de ses biens, elles seront pour lui une protection contre le Feu le Jour de la Résurrection.",
+          reference: "سنن النسائي، الحديث رقم 3232",
+          grade: "sahih",
+          length: "medium"
+        }
+      ],
+      random: [
+        {
+          id: 1,
+          arabic: "الكلمة الطيبة صدقة",
+          translation: "Une bonne parole est une aumône.",
+          reference: "صحيح البخاري، الحديث رقم 2989",
+          grade: "sahih",
+          length: "short"
+        },
+        {
+          id: 2,
+          arabic: "تبسمك في وجه أخيك صدقة",
+          translation: "Ton sourire à ton frère est une aumône.",
+          reference: "جامع الترمذي، الحديث رقم 1878",
+          grade: "sahih",
+          length: "short"
+        },
+        {
+          id: 3,
+          arabic: "ما زال جبريل يوصيني بالجار حتى ظننت أنه سيورثه",
+          translation: "L'ange Gabriel ne cessait de me recommander le voisin au point où j'ai cru qu'il allait lui donner droit à l'héritage.",
+          reference: "صحيح البخاري، الحديث رقم 6014",
+          grade: "sahih",
+          length: "medium"
+        },
+        {
+          id: 4,
+          arabic: "لا يدخل الجنة من كان في قلبه مثقال ذرة من كبر",
+          translation: "N'entrera pas au Paradis celui qui a dans son cœur ne serait-ce qu'un atome d'orgueil.",
+          reference: "صحيح مسلم، الحديث رقم 91",
+          grade: "sahih",
+          length: "short"
+        },
+        {
+          id: 5,
+          arabic: "إن الله تعالى يحب إذا عمل أحدكم عملا أن يتقنه",
+          translation: "Certes, Dieu aime que lorsque l'un de vous fait un travail, il le fasse avec perfection.",
+          reference: "سنن البيهقي، الحديث رقم 12672",
+          grade: "hasan",
+          length: "short"
+        }
+      ]
+    };
+    
+    // Global variables
+    let currentBook = null;
+    let currentHadiths = [];
+    let filteredHadiths = [];
+    let currentPage = 1;
+    const hadithsPerPage = 5;
+    let fontSize = 1.5;
+    let currentTheme = {
+      primary: '#2c5e50',
+      secondary: '#1e3c36',
+      accent: '#d4af37'
+    };
+    
+    // Navigation functions
+    function loadHadithBook(bookId) {
+      currentBook = bookId;
+      document.getElementById('main-nav').classList.add('hidden');
+      document.getElementById('hadith-page').classList.remove('hidden');
+      document.getElementById('hadith-book-title').textContent = hadithBooks[bookId].name;
+      
+      // Show loading spinner
+      const hadithList = document.getElementById('hadith-list');
+      hadithList.innerHTML = '<div class="col-span-full text-center py-12"><div class="spinner"></div><p class="mt-4">جاري تحميل الأحاديث...</p></div>';
+      
+      // Simulate API fetch with timeout (in a real app, you would use actual API call)
+      setTimeout(() => {
+        currentHadiths = sampleHadiths[bookId] || [];
+        filteredHadiths = [...currentHadiths];
+        renderHadiths();
+        updatePagination();
+      }, 800);
+    }
+    
+    function loadRandomHadiths() {
+      currentBook = 'random';
+      document.getElementById('main-nav').classList.add('hidden');
+      document.getElementById('hadith-page').classList.remove('hidden');
+      document.getElementById('hadith-book-title').textContent = "أحاديث مختارة";
+      
+      currentHadiths = sampleHadiths.random;
+      filteredHadiths = [...currentHadiths];
+      renderHadiths();
+      updatePagination();
+    }
+    
+    function backToMain() {
+      document.getElementById('main-nav').classList.remove('hidden');
+      document.getElementById('hadith-page').classList.add('hidden');
+      currentBook = null;
+      currentHadiths = [];
+      currentPage = 1;
+    }
+    
+    // Rendering functions
+    function renderHadiths() {
+      const hadithList = document.getElementById('hadith-list');
+      hadithList.innerHTML = '';
+      
+      if (filteredHadiths.length === 0) {
+        hadithList.innerHTML = '<div class="col-span-full text-center py-12 text-xl">لا توجد أحاديث تطابق معايير البحث</div>';
+        return;
+      }
+      
+      const startIndex = (currentPage - 1) * hadithsPerPage;
+      const endIndex = startIndex + hadithsPerPage;
+      const hadithsToShow = filteredHadiths.slice(startIndex, endIndex);
+      
+      hadithsToShow.forEach((hadith, index) => {
+        const hadithElement = document.createElement('div');
+        hadithElement.className = 'hadith-container p-6 fade-in';
+        hadithElement.style.animationDelay = `${index * 0.1}s`;
+        
+        hadithElement.innerHTML = `
+          <div class="relative">
+            <div class="hadith-number">${hadith.id}</div>
+            <div class="hadith-arabic">${hadith.arabic}</div>
+            <div class="hadith-translation">${hadith.translation}</div>
+            <div class="hadith-reference">${hadith.reference}</div>
+          </div>
+        `;
+        
+        hadithList.appendChild(hadithElement);
+      });
+    }
+    
+    // Filter functions
+    function filterHadiths(filter) {
+      // Update active filter button
+      document.querySelectorAll('#filters .filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      if (filter === 'all') {
+        filteredHadiths = [...currentHadiths];
+      } else if (filter === 'sahih') {
+        filteredHadiths = currentHadiths.filter(h => h.grade === 'sahih');
+      } else if (filter === 'hasan') {
+        filteredHadiths = currentHadiths.filter(h => h.grade === 'hasan');
+      } else if (filter === 'daif') {
+        filteredHadiths = currentHadiths.filter(h => h.grade === 'daif');
+      } else if (filter === 'short') {
+        filteredHadiths = currentHadiths.filter(h => h.length === 'short');
+      } else if (filter === 'long') {
+        filteredHadiths = currentHadiths.filter(h => h.length === 'long');
+      }
+      
+      currentPage = 1;
+      renderHadiths();
+      updatePagination();
+    }
+    
+    // Search function
+    document.getElementById('hadith-search').addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      
+      if (searchTerm === '') {
+        filteredHadiths = [...currentHadiths];
+      } else {
+        filteredHadiths = currentHadiths.filter(hadith => {
+          return hadith.arabic.toLowerCase().includes(searchTerm) || 
+                 hadith.translation.toLowerCase().includes(searchTerm) ||
+                 hadith.reference.toLowerCase().includes(searchTerm);
+        });
+      }
+      
+      currentPage = 1;
+      renderHadiths();
+      updatePagination();
+    });
+    
+    // Pagination functions
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredHadiths.length / hadithsPerPage);
+      document.getElementById('page-info').textContent = `الصفحة ${currentPage} من ${totalPages}`;
+      
+      document.getElementById('prev-page').disabled = currentPage === 1;
+      document.getElementById('next-page').disabled = currentPage === totalPages || totalPages === 0;
+    }
+    
+    document.getElementById('prev-page').addEventListener('click', function() {
+      if (currentPage > 1) {
+        currentPage--;
+        renderHadiths();
+        updatePagination();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+    
+    document.getElementById('next-page').addEventListener('click', function() {
+      const totalPages = Math.ceil(filteredHadiths.length / hadithsPerPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderHadiths();
+        updatePagination();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+    
+    // Text size functions
+    function increaseTextSize() {
+      if (fontSize < 2.5) {
+        fontSize += 0.25;
+        updateTextSize();
+      }
+    }
+    
+    function decreaseTextSize() {
+      if (fontSize > 1) {
+        fontSize -= 0.25;
+        updateTextSize();
+      }
+    }
+    
+    function updateTextSize() {
+      document.querySelectorAll('.hadith-arabic').forEach(el => {
+        el.style.fontSize = `${fontSize}rem`;
+      });
+      
+      document.querySelectorAll('.hadith-translation').forEach(el => {
+        el.style.fontSize = `${fontSize * 0.85}rem`;
+      });
+    }
+    
+    // Theme functions
+    function changeTheme(primary, secondary, accent) {
+      document.documentElement.style.setProperty('--primary-color', primary);
+      document.documentElement.style.setProperty('--secondary-color', secondary);
+      document.documentElement.style.setProperty('--accent-color', accent);
+      
+      currentTheme = { primary, secondary, accent };
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      // Set up event listeners
+      document.getElementById('hadith-search').addEventListener('input', function() {
+        if (this.value) {
+          this.parentNode.querySelector('i').classList.add('hidden');
+        } else {
+          this.parentNode.querySelector('i').classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+
+
+</body></html>
