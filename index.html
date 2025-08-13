@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANSAR ALMOUYASSAR</title>
+  <link rel="stylesheet" href="main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Amiri&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <!-- Scripts Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script src="chatbotResponses.js"></script>
+  <script src="main.js" defer></script>
+  <script src="https://unpkg.com/@whereby.com/browser-sdk"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+  <nav class="top-nav">
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+    <div class="header-icons">
+      <span class="material-icons social-icon" onclick="showPage('social')">share</span>
+     <i class="fas fa-share-alt settings-icon" onclick="showPage('settings')"></i>
+    </div>
+  </nav>
+</header>
+  <main>
+    <!-- Page d'accueil -->
+<!-- Page d'accueil -->
+<!-- Page d'accueil -->
+<!-- Page d'accueil -->
+<section id="home" class="page active">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+  <div class="header" style="background-image: url('photo1.png');">
+    <div class="header-content">
+      <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+      <button class="settings" onclick="showPage('settings')"><i class="fas fa-cog"></i></button>
+    </div>
+    <div class="ad-banner">
+      <div class="ad-text banner-text">
+        <h2>ANSAR ALMOUYASSAR</h2>
+        <p>Association des ressortissants de l'institut Al Mouyassar</p>
+      </div>
+    </div>
+  </div>
+  <div class="association-title">
+    <span>ANSAR ALMOUYASSAR</span>
+  </div>
+  <div id="home-motivation"></div>
+  <div class="image-card">
+    <img src="photo2.png" alt="Image">
+  </div>
+  <div id="event-countdowns"></div>
+<div class="grid">
+  <!-- 4 Boutons RONDS en haut -->
+  <div class="item circle-item" onclick="showPage('events')">
+    <i class="fas fa-calendar-alt icon"></i>
+    <span class="item-text">Événements</span>
+  </div>
+  <div class="item circle-item" onclick="showPage('quibla')">
+    <i class="fas fa-compass icon"></i>
+    <span class="item-text">Quibla</span>
+  </div>
+  <div class="item circle-item" onclick="showPage('quizz')">
+    <i class="fas fa-question-circle icon"></i>
+    <span class="item-text">Quiz</span>
+  </div>
+  <div class="item circle-item" onclick="showPage('tasbih')">
+    <i class="fas fa-circle-notch icon"></i>
+    <span class="item-text">Tasbih</span>
+  </div>
+
+  <!-- 6 Boutons RECTANGULAIRES en bas -->
+ <div class="item" onclick="showPage('priere')">
+    <span class="item-text">Prière</span>
+    <i class="fas fa-person-praying icon"></i> 
+  </div>
+  <div class="item" onclick="showPage('coran')">
+    <span class="item-text">Coran</span>
+    <i class="fas fa-quran icon"></i>
+  </div>
+  <div class="item" onclick="showPage('hadith')">
+    <span class="item-text">Hadith</span>
+    <i class="fas fa-book icon"></i>
+  </div>
+  <div class="item" onclick="showPage('library')">
+    <span class="item-text">Bibliothèque</span>
+    <i class="fas fa-book-open icon"></i>
+  </div>
+  <div class="item" onclick="showPage('projet')">
+    <span class="item-text">Projets Ansar</span>
+    <i class="fas fa-rocket icon"></i>
+  </div>
+  <div class="item" onclick="showPage('members')">
+    <span class="item-text">Membres</span>
+    <i class="fas fa-users icon"></i>
+  </div>
+</div>
+ <!-- Page Quibla -->
+
+  
+<h3>AFFICHE</h3>
+<div id="home-gallery" class="gallery-grid">
+  <!-- Affiche 1 -->
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/YSWBrCXB/image3.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/RF1F0RPm/5825534177204882181.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+
+   <div class="gallery-item">
+    <img src="https://i.postimg.cc/Pf4JsSpz/5825534177204882182.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/RVZFMwwr/5825534177204882183.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+   <div class="gallery-item">
+    <img src="https://i.postimg.cc/52Ff0g0r/5825534177204882184.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/c4zs02sY/5825534177204882186.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+
+   <div class="gallery-item">
+    <img src="https://i.postimg.cc/7hsqCQ0F/5825534177204882188.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/vHTYRbdb/5825534177204882185.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+   <div class="gallery-item">
+    <img src="https://i.postimg.cc/wMT6jdy5/5825534177204882187.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+   <div class="gallery-item">
+    <img src="https://i.postimg.cc/KjKHN9dS/5825534177204881970-1.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  <div class="gallery-item">
+    <img src="https://i.postimg.cc/DfDDZTX2/5825534177204882189.jpg" alt="Affiche 1" onclick="openImage('https://i.postimg.cc/XXXXXX/affiche1.jpg')">
+  </div>
+  
+  </div>
+  
+</section>
+     
+    
+    <!-- Page Qibla -->
+<section id="quibla" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+  
+  <iframe src="quibla.html" 
+          style="
+    position: absolute;
+    top: 100px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "
+          title="Direction Qibla">
+  </iframe>
+</section>
+
+<!-- Page Tasbih -->
+<section id="tasbih" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="tasbih.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Compteur de Tasbih">
+  </iframe>
+</section>
+
+<!-- Page Prière -->
+<section id="priere" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="priere.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Horaires de Prière">
+  </iframe>
+</section>
+
+<!-- Page Quiz -->
+<section id="quizz" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="quizz.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Quiz Islamique">
+  </iframe>
+</section>
+    
+    <!-- Page des membres -->
+ <section id="members" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+  
+  <h2>Liste des Membres</h2>
+  <div id="members-list" class="members-grid">
+    <!-- Les cartes de membres seront générées ici -->
+  </div>
+   Cette liste n’est pas exhaustive !
+</section>
+    
+    <!-- Page des réseaux sociaux -->
+<section id="social" class="page">
+  <h2>Nos Réseaux Sociaux</h2>
+  <div class="social-links">
+    <a href="https://facebook.com/votrepage" target="_blank" class="social-link facebook">
+      <i class="fab fa-facebook-f"></i>
+      <span>Facebook</span>
+    </a>
+    <a href="https://twitter.com/votrecompte" target="_blank" class="social-link twitter">
+      <i class="fab fa-twitter"></i>
+      <span>Twitter</span>
+    </a>
+    <a href="https://instagram.com/votrecompte" target="_blank" class="social-link instagram">
+      <i class="fab fa-instagram"></i>
+      <span>Instagram</span>
+    </a>
+    <a href="https://wa.me/votrenumero" target="_blank" class="social-link whatsapp">
+      <i class="fab fa-whatsapp"></i>
+      <span>WhatsApp</span>
+    </a>
+    <a href="https://youtube.com/votrechaine" target="_blank" class="social-link youtube">
+      <i class="fab fa-youtube"></i>
+      <span>YouTube</span>
+    </a>
+  </div>
+</section>
+
+    <!-- Page des événements -->
+<!-- Page des événements -->
+<section id="events" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+   <button onclick="showPage('home')" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  <div class="association-title">Événements à venir</div>
+  
+  <div id="events-list"></div>
+</section>
+
+    <!-- Page Coran -->
+<!-- Page Coran -->
+<section id="coran" class="page">
+    <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+  
+  <iframe src="coran.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+           bottom: 97px;   /* Évite la barre du bas */
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+  "          title="Mushaf Coranique">
+  </iframe>
+</section>
+
+   <!-- Page hadith-->
+<!-- Page Hadith -->
+<!-- Page Hadith -->
+<section id="hadith" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+ 
+  <iframe src="hadith.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Recueil de Hadiths">
+  </iframe>
+</section>
+<!-- Page projet -->
+<section id="projet" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+ 
+  <iframe src="projet.html" 
+style="
+    position: absolute;
+    top: 97px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 100px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Recueil de Hadiths">
+  </iframe>
+</section>
+    
+<script>
+function handleIframeError() {
+  console.error('Erreur de chargement de l\'iframe Projet');
+  document.getElementById('projet-error').style.display = 'block';
+  document.getElementById('projet-iframe').style.display = 'none';
+}
+</script>
+    
+
+ <section id="library" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+   
+  <div class="messages-header-container">
+    <div class="messages-header">Bibliothèques</div>
+  </div>
+  
+  <div id="library-content" class="library-grid">
+    <!-- Les livres seront générés ici -->
+  </div>
+</section>
+
+    
+    <!-- Page des Messages -->
+<section id="messages" class="page">
+  <div class="messages-header-container">
+    <div class="messages-header">Boîte de réception</div>
+  </div>
+  
+  <div class="messages-list">
+    <!-- Message 1 -->
+    <div class="message-card">
+      <div class="title">
+        <img src="logo.png" alt="Logo">
+        Présidence
+      </div>
+      <div class="message">
+Nous vous remercions sincèrement de visiter la version web de l’application ANSAR ALMOUYASSAR.
+Il s’agit d’un pré-lancement : certaines fonctionnalités sont volontairement limitées pour des raisons divers.
+La version complète sera disponible dans l'application in cha’ Allah, le 10 septembre 2025. Rendez-vous dans Play Store
+Merci pour votre patience et votre compréhension. 
+
+      </div>
+      <div class="separator"></div>
+      <div class="date">23/08/2025</div>
+    </div>
+    
+   
+    
+    <!-- Ajoutez 3 autres messages de la même manière -->
+  </div>
+</section>
+    
+    <!-- Espace personnel -->
+ <!-- Espace personnel -->
+  <!-- Espace personnel -->
+<section id="personal" class="page">
+  
+
+  <!-- Nouveau design de connexion (visible par défaut) -->
+ <iframe src="personal.html" 
+style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+       
+    margin: 0;
+    padding: 0;
+  "          title=" ">
+  </iframe>
+  <!-- Espace membre (identique à votre version actuelle) -->
+  <div id="personal-content" style="display: none;">
+    <div class="main">
+      <div class="top-section">
+        <div class="profile-container">
+          <div class="profile-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <p id="personal-title" class="user-name"></p>
+          <p id="personal-role" class="user-role"></p>
+        </div>
+      </div>
+
+      <div class="bottom-section">
+        <div class="container">
+          <h1>Compte</h1>
+
+          <div id="personal-info" class="section info-section">
+            <!-- Contenu dynamique -->
+          </div>
+
+          <div id="personal-contributions" class="section cotisations-section">
+            <h2>Cotisations Mensuelles</h2>
+            <div id="cotisations-content"></div>
+            <h2>Autres Cotisations</h2>
+            <div id="global-cotisations-content"></div>
+          </div>
+
+          <div class="payment-methods">
+            <button class="payment-btn" onclick="payViaWave()">Payer via Wave</button>
+            <button class="payment-btn" onclick="payViaOrangeMoney()">Payer via Orange Money</button>
+          </div>
+
+          <div class="section suggestions-section">
+            <h2>Suggestions</h2>
+            <form id="suggestion-form">
+              <textarea id="suggestion-text" placeholder="Écrivez vos suggestions ici..." rows="4" required></textarea>
+              <button type="submit" class="cta-button">Envoyer</button>
+            </form>
+          </div>
+
+          <button class="logout-btn" onclick="logoutPersonal()">Se Déconnecter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- Espace Secret Général -->
+    <section id="secret" class="page">
+      <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+      <h2>Espace Administration</h2>
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('add-member')">Ajouter un Membre</button>
+        <button class="tab-button" onclick="showTab('mass-import')">Import en Masse</button>
+        <button class="tab-button" onclick="showTab('edit-member')">Modifier un Membre</button>
+        <button class="tab-button" onclick="showTab('events-admin')">Événements</button>
+        <button class="tab-button" onclick="showTab('messages-admin')">Messages</button>
+        <button class="tab-button" onclick="showTab('notes')">Notes</button>
+        <button class="tab-button" onclick="showTab('suggestions-admin')">Suggestions</button>
+        <button class="tab-button" onclick="showTab('stats')">Statistiques</button>
+        <button class="tab-button" onclick="showTab('auto-messages')">Messages Automatisés</button>
+      </div>
+      <div id="add-member" class="tab-content active">
+        <h3>Ajouter un Membre</h3>
+        <form id="add-member-form">
+          <input type="text" id="new-member-firstname" placeholder="Prénom (obligatoire)" required>
+          <input type="text" id="new-member-lastname" placeholder="Nom (obligatoire)" required>
+          <input type="number" id="new-member-age" placeholder="Âge">
+          <input type="text" id="new-member-dob" placeholder="Date de naissance (JJMMAAAA)">
+          <input type="text" id="new-member-birthplace" placeholder="Lieu de naissance">
+          <input type="email" id="new-member-email" placeholder="Email">
+          <input type="text" id="new-member-activity" placeholder="Activité actuelle">
+          <input type="text" id="new-member-address" placeholder="Adresse">
+          <input type="tel" id="new-member-phone" placeholder="Numéro de téléphone">
+          <input type="text" id="new-member-residence" placeholder="Num. Carte d'identité CIN">
+<select id="new-member-role">
+  <option value="membre">Membre Simple</option>
+  <option value="tresorier">Trésorier</option>
+  <option value="vice-tresorier">Vice-Trésorière</option>
+  <option value="president">Président</option>
+  <option value="vice-president">Vice-Présidente</option>
+  <option value="secretaire">Secrétaire</option>
+  <option value="vice-secretaire">Vice-Secrétaire</option>
+</select>
+          <select id="new-member-status">
+            <option value="actif">Actif</option>
+            <option value="inactif">Inactif</option>
+            <option value="liste-noire">Liste noire</option>
+          </select>
+          <button type="submit" class="cta-button">Ajouter</button>
+        </form>
+      </div>
+      
+      <div id="mass-import" class="tab-content">
+  <h3>Importation en masse</h3>
+  <textarea id="mass-members-data" placeholder="Collez les données au format:
+Prénom|Nom|Âge|Email|Téléphone|Rôle|Statut|Adresse|Activité|Résidence|Lieu de naissance|Date de naissance" 
+            rows="20" style="width:100%"></textarea>
+  <button class="cta-button" onclick="importMembersBulk()">Importer</button>
+  <div id="import-progress"></div>
+</div>
+      
+      <div id="edit-member" class="tab-content">
+        <h3>Modifier/Supprimer un Membre</h3>
+         <!-- Ajoutez cette barre de recherche -->
+  <div class="search-container" style="margin-bottom: 20px;">
+    <input type="text" id="edit-member-search" placeholder="Rechercher un membre..." 
+           style="padding: 8px; width: 100%; max-width: 400px; border-radius: 4px; border: 1px solid #ccc;">
+ 
+  </div>
+        <div id="edit-members-list"></div>
+        <form id="delete-member-form" style="display: none;">
+          <p>Entrez le code président pour confirmer la suppression :</p>
+          <input type="password" id="delete-member-code" placeholder="Code président" required>
+          <button type="submit" class="cta-button">Confirmer la suppression</button>
+          <button type="button" class="cta-button" onclick="showPage('admin-members')">Annuler</button>
+        </form>
+      </div>
+      <div id="events-admin" class="tab-content">
+        <h3>Ajouter un Événement</h3>
+        <form id="add-event-form">
+          <input type="text" id="event-name" placeholder="Nom de l'événement" required>
+          <input type="date" id="event-date" required>
+          <input type="time" id="event-time" required>
+          <textarea id="event-description" placeholder="Description" required></textarea>
+          <button type="submit" class="cta-button">Ajouter</button>
+        </form>
+         <div id="events-admin-list"></div>
+      </div>
+      <div id="messages-admin" class="tab-content">
+        <h3>Gérer les Messages</h3>
+        <form id="add-message-form">
+          <input type="text" id="message-title" placeholder="Titre du message" required>
+          <textarea id="message-text" placeholder="Contenu du message" required></textarea>
+          <button type="submit" class="cta-button">Envoyer</button>
+        </form>
+         <div id="messages-admin-list"></div>
+      </div>
+      <div id="notes" class="tab-content">
+        <h3>Notes</h3>
+        <form id="add-note-form">
+          <input type="text" id="note-theme" placeholder="Thème (ex. : Réunion)" required>
+          <textarea id="note-text" placeholder="Contenu de la note" required></textarea>
+          <button type="submit" class="cta-button">Ajouter</button>
+        </form>
+         <div id="notes-list"></div>
+      </div>
+      <div id="internal-docs" class="tab-content">
+        <h3>Documents Internes</h3>
+        <form id="add-internal-doc-form">
+          <input type="text" id="internal-doc-category" placeholder="Catégorie" required>
+          <button type="submit" class="cta-button">Ajouter</button>
+        </form>
+         <div id="internal-docs-list"></div>
+      </div>
+      <div id="suggestions-admin" class="tab-content">
+        <h3>Suggestions des Membres</h3>
+         <div id="suggestions-list"></div>
+      </div>
+      <button class="tab-button" onclick="showTab('suggestions-admin')">Suggestions</button>
+ <div id="stats" class="tab-content">
+  <h3>Statistiques</h3>
+  <div id="stats-selection">
+    <label for="stats-type">Type de cotisation :</label>
+    <select id="stats-type">
+      <option value="monthly">Cotisations Mensuelles</option>
+      <option value="global">Cotisations Globales</option>
+    </select>
+
+    <!-- Sélection pour les cotisations mensuelles -->
+    <div id="monthly-selection" style="display: block;">
+      <label for="stats-month">Mois :</label>
+      <select id="stats-month">
+        <option value="0">Janvier</option>
+        <option value="1">Février</option>
+        <option value="2">Mars</option>
+        <option value="3">Avril</option>
+        <option value="4">Mai</option>
+        <option value="5">Juin</option>
+        <option value="6">Juillet</option>
+        <option value="7">Août</option>
+        <option value="8">Septembre</option>
+        <option value="9">Octobre</option>
+        <option value="10">Novembre</option>
+        <option value="11">Décembre</option>
+      </select>
+      <label for="stats-year">Année :</label>
+      <select id="stats-year">
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+      </select>
+    </div>
+
+    <!-- Sélection pour les cotisations globales -->
+    <div id="global-selection" style="display: none;">
+      <label for="global-contribution">Cotisation Globale :</label>
+      <select id="global-contribution">
+        <!-- Options remplies dynamiquement via JavaScript -->
+      </select>
+    </div>
+
+    <div id="chart-type-selection">
+      <button class="cta-button" onclick="renderStatsChart('bar')">D. à Barres</button>
+      <button class="cta-button" onclick="renderStatsChart('pie')">D. Circulaire</button>
+      <button class="cta-button" onclick="renderStatsChart('line')">D. en Ligne</button>
+    </div>
+  </div>
+  <canvas id="stats-chart" style="max-width: 600px; margin: 20px auto;"></canvas>
+</div>
+ 
+      <div id="auto-messages" class="tab-content">
+        <h3>Messages Automatisés</h3>
+        <form id="add-auto-message-form">
+          <input type="text" id="auto-message-name" placeholder="Nom (ex. : Rappel Cotisation)" required>
+          <textarea id="auto-message-text" placeholder="Contenu du message" required></textarea>
+          <input type="date" id="auto-message-date" required>
+          <input type="time" id="auto-message-time" required>
+          <button type="submit" class="cta-button">Ajouter</button>
+        </form>
+         <div id="auto-messages-list"></div>
+      </div>
+    </section>
+
+    <!-- Espace Trésorier -->
+    <section id="treasurer" class="page">
+      <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+      <button class="cta-button back-button" onclick="showPage('home')"><span class="material-icons">arrow_back</span> Retour</button>
+      <h2>Espace Trésorier</h2>
+      <div class="tabs">
+        <button class="tab-button active" onclick="showPage('treasurer-monthly')">Cotisations Mensuelles</button>
+        <button class="tab-button" onclick="showPage('treasurer-global')">Autres Cotisations</button>
+      </div>
+    </section>
+
+    <!-- Page des Cotisations Mensuelles -->
+    <section id="treasurer-monthly" class="page">
+      <button class="cta-button back-button" onclick="showPage('home')"><span class="material-icons">arrow_back</span> Retour</button>
+      <h2>Cotisations Mensuelles</h2>
+      <input type="text" id="treasurer-monthly-search" placeholder="Rechercher un membre..." class="search-bar">
+       
+      <div id="treasurer-monthly-list"></div>
+    </section>
+
+    <!-- Page des Cotisations Globales -->
+    <section id="treasurer-global" class="page">
+      <button class="cta-button back-button" onclick="goBackToTreasurer()"><span class="material-icons">arrow_back</span> Retour</button>
+      <h2>Gestion des autres Cotisations</h2>
+      <form id="add-contribution-form">
+        <input type="text" id="contribution-name" placeholder="Nom (ex. : SET SETAL 500F)" required>
+        <input type="number" id="contribution-amount" placeholder="Montant (FCFA)" required>
+        <button type="submit" class="cta-button">Confirmer</button>
+        <button type="button" class="cta-button cancel-button" onclick="document.getElementById('add-contribution-form').reset()">Annuler</button>
+      </form>
+       <div id="contributions-admin-list"></div>
+    </section>
+
+    <!-- Page de Gestion des Paiements d'une Cotisation Globale -->
+<section id="treasurer-global-manage" class="page">
+  <button class="cta-button back-button" onclick="goBackToTreasurerGlobal()">
+    <span class="material-icons">arrow_back</span> Retour
+  </button>
+  <h2 id="treasurer-global-title">Gérer les Paiements</h2>
+  <input type="text" id="global-contribution-search" placeholder="Rechercher un membre...">
+  <div id="global-contribution-members"></div>
+  <div id="treasurer-global-manage"></div>
+</section>
+
+    <!-- Page des Cotisations Mensuelles d'un Membre -->
+    <section id="treasurer-member-monthly" class="page">
+      <button class="cta-button back-button" onclick="goBackToTreasurerMonthly()"><span class="material-icons">arrow_back</span> Retour</button>
+      <h2 id="treasurer-member-title">Cotisations du Membre</h2>
+      <button class="cta-button" onclick="saveMonthlyContributions()">Enregistrer</button>
+      <div id="treasurer-monthly-content"></div>
+    </section>
+
+    <!-- Espace Président -->
+    <!-- Espace Président -->
+    <section id="president" class="page">
+      <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+      <button class="cta-button back-button" onclick="showPage('home')"><span class="material-icons">arrow_back</span> Retour</button>
+      <h2>Espace Président</h2>
+      <div class="tabs">
+        <button class="tab-button active" onclick="showTab('president-settings')">Paramètres de Sécurité</button>
+            <button class="tab-button" onclick="showTab('president-notes')">Notes Confidentiels</button>
+      </div>
+      <div id="president-settings" class="tab-content active">
+        <h3>Codes de Suppression</h3>
+        <form id="set-president-codes-form">
+          <input type="password" id="member-deletion-code" placeholder="Supprimer un membre" required>
+          <input type="password" id="contribution-deletion-code" placeholder="Supprimer une cotisation" required>
+          <button type="submit" class="cta-button">Enregistrer</button>
+        </form>
+          <!-- Nouveaux codes d'accès -->
+  <form id="set-access-codes-form">
+    <h4>Codes d'Accès aux Espaces</h4>
+    
+    <!-- Code Président -->
+  <div class="code-input-group">
+    <label>Code Président:</label>
+    <input type="password" id="president-code-input" placeholder="Nouveau code président">
+    <button onclick="updateCode('presidentAccessCode')" class="cta-button">Mettre à jour</button>
+  </div>
+
+    
+    <div class="code-input-group">
+      <label>Administration:</label>
+      <input type="password" id="secret-access-code" placeholder="Code pour l'espace secret" required>
+      <button type="button" class="cta-button small" onclick="saveSingleCode('secret-access-code', 'secretAccessCode')">Enregistrer</button>
+    </div>
+    
+    <div class="code-input-group">
+      <label>Trésorier:</label>
+      <input type="password" id="treasurer-access-code" placeholder="Code pour l'espace trésorier" required>
+      <button type="button" class="cta-button small" onclick="saveSingleCode('treasurer-access-code', 'treasurerAccessCode')">Enregistrer</button>
+    </div>
+    
+    <div class="code-input-group">
+      <label>Secrétaire:</label>
+      <input type="password" id="secretary-access-code" placeholder="Code pour l'espace secrétaire" required>
+      <button type="button" class="cta-button small" onclick="saveSingleCode('secretary-access-code', 'secretaryAccessCode')">Enregistrer</button>
+    </div>
+  </form>
+ 
+      </div>
+      <!-- NOUVELLE SECTION NOTES -->
+  <div id="president-notes" class="tab-content">
+    <h3>Notes Privées</h3>
+    
+    <!-- Formulaire d'ajout/édition -->
+    <form id="president-note-form">
+      <textarea id="president-note-text" 
+                placeholder="Écrivez vos notes ici..." 
+                rows="5" required></textarea>
+      <div class="form-actions">
+        <button type="submit" class="cta-button" id="save-note-btn">Enregistrer</button>
+        <button type="button" class="cta-button cancel-button" 
+                onclick="cancelNoteEdit()" style="display:none;">Annuler</button>
+      </div>
+    </form>
+    
+    <!-- Liste des notes -->
+   <div id="president-notes-list" class="notes-container">
+      <!-- Les notes apparaîtront ici -->
+    </div>
+  </div>
+</section>
+
+   <!-- Espace Secrétaire -->
+<!-- Espace Secrétaire -->
+<section id="secretary" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+  <button class="cta-button back-button" onclick="showPage('home')"><span class="material-icons">arrow_back</span> Retour</button>
+  <h2>Espace Secrétaire</h2>
+  
+  <!-- Barre de boutons en haut -->
+  <div class="button-group" style="display: flex; gap: 10px; margin-bottom: 20px;">
+    <button class="tab-button active" onclick="showSecretarySection('affiche')" style="flex: 1;">Ajouter une affiche</button>
+    <button class="tab-button" onclick="showSecretarySection('livre')" style="flex: 1;">Ajouter un livre</button>
+    <button class="tab-button" onclick="showSecretarySection('message')" style="flex: 1;">Message (page d'accueil)</button>
+  </div>
+
+  <!-- Section Ajouter une affiche -->
+  <div id="affiche-section" class="secretary-content" style="display: block;">
+    <form id="add-secretary-file-form">
+      <h3>Ajouter une affiche</h3>
+      <input type="text" id="secretary-file-name" placeholder="Nom" required>
+      <input type="text" id="secretary-file-category" placeholder="Catégorie" required>
+      <input type="text" id="secretary-file-url" placeholder="Lien (ex: postimages.org)" required>
+      <button type="submit" class="cta-button">Ajouter</button>
+    </form>
+
+    <!-- Liste des affiches -->
+    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+      <h4>Affiches existantes</h4>
+      <div id="secretary-files-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+        <!-- Contenu généré dynamiquement par le JS existant -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Ajouter un livre -->
+  <div id="livre-section" class="secretary-content" style="display: none;">
+    <form id="add-library-book-form">
+      <h3>Ajouter un livre</h3>
+      <input type="text" id="book-title" placeholder="Titre du livre" required>
+      <input type="text" id="book-category" placeholder="RUBRIQUE" required>
+      <input type="text" id="book-cover-url" placeholder="Lien de la couverture (postimages.org)" required>
+      <input type="text" id="book-pdf-url" placeholder="Lien du PDF (Drive)" required>
+      <button type="submit" class="cta-button">Ajouter à la bibliothèque</button>
+    </form>
+
+    <!-- Liste des livres -->
+    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+      <h4>Voir la liste dans la section affiche</h4>
+      <div id="library-list" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+        <!-- Contenu généré dynamiquement par le JS existant -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Message page d'accueil -->
+  <div id="message-section" class="secretary-content" style="display: none;">
+    <div id="motivation-admin">
+      <h3>Message (page d'accueil)</h3>
+      <textarea id="motivation-text" placeholder="Entrez votre message motivationnel..." style="width: 100%; min-height: 100px; margin-bottom: 10px;"></textarea>
+      <div style="display: flex; gap: 10px;">
+        <button id="send-motivation-btn" class="cta-button">Envoyer</button>
+        <button id="delete-motivation-btn" class="cta-button danger">Supprimer le dernier</button>
+      </div>
+      <div id="displayed-motivation" style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 5px;">Aucun message affiché</div>
+    </div>
+
+    <!-- Historique des messages -->
+    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+       
+      <div id="motivation-history" style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+        <!-- Contenu généré dynamiquement par le JS existant -->
+      </div>
+    </div>
+  </div>
+</section>
+
+ <!-- Page des paramètres -->
+<section id="settings" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+        <h1>ANSAR ALMOUYASSAR</h1>
+        <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+</div>
+   <button onclick="showPage('home')" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </button>
+  <div class="association-title">Paramètres</div>
+  
+  <!-- Nouvelle section Réseaux sociaux -->
+  <h3>Nous suivre</h3>
+  <div class="social-grid">
+    <a href="https://www.tiktok.com/@ansaralmouyassar?_t=ZM-8yJ6XeNaLLB&_r=1" target="_blank" class="social-item">
+      <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://www.instagram.com/ansaralmouyassar?igsh=c3AxamJzeXlrenh1" target="_blank" class="social-item">
+      <i class="fab fa-instagram"></i>
+    </a>
+    <a href="https://www.snapchat.com/add/ansar102023?share_id=rr0qM35WH9U&locale=fr-FR" target="_blank" class="social-item">
+      <i class="fab fa-snapchat-ghost"></i>
+    </a>
+    <a href="https://youtube.com/@almouyassartv?feature=shared" target="_blank" class="social-item">
+      <i class="fab fa-youtube"></i>
+    </a>
+  </div>
+  
+  <h3>Liens Utiles</h3>
+  <div class="links-container">
+    <a href="https://ansaralmouyassar.github.io/ansar/" target="_blank" class="link-button">
+      Site Officiel
+    </a>
+    <a href="https://ansaralmouyassar.github.io/cour-en-ligne/" target="_blank" class="link-button">
+      Cours en ligne
+    </a>
+ <a href="#" class="link-button" onclick="openReglementModal(); return false;">
+  Règlement intérieur
+</a>
+
+      <a href="https://ansaralmouyassar.github.io/Nous-soutenir/" target="_blank" class="link-button">
+    Nous soutenir
+  </a>
+
+  </div>
+  <!-- Nouveau lien d'aide ajouté ici -->
+  <div style="text-align: center; margin-top: 20px;">
+    <a href="https://ansaralmouyassar.github.io/aide-support/" target="_blank" style="color: #3498db; text-decoration: none; font-size: 16px;">
+      Aide & Support
+    </a>
+  </div>
+ 
+</section>
+    
+  </main>
+  <footer>
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active" onclick="showPage('home')"><span class="material-icons">home</span> </a>
+     
+      
+      <a href="#" class="nav-item" onclick="showPage('messages')"><span class="material-icons">notifications</span> </a>
+      
+      <a href="#" class="nav-item" onclick="showPage('personal')"><span class="material-icons">person</span> </a>
+      
+    </nav>
+  </footer>
+  <div class="chatbot-button">
+    <span class="material-icons">chat</span>
+  </div>
+  <div id="chatbot" class="chatbot-container" style="display: none;">
+    <div class="chatbot-header">
+      <h3>Assistant ANSAR</h3>
+      <span class="material-icons" onclick="toggleChatbot()">close</span>
+    </div>
+    <div id="chatbot-messages"></div>
+    <div id="chatbot-controls">
+      <button class="cta-button clear-history" onclick="clearChatHistory()"><span class="material-icons">delete</span> </button>
+    </div>
+    <form id="chatbot-form">
+      <input type="text" id="chatbot-input" placeholder="Posez une question...">
+      <button type="submit" class="cta-button"><span class="material-icons">send</span></button>
+    </form>
+    <div id="secret-entry" style="display: none;">
+      <input type="password" id="secret-password" placeholder="Mot de passe">
+      <button class="cta-button" onclick="checkSecretPassword()">Entrée</button>
+    </div>
+  </div>
+<script>
+  // Copier le contenu de #business-cards dans #business-cards-home au chargement
+  document.addEventListener('DOMContentLoaded', () => {
+    const businessCards = document.getElementById('business-cards');
+    const homeBusinessCards = document.getElementById('business-cards-home');
+    if (businessCards && homeBusinessCards) {
+      homeBusinessCards.innerHTML = businessCards.innerHTML;
+    }
+  });
+</script>
+<script>
+document.addEventListener('scroll', function() {
+    const title = document.querySelector('#home .association-title');
+    const navBar = document.querySelector('#home .top-nav-bar');
+    
+    // Vérifier si la page active est #home
+    if (document.querySelector('#home.active')) {
+        // Obtenir la position du titre
+        const titleRect = title.getBoundingClientRect();
+        
+        // Si le bas du titre est hors du viewport (non visible), afficher la barre
+        if (titleRect.bottom < 0) {
+            navBar.classList.add('active');
+        } else {
+            navBar.classList.remove('active');
+        }
+    }
+});
+</script>
+<!-- Modal pour le succès du formulaire de promotion -->
+
+<!-- Modal pour le succès du formulaire de promotion -->
+<div id="success-promotion-modal" class="modal hidden-section">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Soumission réussie</h2>
+    <p id="success-promotion-message">Votre message a été soumis, Ansar vous contactera dans un délai de 3 à 5 jours.</p>
+    <button onclick="closeModal('success-promotion-modal')">Fermer</button>
+  </div>
+</div>
+
+<!-- Modal pour le succès du formulaire de financement -->
+<div id="success-financement-modal" class="modal hidden-section">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Soumission réussie</h2>
+    <p id="success-financement-message">Votre message a été soumis, Ansar vous contactera dans un délai de 3 à 5 jours.</p>
+    <button onclick="closeModal('success-financement-modal')">Fermer</button>
+  </div>
+</div>
+
+<script>
+// Fonction pour ouvrir les liens externes
+function handleExternalLinks() {
+  // Sélectionne tous les liens dans les sections concernées
+  const links = document.querySelectorAll('#settings a[href^="http"], .business-modal a[href^="http"]');
+  
+  links.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const url = this.getAttribute('href');
+      
+      // Solution spécifique pour Kodular
+      try {
+        // Essayer d'ouvrir via l'API Android de Kodular
+        if (window.android && window.android.openBrowser) {
+          window.android.openBrowser(url);
+        } 
+        // Fallback pour les autres cas
+        else {
+          window.open(url, '_system');
+        }
+      } catch (error) {
+        // Fallback ultime
+        window.open(url, '_blank');
+      }
+    });
+  });
+}
+
+// Exécuter au chargement et après chaque changement de page
+document.addEventListener('DOMContentLoaded', handleExternalLinks);
+
+// Si vous avez une fonction showPage(), modifiez-la pour déclencher handleExternalLinks
+const originalShowPage = showPage;
+showPage = function(page) {
+  originalShowPage.apply(this, arguments);
+  setTimeout(handleExternalLinks, 300); // Petit délai pour laisser le DOM se mettre à jour
+};
+</script>
+<script>
+function downloadPDF(url) {
+  try {
+    // Pour Kodular
+    if (window.android) {
+      window.android.openBrowser(url); // Ouvre dans le navigateur où le téléchargement peut se faire
+      return;
+    }
+    
+    // Pour les navigateurs
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = url.split('/').pop();
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (e) {
+    window.open(url, '_blank');
+  }
+}
+
+// Utilisation dans votre HTML :
+// <img src="cover.jpg" onclick="downloadPDF('book.pdf')">
+</script>
+  <script>
+function openReglementModal() {
+  document.getElementById('reglement-modal').classList.remove('hidden-section');
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.add('hidden-section');
+}
+</script>
+  <!-- Overlay -->
+<div class="reglement-overlay" style="display: none;"></div>
+
+<!-- Modal Règlement -->
+<div id="reglement-modal" class="reglement-modal" style="display: none;">
+  <div class="reglement-header">
+    <h2 class="reglement-title"><i class="fas fa-gavel"></i> REGLEMENT INTERIEUR</h2>
+    <button class="close-reglement" onclick="closeReglementModal()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="reglement-content">
+    <div class="reglement-article">
+      <div class="article-title"><i class="fas fa-file-alt"></i> Préambule</div>
+      <div class="article-content">
+        Vu les Statuts de l'Association <strong>ANSAR ALMOUYASSAR</strong>, l'assemblée générale adopte le présent Règlement Intérieur.
+      </div>
+    </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-vote-yea"></i> Article 1 : Élection des membres du Bureau</div>
+        <div class="article-content">
+          Les membres du Bureau sont élus en Assemblée Générale.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-check-circle"></i> Article 2 : Modalités d'élection</div>
+        <div class="article-content">
+          Les membres du Bureau sont élus parmi les candidats volontaires ou sur proposition du Comité Directeur. Les élections se font à main levée et à la majorité simple des voix, sauf pour le président qui doit nécessairement obtenir les deux tiers des voix au premier tour ou la moitié des voix plus une des membres présents au tour suivant.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-user-check"></i> Article 3 : Conditions d'éligibilité</div>
+        <div class="article-content">
+          Est éligible tout membre actif de l'association à jour de ses cotisations, jouissant d'une bonne moralité et dont la candidature est acceptée par l'Assemblée Générale.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-calendar-alt"></i> Article 4 : Durée du mandat</div>
+        <div class="article-content">
+          Le mandat des membres du Bureau est fixé à un (01) an.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-redo"></i> Article 5 : Rééligibilité</div>
+        <div class="article-content">
+          Les membres sortant sont rééligibles.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-user-tie"></i> Article 6 : Conditions pour le poste de président</div>
+        <div class="article-content">
+          Est éligible au poste de président tout membre actif de l'association présent à l'Assemblée Générale, de bonne moralité, à jour de ses cotisations et ayant le sens des relations.
+        </div>
+      </div>
+     <div class="reglement-article">
+      <div class="article-title"><i class="fas fa-users"></i> Article 7 : Composition</div>
+      <div class="article-content">
+        Le Bureau est composé de :
+        <ul>
+            <li>d'un Président</li>
+            <li>d'un Vice Président</li>
+            <li>d'un Secrétaire Général</li>
+            <li>d'un Secrétaire Général Adjoint</li>
+            <li>d'un Trésorier Général</li>
+            <li>d'un Trésorier Général Adjoint</li>
+            <li>de deux Commissaire aux Comptes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-tasks"></i> Article 8 : Missions du Bureau</div>
+        <div class="article-content">
+          Le Bureau qui se réunit une fois par mois en session ordinaire, a pour missions :
+          <ul>
+            <li>de coordonner les activités de l'association</li>
+            <li>de rendre compte à l'Assemblée Générale des activités de l'association</li>
+          </ul>
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-landmark"></i> Article 9 : Attributions de l'Assemblée Générale</div>
+        <div class="article-content">
+          L'Assemblée Générale a pour attributions :
+          <ul>
+            <li>d'arrêter le programme d'actions de l'association</li>
+            <li>de modifier les Statuts et Règlement Intérieur</li>
+            <li>de faire des critiques et observations sur la vie de l'association</li>
+            <li>d'élire les membres du Bureau dont le mandat dure un (01) an, et est renouvelable</li>
+          </ul>
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-crown"></i> Article 10 : Rôle du Président</div>
+        <div class="article-content">
+          Le Président représente l'association en toute circonstance. Il dirige et coordonne les activités de l'association. Il contracte les prêts au nom de l'association avec l'accord du Bureau, il signe les bons avec l'accord du Bureau. Il est secondé par le (la) Vice Président(e).
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-user-shield"></i> Article 11 : Rôle du Vice-Président</div>
+        <div class="article-content">
+          Le (La) Vice Président(e) de l'association supplée le Président dans ses tâches en cas d'absence ou d'empêchement.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-pen-fancy"></i> Article 12 : Rôle du Secrétaire Général</div>
+        <div class="article-content">
+          Le Secrétaire Général assure le secrétariat de toutes les réunions du Bureau. Il est chargé de la rédaction des procès verbaux, des correspondances. Il est dépositaire des archives de l'association et tient les membres du Bureau informés du calendrier des réunions et rencontres.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-pen"></i> Article 13 : Rôle du Secrétaire Général Adjoint</div>
+        <div class="article-content">
+          Le Secrétaire Général Adjoint supplée le Secrétaire Général dans ses différentes tâches et assure l'intérim de celui-ci en cas d'absence ou d'empêchement.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-coins"></i> Article 14 : Rôle du Trésorier Général</div>
+        <div class="article-content">
+          Le Trésorier Général est responsable des biens de l'association. Il exécute les actes engageant les deniers de l'association sur ordre écrit et signé du Président. Il est chargé de la collecte des cotisations et il tient à jour la comptabilité de l'association.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-wallet"></i> Article 15 : Rôle du Trésorier Général Adjoint</div>
+        <div class="article-content">
+          Le Trésorier Général Adjoint supplée le Trésorier Général dans ses différentes tâches et assure l'intérim de celui-ci en cas d'absence ou d'empêchement.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-calendar-check"></i> Article 16 : Secrétariat à l'organisation</div>
+        <div class="article-content">
+          Le Secrétariat à l'organisation est chargé de toute organisation matérielle des rencontres ou réunions et des manifestations. A ce titre, il travaille en étroite collaboration avec les autres responsables de l'association.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-handshake"></i> Article 17 : Secrétariat aux relations extérieures</div>
+        <div class="article-content">
+          Le Secrétariat aux relations extérieures est chargé des correspondances et des relations extérieures de l'association. Il est chargé de l'information générale des membres de l'association.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-search-dollar"></i> Article 18 : Secrétariat aux finances</div>
+        <div class="article-content">
+          Le Secrétariat aux finances est chargé de la recherche de fonds financiers de l'association. Il travaille en étroite collaboration avec le Trésorier Général.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-money-bill-wave"></i> Article 19 : Droits d'adhésion et cotisations</div>
+        <div class="article-content">
+          Les droits d'adhésion sont fixés à cinq cents (1000) francs CFA. Ils peuvent être modifiés par l'Assemblée Générale. Ils donnent droit à une carte de membre qui sera vigneté chaque année contre payement de la cotisation annuelle.<br><br>
+          La cotisation, qui peut être modifiée par l'Assemblée Générale, des membres d'honneur est facultative.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-gavel"></i> Article 20 : Procédure de sanction</div>
+        <div class="article-content">
+          Nul ne peut être sanctionné s'il n'a pas été entendu par le Comité Directeur ou par l'Assemblée Générale sur convocation du Président. Si l'intéressé ne se présente pas, l'Assemblée Générale, sur décision du Président, décide de sa radiation.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-hands-helping"></i> Article 21 : Règles de conduite</div>
+        <div class="article-content">
+          Dans le souci de préserver un bon rapport social et éthique, le respect de la hiérarchie est souhaité. Tout membre de l'association doit agir dans les limites de ses attributions si possibles.
+        </div>
+      </div>
+      <div class="article">
+        <div class="article-title"><i class="fas fa-edit"></i> Article 22 : Modification du règlement</div>
+        <div class="article-content">
+          Le Règlement Intérieur peut être changé ou modifié dans les mêmes conditions que les Statuts.
+        </div>
+      </div>
+      <div class="adoption-date">
+        <i class="fas fa-calendar-day"></i> Adopté le 24 avril 2023 à 16h
+      </div>
+      <div class="footer">
+        <p>Association ANSAR ALMOUYASSAR © 2025</p>
+      </div>
+    </div>
+
+  <!-- Bouton Fermer en BAS du contenu -->
+  <div class="reglement-footer">
+    <button class="close-reglement" onclick="closeReglementModal()">
+      <i class="fas fa-times"></i> FERMER
+    </button>
+  </div>
+</div>
+</body>
+  <script>
+// Fonction pour afficher les sections (à ajouter à la fin du body)
+function showSecretarySection(section) {
+  // Masquer tous les contenus
+  document.querySelectorAll('.secretary-content').forEach(el => {
+    el.style.display = 'none';
+  });
+  
+  // Désactiver tous les boutons
+  document.querySelectorAll('.button-group .tab-button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  
+  // Afficher la section sélectionnée
+  document.getElementById(section + '-section').style.display = 'block';
+  
+  // Activer le bouton cliquée
+  event.target.classList.add('active');
+}
+</script>
+</html>
