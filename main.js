@@ -236,6 +236,12 @@ case 'tasbih':
     tasbihIframe.src = 'tasbih.html';
   }
   break;
+              case 'histoire':
+  const histoireIframe = document.querySelector('#histoire iframe');
+  if (histoireIframe && (!histoireIframe.src || histoireIframe.src === '')) {
+    histoireIframe.src = 'histoire.html';
+  }
+  break;
 
 case 'priere':
   const priereIframe = document.querySelector('#priere iframe');
@@ -4374,7 +4380,6 @@ function showWelcomeGuide() {
         <h3 style="color: var(--accent-color); margin-top: 0;">Bienvenue dans ANSAR - Instructions</h3>
         <p>Pour revenir à l'acceuil, utilisez les boutons retour en haut à gauche</p>
 
-<p>La lecture dans la bibliothèque sera disponible dans les prochains mise à jour</p>
 
                 
 
