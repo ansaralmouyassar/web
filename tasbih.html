@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASBIH | Ansar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Open+Sans:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary-color: #073332;
+            --secondary-color: #1f4a49;
+            --accent-color: #9b9c28;
+            --accent-glow: rgba(155, 156, 40, 0.4);
+            --bg-color: #073332;
+            --text-color: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .holographic-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: 
+                radial-gradient(
+                    circle at 30% 40%, 
+                    var(--secondary-color) 0%, 
+                    transparent 25%),
+                radial-gradient(
+                    circle at 70% 60%, 
+                    var(--primary-color) 0%, 
+                    transparent 25%);
+            opacity: 0.4;
+            z-index: -1;
+            animation: bgRotate 60s linear infinite;
+        }
+        
+        @keyframes bgRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .ansar-glass {
+            background: rgba(7, 51, 50, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(155, 156, 40, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(155, 156, 40, 0.1),
+                inset 0 0 30px rgba(31, 74, 73, 0.3);
+            border-radius: 20px;
+        }
+        
+        .holographic-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .holographic-effect::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                transparent,
+                transparent,
+                transparent,
+                var(--accent-glow),
+                transparent
+            );
+            transform: rotate(30deg);
+            animation: hologram 8s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes hologram {
+            0% { transform: translateY(-100%) rotate(30deg); }
+            100% { transform: translateY(100%) rotate(30deg); }
+        }
+        
+        .counter-display {
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 15px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+        
+        .bead {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        
+        .bead:hover {
+            transform: scale(1.1);
+        }
+        
+        .bead.active {
+            transform: scale(1.2);
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+        
+        .bead-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            opacity: 0.5;
+        }
+        
+        .btn-ansar {
+            background: linear-gradient(135deg, rgba(155, 156, 40, 0.2), transparent);
+            border: 1px solid var(--accent-color);
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-ansar:hover {
+            background: linear-gradient(135deg, rgba(155, 156, 40, 0.3), transparent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+        
+        .btn-ansar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(155, 156, 40, 0.2),
+                transparent
+            );
+            transition: all 0.6s ease;
+        }
+        
+        .btn-ansar:hover::before {
+            left: 100%;
+        }
+        
+        .bead-style {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        .bead-style:hover {
+            transform: scale(1.1);
+        }
+        
+        .bead-style.selected {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.1);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(7, 51, 50, 0.9);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 24px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 0 30px var(--accent-glow);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgba(7, 51, 50, 0.9);
+            border: 1px solid var(--accent-color);
+            padding: 30px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+        
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+            background: rgba(31, 74, 73, 0.5);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-color);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .modal-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+        
+        @media (max-width: 640px) {
+            .bead {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .counter-display {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="holographic-bg"></div>
+    
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <!-- Conteneur principal -->
+        <div class="ansar-glass w-full max-w-md overflow-hidden p-6 holographic-effect">
+            <!-- En-tête -->
+            <div class="text-center mb-6">
+                <h1 class="text-3xl font-bold mb-2 font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-white to-var(--accent-color)">
+                    TASBIH DIGITAL
+                </h1>
+            </div>
+            
+            <!-- Affichage du compteur -->
+            <div class="ansar-glass rounded-xl p-6 mb-6 text-center">
+                <div class="counter-display text-6xl mb-2" id="current-count">0</div>
+                <div class="flex justify-center items-center text-lg text-var(--accent-color)">
+                    / <span id="target-count" class="mx-1">100</span>
+                    <button id="edit-target-btn" class="text-var(--accent-color) hover:text-white ml-2">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Perles du tasbih -->
+            <div class="flex justify-center items-center mb-8">
+                <div class="flex items-center">
+                    <!-- 4 perles à gauche -->
+                    <div class="bead mr-3" id="bead-1" style="background-color: var(--accent-color);"></div>
+                    <div class="bead mr-3" id="bead-2" style="background-color: var(--accent-color);"></div>
+                    <div class="bead mr-3" id="bead-3" style="background-color: var(--accent-color);"></div>
+                    <div class="bead" id="bead-4" style="background-color: var(--accent-color);"></div>
+                    
+                    <!-- Ligne centrale -->
+                    <div class="bead-line mx-6 flex-1"></div>
+                    
+                    <!-- 3 perles à droite -->
+                    <div class="bead ml-3" id="bead-5" style="background-color: var(--accent-color);"></div>
+                    <div class="bead ml-3" id="bead-6" style="background-color: var(--accent-color);"></div>
+                    <div class="bead ml-3" id="bead-7" style="background-color: var(--accent-color);"></div>
+                </div>
+            </div>
+            
+            <!-- Instructions -->
+            <div class="text-center text-var(--accent-color)/80 mb-6">
+                <p>Tapez pour compter </p>
+            </div>
+            
+            <!-- Bouton de réinitialisation -->
+            <button id="reset" class="btn-ansar w-full py-3 rounded-lg flex items-center justify-center gap-2 mb-6">
+                <i class="fas fa-redo"></i> RÉINITIALISER
+            </button>
+            
+            <!-- Sélecteur de couleur -->
+            <div class="ansar-glass rounded-xl p-4">
+                <div class="text-center text-var(--accent-color) mb-3">COULEUR DES PERLES</div>
+                <div class="flex justify-center gap-4">
+                    <div class="bead-style selected" style="background-color: var(--accent-color);"></div>
+                    <div class="bead-style" style="background-color: #d4af37;"></div>
+                    <div class="bead-style" style="background-color: #a67c52;"></div>
+                    <div class="bead-style" style="background-color: #6b8c42;"></div>
+                    <div class="bead-style" style="background-color: #4a6b7d;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+    
+    <!-- Modal pour modifier la cible -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <div class="modal-title">MODIFIER LE NOMBRE CIBLE</div>
+            <input type="number" class="modal-input" id="target-input" min="1" max="1000000" value="100">
+            <div class="flex justify-center gap-4 mt-4">
+                <button class="btn-ansar px-6 py-2" id="modal-confirm">
+                    <i class="fas fa-check mr-2"></i> CONFIRMER
+                </button>
+                <button class="btn-ansar px-6 py-2" id="modal-cancel">
+                    <i class="fas fa-times mr-2"></i> ANNULER
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables
+        let currentCount = 0;
+        let targetCount = 100;
+        let currentBeadIndex = 0;
+        let touchStartX = 0;
+        let beadColor = 'var(--accent-color)';
+        
+        // Éléments DOM
+        const currentCountElement = document.getElementById('current-count');
+        const targetCountElement = document.getElementById('target-count');
+        const editTargetBtn = document.getElementById('edit-target-btn');
+        const resetBtn = document.getElementById('reset');
+        const notification = document.getElementById('notification');
+        const beadStyles = document.querySelectorAll('.bead-style');
+        const beads = document.querySelectorAll('.bead');
+        const modal = document.getElementById('modal');
+        const targetInput = document.getElementById('target-input');
+        const modalConfirm = document.getElementById('modal-confirm');
+        const modalCancel = document.getElementById('modal-cancel');
+        const tapArea = document.querySelector('.ansar-glass');
+        
+        // Initialisation
+        function init() {
+            updateCounter();
+            
+            // Événements
+            beads.forEach(bead => {
+                bead.addEventListener('click', incrementCount);
+            });
+            
+            tapArea.addEventListener('touchstart', handleTouchStart, false);
+            tapArea.addEventListener('touchmove', handleTouchMove, false);
+            tapArea.addEventListener('click', incrementCount);
+            
+            resetBtn.addEventListener('click', resetCounter);
+            
+            editTargetBtn.addEventListener('click', function() {
+                targetInput.value = targetCount;
+                modal.style.display = 'flex';
+            });
+            
+            modalConfirm.addEventListener('click', function() {
+                const newTarget = parseInt(targetInput.value);
+                if (newTarget && newTarget >= 1 && newTarget <= 1000000) {
+                    targetCount = newTarget;
+                    targetCountElement.textContent = targetCount;
+                    resetCounter();
+                }
+                modal.style.display = 'none';
+            });
+            
+            modalCancel.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Sélection de la couleur des perles
+            beadStyles.forEach((style, index) => {
+                style.addEventListener('click', function() {
+                    beadStyles.forEach(s => s.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Couleurs correspondantes
+                     const colors = [
+                        'var(--accent-color)',
+                        '#d4af37', // Or
+                        '#a67c52', // Bronze
+                        '#6b8c42', // Vert
+                        '#4a6b7d'  // Bleu acier
+                    ];
+                    beadColor = colors[index];
+                    
+                    // Mettre à jour la couleur des perles
+                    updateBeadsColor();
+                });
+            });
+        }
+         
+         
+        // Incrémenter le compteur
+        function incrementCount() {
+            if (currentCount < targetCount) {
+                currentCount++;
+                updateCounter();
+                animateNextBead();
+                
+                if (currentCount === targetCount) {
+                    showNotification();
+                    vibrate();
+                }
+            }
+        }
+        
+        // Décrémenter le compteur
+        function decrementCount() {
+            if (currentCount > 0) {
+                currentCount--;
+                updateCounter();
+                animatePreviousBead();
+            }
+        }
+        
+        // Mettre à jour l'affichage du compteur
+        function updateCounter() {
+            currentCountElement.textContent = currentCount;
+            
+            // Animation du compteur
+            currentCountElement.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                currentCountElement.style.transform = 'scale(1)';
+            }, 100);
+        }
+        
+        // Animer la prochaine perle
+        function animateNextBead() {
+            // Réinitialiser l'animation précédente
+            beads.forEach(bead => {
+                bead.classList.remove('active');
+            });
+            
+            // Animer la perle actuelle
+            if (currentBeadIndex < beads.length) {
+                beads[currentBeadIndex].classList.add('active');
+                setTimeout(() => {
+                    beads[currentBeadIndex].classList.remove('active');
+                }, 200);
+            }
+            
+            // Passer à la perle suivante
+            currentBeadIndex = (currentBeadIndex + 1) % beads.length;
+        }
+        
+        // Animer la perle précédente
+        function animatePreviousBead() {
+            // Réinitialiser l'animation précédente
+            beads.forEach(bead => {
+                bead.classList.remove('active');
+            });
+            
+            // Reculer l'index
+            currentBeadIndex = (currentBeadIndex - 1 + beads.length) % beads.length;
+            
+            // Animer la perle
+            beads[currentBeadIndex].classList.add('active');
+            setTimeout(() => {
+                beads[currentBeadIndex].classList.remove('active');
+            }, 200);
+        }
+        
+        // Réinitialiser le compteur
+        function resetCounter() {
+            currentCount = 0;
+            currentBeadIndex = 0;
+            updateCounter();
+        }
+        
+        // Afficher la notification
+        function showNotification() {
+            notification.textContent = `Objectif atteint : ${targetCount}`;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Faire vibrer le téléphone
+        function vibrate() {
+            if ('vibrate' in navigator) {
+                navigator.vibrate(200);
+            }
+        }
+        
+        // Mettre à jour la couleur des perles
+        function updateBeadsColor() {
+            beads.forEach(bead => {
+                bead.style.backgroundColor = beadColor;
+            });
+        }
+        
+        // Gestion des mouvements tactiles
+        function handleTouchStart(e) {
+            touchStartX = e.touches[0].clientX;
+        }
+        
+        function handleTouchMove(e) {
+            if (!touchStartX) return;
+            
+            const touchEndX = e.touches[0].clientX;
+            const diffX = touchStartX - touchEndX;
+            
+            // Si le mouvement est significatif de droite à gauche
+            if (diffX > 50) {
+                decrementCount();
+                touchStartX = 0;
+                e.preventDefault();
+            }
+        }
+        
+        // Démarrer l'application
+        init();
+    </script>
+</body>
+</html>
