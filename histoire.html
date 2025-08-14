@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histoires des Prophètes pour Enfants</title>
+    <style>
+        /* CSS Reset et styles de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #073332;    /* Vert foncé */
+            --secondary-color: #1f4a49;  /* Vert moyen */
+            --accent-color: #9b9c28;     /* Jaune-vert */
+            --light-accent: #d8d9c2;     /* Jaune clair */
+            --text-color: #073332;       /* Blanc */
+            --dark-text: #002e2d;        /* Texte foncé */
+            --sky-blue: #87CEEB;
+            --water-blue: #1E88E5;
+            --light-bg: #f8f5f0;
+        }
+        
+        body {
+            background-color: #073332;
+            color: #ffffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header avec ciel/paradis */
+        header {
+            background: linear-gradient(to bottom, var(--sky-blue), #E0F7FA);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 180px;
+        }
+        
+        .sun {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            top: 20px;
+            right: 20px;
+            box-shadow: 0 0 30px #FFD700;
+            animation: pulse 4s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 30px #FFD700; }
+            100% { transform: scale(1.05); box-shadow: 0 0 50px #FFA500; }
+        }
+        
+        .bird {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><path d="M0,10 Q15,-10 30,10" stroke="%23073332" fill="none" stroke-width="2"/></svg>') no-repeat;
+            animation: fly 15s linear infinite;
+        }
+        
+        @keyframes fly {
+            0% { transform: translateX(-50px); }
+            100% { transform: translateX(calc(100vw + 50px)); }
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .subtitle {
+            color: var(--accent-color);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--primary-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-list {
+            display: flex;
+            list-style: none;
+            overflow-x: auto;
+            padding: 0.8rem 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .nav-list::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .nav-item {
+            margin-right: 0.5rem;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid var(--light-accent);
+        }
+        
+        .nav-link.active, .nav-link:hover {
+            background-color: var(--light-accent);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Contenu principal */
+        main {
+            padding: 1rem;
+            max-width: 100%;
+        }
+        
+        .prophet-card {
+            background-color: #073332;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: none;
+            border: 1px solid var(--light-accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .prophet-card.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .prophet-title {
+            color: #886808 !important;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+            border-bottom: 2px dashed var(--accent-color);
+            padding-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .prophet-title::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--light-accent), transparent);
+        }
+        
+        .prophet-story {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .prophet-story p {
+            margin-bottom: 1.2rem;
+            text-align: justify;
+        }
+        
+        .moral {
+            background-color: var(--light-accent);
+          color: #073332; 
+            padding: 1.2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent-color);
+            margin-top: 1.5rem;
+        }
+        
+        .moral-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Effet mer pour Moïse */
+        .sea-effect {
+            position: relative;
+            height: 100px;
+            width: 100%;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            background: linear-gradient(to bottom, #1a73e8, #0d47a1);
+        }
+        
+        .wave {
+            position: absolute;
+            bottom: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(to right, var(--water-blue) 0%, #64B5F6 50%, var(--water-blue) 100%);
+            animation: wave 10s linear infinite;
+        }
+        
+        .wave::before, .wave::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg"><path d="M0,15 C20,25 40,5 60,15 S100,5 100,15 V30 H0 Z" fill="%231E88E5"/></svg>') repeat-x;
+            background-size: 50% 30px;
+            bottom: 0;
+        }
+        
+        .wave::before {
+            opacity: 0.7;
+            animation: wave 7s linear infinite;
+        }
+        
+        .wave::after {
+            opacity: 0.5;
+            animation: wave 12s linear infinite reverse;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .path {
+            position: absolute;
+            width: 60%;
+            height: 100%;
+            background-color: var(--light-accent);
+            left: 20%;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Animation jardin d'Adam */
+        .garden {
+            position: relative;
+            height: 180px;
+            width: 100%;
+            background: linear-gradient(to bottom, #81C784, #4CAF50);
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            height: 100px;
+            background: #5D4037;
+            border-radius: 5px;
+            z-index: 2;
+        }
+        
+        .tree::before {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 80px;
+            background: #2E7D32;
+            border-radius: 50%;
+            bottom: 50px;
+            left: -25px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        
+        .tree-1 { left: 20%; transform: scale(0.9); }
+        .tree-2 { left: 50%; transform: scale(1.1); }
+        .tree-3 { left: 80%; transform: scale(0.8); }
+        
+        .apple {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #F44336;
+            border-radius: 50%;
+            z-index: 3;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            animation: appleSway 3s infinite alternate;
+        }
+        
+        @keyframes appleSway {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-5px) rotate(5deg); }
+        }
+        
+        .apple-1 { top: 30%; left: 15%; }
+        .apple-2 { top: 40%; left: 25%; }
+        .apple-3 { top: 35%; left: 55%; }
+        .apple-4 { top: 45%; left: 85%; }
+        
+        /* Arche de Noé */
+        .ark {
+            position: relative;
+            height: 120px;
+            width: 100%;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        
+        .ark-ship {
+            position: absolute;
+            width: 200px;
+            height: 80px;
+            background: #5D4037;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 20px 20px 0 0;
+            z-index: 2;
+        }
+        
+        .ark-ship::before {
+            content: "";
+            position: absolute;
+            width: 40px;
+            height: 100px;
+            background: #5D4037;
+            top: -60px;
+            left: 30px;
+            border-radius: 5px;
+        }
+        
+        .ark-ship::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: #5D4037;
+            top: -40px;
+            left: 50px;
+            border-radius: 5px;
+        }
+        
+        .ark-water {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40px;
+            background: #0D47A1;
+            animation: waterMove 5s infinite linear;
+        }
+        
+        @keyframes waterMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-20px); }
+        }
+        
+        /* Kaaba pour Ibrahim */
+        .kaaba {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 1.5rem auto;
+            background: #2E2E2E;
+            transform: perspective(300px) rotateX(20deg);
+        }
+        
+        .kaaba::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: #9B9C28;
+            bottom: 0;
+        }
+        
+        .kaaba::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 100%;
+            background: #9B9C28;
+            right: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 0.8rem;
+            margin-top: 2rem;
+        }
+        
+        /* Bouton retour en haut */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            z-index: 99;
+            opacity: 0;
+            transition: all 0.3s;
+            border: 2px solid var(--light-accent);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            background-color: var(--light-accent);
+        }
+        
+        /* Responsive */
+        @media (min-width: 768px) {
+            .prophet-card {
+                padding: 2rem;
+            }
+            
+            .prophet-title {
+                font-size: 1.8rem;
+            }
+            
+            .prophet-story {
+                font-size: 1.1rem;
+            }
+            
+            header {
+                min-height: 220px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec ciel/paradis -->
+    <header>
+        <div class="sun"></div>
+        <div class="bird" style="top: 30px; animation-delay: 0s;"></div>
+        <div class="bird" style="top: 50px; animation-delay: 2s;"></div>
+        <div class="bird" style="top: 70px; animation-delay: 4s;"></div>
+        <h1>Histoires des Prophètes</h1>
+        <p class="subtitle">Pour les petits musulmans</p>
+    </header>
+    
+    <!-- Navigation -->
+    <nav>
+        <ul class="nav-list" id="navList">
+            <li class="nav-item"><a href="#" class="nav-link active" data-prophet="adam">Adam</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="noe">Noé</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="ibrahim">Ibrahim</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="youssef">Youssef</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="moussa">Moïse</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="issa">Jésus</a></li>
+            <li class="nav-item"><a href="#" class="nav-link" data-prophet="mohamed">Mohamed</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Contenu principal -->
+    <main>
+        <!-- Carte pour le prophète Adam -->
+        <section class="prophet-card active" id="adam">
+            <h2 class="prophet-title">L'histoire du Prophète Adam (عليه السلام)</h2>
+            
+            <!-- Jardin d'Eden animé -->
+           
+    <div class="prophet-image">
+        <img src="image1.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Au tout début, Allah a créé le premier homme, Adam, avec Ses propres Mains. Il lui a appris les noms de toutes choses et a ordonné aux anges de se prosterner devant lui.</p>
+                
+                <p>Iblis (Satan) était un djinn orgueilleux qui a refusé de se prosterner. Il a dit : "Je suis meilleur que lui, Tu m'as créé de feu alors que Tu l'as créé d'argile." À cause de son orgueil, Allah l'a maudit et expulsé du Paradis.</p>
+                
+                <p>Allah a placé Adam et son épouse Hawwa (Ève) dans un magnifique jardin - le Paradis. Ils pouvaient y manger de tous les fruits sauf d'un seul arbre. Mais Iblis les a trompés et leur a fait manger de cet arbre interdit.</p>
+                
+                <p>Adam et Hawwa ont alors réalisé leur erreur, ont demandé pardon à Allah, qui dans Sa grande miséricorde a accepté leur repentir mais les a fait descendre sur Terre. C'est ainsi qu'a commencé l'histoire de l'humanité.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. L'orgueil est un très mauvais défaut qui peut nous éloigner d'Allah.<br>
+                2. Quand on fait une erreur, il faut tout de suite demander pardon à Allah.<br>
+                3. Allah est toujours Miséricordieux envers ceux qui se repentent sincèrement.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Noé -->
+        <section class="prophet-card" id="noe">
+            <h2 class="prophet-title">L'histoire du Prophète Noé (نوح عليه السلام)</h2>
+            
+            <!-- Arche de Noé animée -->
+           <div class="prophet-image">
+        <img src="image2.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Noé était un prophète patient qui a vécu très longtemps - 950 ans ! Son peuple adorait des statues et faisait de mauvaises actions. Pendant des années et des années, Noé les a appelés à n'adorer qu'Allah, mais ils se moquaient de lui.</p>
+                
+                <p>Allah a ordonné à Noé de construire une grande arche. Les gens riaient encore : "Pourquoi construire un bateau alors qu'il n'y a pas de mer ici ?" Noé a continué avec foi, aidé par les croyants.</p>
+                
+                <p>Quand l'arche fut prête, Allah a fait monter les eaux du ciel et de la terre. Une immense pluie a commencé à tomber pendant 40 jours et 40 nuits. Noé, sa famille et des couples de chaque animal sont montés dans l'arche.</p>
+                
+                <p>Le fils désobéissant de Noé a refusé de monter et a été noyé. Quand les eaux se sont retirées, l'arche s'est posée sur le mont Judi. Noé et les survivants ont repeuplé la terre en adorant uniquement Allah.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Il faut toujours obéir à Allah, même si les autres se moquent de nous.<br>
+                2. La patience est une grande qualité que nous devons apprendre.<br>
+                3. Allah protège toujours ceux qui croient en Lui.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Ibrahim -->
+        <section class="prophet-card" id="ibrahim">
+            <h2 class="prophet-title">L'histoire du Prophète Ibrahim (إبراهيم عليه السلام)</h2>
+            
+            <!-- Kaaba stylisée -->
+            <div class="prophet-image">
+        <img src="image3.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Ibrahim était un enfant très intelligent. Son peuple adorait des statues fabriquées de leurs propres mains. Un jour, quand personne ne regardait, Ibrahim a pris une hache et a détruit toutes les statues sauf la plus grande.</p>
+                
+                <p>Quand les gens sont revenus et ont vu ce désastre, ils ont demandé : "Qui a fait ça à nos dieux ?" Ibrahim a répondu en souriant : "Demandez à la grande statue, peut-être que c'est elle !" Les gens ont compris alors que leurs idoles ne pouvaient ni parler ni se défendre.</p>
+                
+                <p>Le roi Nimrod a jeté Ibrahim dans un grand feu, mais Allah a ordonné au feu : "Sois fraîcheur et paix pour Ibrahim" et le feu ne l'a pas brûlé !</p>
+                
+                <p>Plus tard, Allah a testé Ibrahim en lui demandant de sacrifier son fils Ismail. Au dernier moment, Allah a remplacé Ismail par un bélier. Pour cette grande foi, Allah a fait d'Ibrahim un guide pour l'humanité et lui a ordonné de construire la Kaaba avec son fils.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Il ne faut adorer qu'Allah, car Lui seul mérite l'adoration.<br>
+                2. Il faut toujours faire confiance à Allah, même dans les épreuves difficiles.<br>
+                3. Allah récompense toujours ceux qui ont une foi forte.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Youssef -->
+        <section class="prophet-card" id="youssef">
+            <h2 class="prophet-title">L'histoire du Prophète Youssef (يوسف عليه السلام)</h2>
+            
+            <!-- Animation étoiles pour le rêve de Youssef -->
+          <div class="prophet-image">
+        <img src="image4.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Youssef était le fils préféré de son père Ya'qub (Jacob) à cause de sa grande beauté et sagesse. Ses frères étaient jaloux et l'ont jeté dans un puits. Ils ont menti à leur père en disant qu'un loup l'avait mangé.</p>
+                
+                <p>Des voyageurs ont trouvé Youssef et l'ont vendu comme esclave en Égypte. Là-bas, la femme d'un ministre est tombée amoureuse de lui. Quand il a refusé de faire le mal, elle l'a accusé faussement et il a été mis en prison.</p>
+                
+                <p>En prison, Youssef a interprété les rêves de deux prisonniers. Plus tard, le roi d'Égypte a fait un rêve étrange que personne ne pouvait expliquer. On a fait appel à Youssef qui a prédit 7 années d'abondance suivies de 7 années de famine.</p>
+                
+                <p>Grâce à cette sagesse, Youssef est devenu ministre d'Égypte. Quand la famine est arrivée, ses frères sont venus chercher de la nourriture. Après plusieurs rencontres émouvantes, Youssef a pardonné à ses frères et toute la famille s'est réunie en Égypte.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Il ne faut jamais être jaloux des autres - la jalousie est un mauvais sentiment.<br>
+                2. Même dans les moments difficiles, il faut garder confiance en Allah.<br>
+                3. Le pardon est une grande qualité qui apporte la paix.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Moïse -->
+        <section class="prophet-card" id="moussa">
+            <h2 class="prophet-title">L'histoire du Prophète Moïse (موسى عليه السلام)</h2>
+            
+            <!-- Effet mer qui se sépare -->
+           <div class="prophet-image">
+        <img src="image5.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Moïse est né à une époque où le Pharaon d'Égypte faisait tuer tous les bébés garçons des Hébreux. Sa mère l'a mis dans un panier sur le Nil, où la fille de Pharaon l'a trouvé et adopté.</p>
+                
+                <p>Devenu adulte, Moïse a tué accidentellement un Égyptien et a dû fuir dans le désert. Là, Allah lui a parlé à travers un buisson ardent et lui a ordonné de retourner en Égypte pour libérer son peuple.</p>
+                
+                <p>Avec son frère Aaron, Moïse est allé voir Pharaon avec des miracles : son bâton qui se transformait en serpent et sa main qui devenait blanche. Mais Pharaon a refusé de croire et a subi 10 terribles fléaux.</p>
+                
+                <p>Quand les Hébreux ont finalement quitté l'Égypte, Pharaon les a poursuivis avec son armée. Allah a ordonné à Moïse de frapper la mer avec son bâton, et la mer s'est ouverte en deux ! Les Hébreux ont traversé à sec, mais quand Pharaon a essayé de les suivre, les eaux se sont refermées et l'ont noyé.</p>
+                
+                <p>Plus tard, sur le mont Sinaï, Allah a donné à Moïse les 10 Commandements gravés sur des tablettes. Mais pendant son absence, son peuple a commencé à adorer un veau d'or. Moïse s'est mis en colère mais a finalement obtenu le pardon d'Allah pour son peuple.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Allah protège toujours ceux qui ont confiance en Lui.<br>
+                2. L'orgueil (comme celui de Pharaon) mène toujours à la perte.<br>
+                3. Il ne faut jamais associer quoi que ce soit à Allah dans l'adoration.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Jésus -->
+        <section class="prophet-card" id="issa">
+            <h2 class="prophet-title">L'histoire du Prophète Jésus (عيسى عليه السلام)</h2>
+            
+            <!-- Animation oiseaux en argile -->
+       <div class="prophet-image">
+        <img src="image6.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Jésus (Issa) est né d'une manière miraculeuse, sans père. Sa mère Maryam (Marie) était une femme très pieuse. Quand elle est revenue avec le bébé, les gens l'ont accusée, mais le bébé Jésus a parlé pour la défendre !</p>
+                
+                <p>Jésus a grandi et est devenu un prophète puissant. Avec la permission d'Allah, il guérissait les aveugles et les lépreux, ressuscitait les morts, et fabriquait des oiseaux d'argile qui prenaient vie !</p>
+                
+                <p>Jésus appelait les gens à adorer Allah seul, sans associés. Mais certains ont commencé à l'adorer lui au lieu d'Allah. Allah a alors élevé Jésus au ciel avant que ses ennemis ne le tuent, et il reviendra à la fin des temps.</p>
+                
+                <p>Avant d'être élevé, Jésus a annoncé la venue d'un dernier prophète : "Celui qui viendra après moi s'appellera Ahmed" (qui est un autre nom du Prophète Mohamed).</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Allah est capable de toute chose, même des miracles les plus extraordinaires.<br>
+                2. Il ne faut jamais adorer un humain ou un prophète - seul Allah mérite l'adoration.<br>
+                3. Tous les prophètes ont enseigné le même message : n'adorer qu'Allah seul.</p>
+            </div>
+        </section>
+        
+        <!-- Carte pour le prophète Mohamed -->
+        <section class="prophet-card" id="mohamed">
+            <h2 class="prophet-title">L'histoire du Prophète Mohamed (ﷺ)</h2>
+            
+            <!-- Animation grotte de Hira -->
+          <div class="prophet-image">
+        <img src="image7.png" alt="Prophète Adam dans le jardin" style="width:100%; border-radius:10px; margin-bottom:1rem;">
+    </div>
+            
+            <div class="prophet-story">
+                <p>Mohamed est né à La Mecque en Arabie, orphelin de père dès sa naissance. Dès son enfance, on remarquait sa grande honnêteté et son bon caractère. Les gens l'appelaient "Al-Amine" (le digne de confiance).</p>
+                
+                <p>À 40 ans, alors qu'il méditait dans la grotte de Hira, l'ange Jibril (Gabriel) lui est apparu et lui a ordonné : "Lis !" Mohamed a répondu : "Je ne sais pas lire." L'ange l'a alors serré fort et a répété l'ordre. Finalement, Mohamed a récité les premiers versets du Coran.</p>
+                
+                <p>Pendant 13 ans à La Mecque, Mohamed a appelé les gens à l'Islam, mais les chefs mecquois l'ont persécuté ainsi que les premiers musulmans. En l'an 622, Allah a ordonné à Mohamed et ses compagnons d'émigrer à Médine.</p>
+                
+                <p>À Médine, l'Islam s'est épanoui. Après plusieurs batailles défensives, les musulmans sont retournés à La Mecque en paix et ont purifié la Kaaba de ses idoles. Avant sa mort à 63 ans, Mohamed a transmis tout le Coran et a établi l'Islam dans toute l'Arabie.</p>
+            </div>
+            
+            <div class="moral">
+                <div class="moral-title">Leçon à retenir :</div>
+                <p>1. Mohamed (ﷺ) est le dernier prophète envoyé à toute l'humanité.<br>
+                2. Le Coran est la parole d'Allah, préservée sans aucun changement.<br>
+                3. Le bon caractère et la patience sont les qualités du croyant.</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Bouton retour en haut -->
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+    
+  
+    <script>
+        // Navigation entre les histoires
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const prophetCards = document.querySelectorAll('.prophet-card');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Retirer la classe active de tous les liens
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                    
+                    // Cacher toutes les cartes
+                    prophetCards.forEach(card => {
+                        card.classList.remove('active');
+                    });
+                    
+                    // Afficher la carte correspondante
+                    const prophetId = this.getAttribute('data-prophet');
+                    document.getElementById(prophetId).classList.add('active');
+                    
+                    // Faire défiler vers le haut
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            // Bouton retour en haut
+            const backToTopButton = document.getElementById('backToTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Animations supplémentaires
+            function createBirds() {
+                const header = document.querySelector('header');
+                const birdCount = 5;
+                
+                for (let i = 0; i < birdCount; i++) {
+                    const bird = document.createElement('div');
+                    bird.className = 'bird';
+                    
+                    // Position aléatoire
+                    const top = 30 + Math.random() * 50;
+                    const delay = Math.random() * 5;
+                    
+                    bird.style.top = `${top}px`;
+                    bird.style.animationDelay = `${delay}s`;
+                    
+                    header.appendChild(bird);
+                }
+            }
+            
+            createBirds();
+            
+            // Animation des pommes
+            const apples = document.querySelectorAll('.apple');
+            apples.forEach(apple => {
+                // Animation aléatoire
+                const duration = 2 + Math.random() * 3;
+                const delay = Math.random() * 2;
+                apple.style.animationDuration = `${duration}s`;
+                apple.style.animationDelay = `${delay}s`;
+            });
+            
+            // Animation des étoiles (Youssef)
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                const duration = 2 + Math.random() * 3;
+                star.style.animationDuration = `${duration}s`;
+            });
+            
+            // Animation des oiseaux en argile (Jésus)
+            const clayBirds = document.querySelectorAll('.clay-bird');
+            clayBirds.forEach(bird => {
+                const keyframes = `
+                    @keyframes flyAway {
+                        0% { transform: translateY(0) scale(1); opacity: 1; }
+                        50% { transform: translateY(-30px) scale(0.8); opacity: 0.8; }
+                        100% { transform: translateY(-60px) scale(0.5); opacity: 0; }
+                    }
+                `;
+                const style = document.createElement('style');
+                style.innerHTML = keyframes;
+                document.head.appendChild(style);
+            });
+            
+            // Animation lumière grotte Hira
+            const lightKeyframes = `
+                @keyframes pulseLight {
+                    0% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+                    100% { opacity: 0.8; transform: translateX(-50%) scale(1.3); }
+                }
+            `;
+            const lightStyle = document.createElement('style');
+            lightStyle.innerHTML = lightKeyframes;
+            document.head.appendChild(lightStyle);
+        });
+    </script>
+</body>
+</html>
+
+
+
