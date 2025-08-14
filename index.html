@@ -82,6 +82,10 @@
     <i class="fas fa-circle-notch icon"></i>
     <span class="item-text">Tasbih</span>
   </div>
+  <div class="item circle-item" onclick="showPage('histoire')">
+    <i class="fas fa-feather-alt icon"></i>
+    <span class="item-text">Histoires</span>
+  </div>
 
   <!-- 6 Boutons RECTANGULAIRES en bas -->
  <div class="item" onclick="showPage('priere')">
@@ -211,6 +215,30 @@ style="
   </iframe>
 </section>
 
+       <!-- Page histoire -->
+<section id="histoire" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="histoire.html" 
+style="
+    position: absolute;
+    top: 2px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 55px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Compteur de Tasbih">
+  </iframe>
+</section>
 <!-- Page Prière -->
 <section id="priere" class="page">
   <div class="top-nav-bar">
