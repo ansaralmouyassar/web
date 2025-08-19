@@ -88,6 +88,10 @@
   </div>
 
   <!-- 6 Boutons RECTANGULAIRES en bas -->
+  <div class="item" onclick="showPage('almouyassar')">
+    <span class="item-text">Al Mouyassar</span>
+    <i class="fas fa-person-praying icon"></i> 
+  </div>
  <div class="item" onclick="showPage('priere')">
     <span class="item-text">Prière</span>
     <i class="fas fa-person-praying icon"></i> 
@@ -876,8 +880,54 @@ Prénom|Nom|Âge|Email|Téléphone|Rôle|Statut|Adresse|Activité|Résidence|Lie
   </div>
 </section>
 
-   <!-- Espace Secrétaire -->
-<!-- Espace Secrétaire -->
+ <section id="ia" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="ia.html" 
+style="
+    position: absolute;
+    top: 2px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 55px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Compteur de Tasbih">
+  </iframe>
+</section>
+    <!-- Page almouyassar -->
+ <section id="almouyassar" class="page">
+  <div class="top-nav-bar">
+    <div class="title-container">
+      <h1>ANSAR ALMOUYASSAR</h1>
+      <p>Association des ressortissants de l'institut coranique Al Mouyassar</p>
+    </div>
+    <img src="logo.png" alt="Logo ANSAR ALMOUYASSAR" class="logo">
+  </div>
+ 
+  <iframe src="almouyassar.html" 
+style="
+    position: absolute;
+    top: 2px; /* Laisser de l'espace pour la barre du haut */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 55px); /* Réduire la hauteur totale de 100px (50px haut + 50px bas) */
+    border: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  "          title="Compteur de Tasbih">
+  </iframe>
+</section>
+    <!-- Espace Secrétaire -->
 <section id="secretary" class="page">
   <div class="top-nav-bar">
     <div class="title-container">
@@ -1006,27 +1056,21 @@ Prénom|Nom|Âge|Email|Téléphone|Rôle|Statut|Adresse|Activité|Résidence|Lie
 
   </div>
   <!-- Nouveau lien d'aide ajouté ici -->
-  <div style="text-align: center; margin-top: 20px;">
-    <a href="https://ansaralmouyassar.github.io/aide-support/" target="_blank" style="color: #3498db; text-decoration: none; font-size: 16px;">
-      Aide & Support
-    </a>
-  </div>
- 
-</section>
-    
-  </main>
-  <footer>
-    <nav class="bottom-nav">
-      <a href="#" class="nav-item active" onclick="showPage('home')"><span class="material-icons">home</span> </a>
-     
-      
-      <a href="#" class="nav-item" onclick="showPage('messages')"><span class="material-icons">notifications</span> </a>
-      
-      <a href="#" class="nav-item" onclick="showPage('personal')"><span class="material-icons">person</span> </a>
-      
-    </nav>
-  </footer>
-  <div class="chatbot-button">
+ <div style="text-align: center; margin-top: 20px;">
+  <a href="https://ansaralmouyassar.github.io/aide-support/" target="_blank" 
+     style="color: #3498db; text-decoration: none; font-size: 16px;">
+    Aide & Support
+  </a>
+  <br> <!-- saut de ligne -->
+
+  <!-- Icône aide pour ouvrir le chatbot -->
+  <a href="#" onclick="toggleChatbot(); return false;" 
+     style="font-size: 22px; color: #073332; display: inline-block; margin-top: 8px;">
+    <i class="fas fa-question-circle"></i>
+  </a>
+</div>
+
+<div class="chatbot-button">
     <span class="material-icons">chat</span>
   </div>
   <div id="chatbot" class="chatbot-container" style="display: none;">
@@ -1034,7 +1078,13 @@ Prénom|Nom|Âge|Email|Téléphone|Rôle|Statut|Adresse|Activité|Résidence|Lie
       <h3>Assistant ANSAR</h3>
       <span class="material-icons" onclick="toggleChatbot()">close</span>
     </div>
+    <div class="chatbot-welcome" style="background:#f1f1f1; padding:10px; border-radius:8px; margin-bottom:10px; font-size:14px; color:#333; text-align:center;">
+    👋 Bienvenue dans <b>ANSAR – Assistance Rapide</b><br>
+    ✨ Écrivez un mot-clé pour trouver de l’aide rapidement.<br>
+    Exemple : <i>Quiz</i>, <i>Qibla</i>, <i>Horaire</i>, <i>Prière</i>...
+  </div>
     <div id="chatbot-messages"></div>
+    
     <div id="chatbot-controls">
       <button class="cta-button clear-history" onclick="clearChatHistory()"><span class="material-icons">delete</span> </button>
     </div>
@@ -1042,11 +1092,46 @@ Prénom|Nom|Âge|Email|Téléphone|Rôle|Statut|Adresse|Activité|Résidence|Lie
       <input type="text" id="chatbot-input" placeholder="Posez une question...">
       <button type="submit" class="cta-button"><span class="material-icons">send</span></button>
     </form>
-    <div id="secret-entry" style="display: none;">
-      <input type="password" id="secret-password" placeholder="Mot de passe">
-      <button class="cta-button" onclick="checkSecretPassword()">Entrée</button>
-    </div>
+    <div id="secret-entry" style="
+  display: none; 
+  position: fixed; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  background: #214f4e; 
+  padding: 20px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+  text-align: center; 
+  z-index: 9999;
+">
+  <input type="password" id="secret-password" placeholder="Mot de passe" 
+         style="padding:8px; width: 200px; border:1px solid #ccc; border-radius:5px; margin-bottom:10px;">
+  <br>
+  <button class="cta-button" onclick="checkSecretPassword()">Entrée</button>
+</div>
+
   </div>
+
+ 
+</section>
+    
+  </main>
+ <footer>
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active" onclick="showPage('home')"><span class="material-icons">home</span> </a>
+     
+      
+      <a href="#" class="nav-item" onclick="showPage('messages')"><span class="material-icons">notifications</span> </a>
+<a href="#" class="nav-item" onclick="showPage('ia')">
+  <img src="ansar-x-icon.png" alt="ANSAR-X" class="icon-ia">
+</a>
+
+      <a href="#" class="nav-item" onclick="showPage('personal')"><span class="material-icons">person</span> </a>
+      
+    </nav>
+  </footer>
+  
 <script>
   // Copier le contenu de #business-cards dans #business-cards-home au chargement
   document.addEventListener('DOMContentLoaded', () => {
