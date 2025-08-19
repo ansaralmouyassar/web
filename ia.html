@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Islamique Together AI</title>
+  <link href="https://pro.fontawesome.com/releases/v6.0.0-beta1/css/all.css" rel="stylesheet">
+    <style>
+       :root {
+    --primary-color: #073332;
+    --secondary-color: #1f4a49;
+    --accent-color: #9b9c28;
+    --accent-glow: rgba(155, 156, 40, 0.4);
+    --bg-color: #073332;
+    --text-color: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.7);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+   margin: 0;          /* Supprime les marges par défaut */
+    padding: 0; 
+}
+
+.holographic-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: 
+        radial-gradient(circle at 30% 40%, var(--secondary-color) 0%, transparent 25%),
+        radial-gradient(circle at 70% 60%, var(--primary-color) 0%, transparent 25%);
+    opacity: 0.4;
+    z-index: -1;
+    animation: bgRotate 60s linear infinite;
+}
+
+@keyframes bgRotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.holographic-bg {
+    display: none !important;
+} 
+.ansar-glass {
+    background: rgba(7, 51, 50, 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(155, 156, 40, 0.2);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(155, 156, 40, 0.1),
+        inset 0 0 30px rgba(31, 74, 73, 0.3);
+}
+
+.holographic-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.holographic-effect::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        transparent,
+        transparent,
+        transparent,
+        var(--accent-glow),
+        transparent
+    );
+    transform: rotate(30deg);
+    animation: hologram 8s linear infinite;
+    z-index: -1;
+}
+
+@keyframes hologram {
+    0% { transform: translateY(-100%) rotate(30deg); }
+    100% { transform: translateY(100%) rotate(30deg); }
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+header {
+    padding: 25px 20px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    text-align: center;
+    border-bottom: 1px solid var(--accent-color);
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+header .subtitle {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+#chat-container {
+    height: 500px;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.ansar-message {
+    max-width: 85%;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    background: rgba(31, 74, 73, 0.4);
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user-message {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+}
+
+.message-content {
+    line-height: 1.5;
+}
+
+.typing-indicator {
+    color: var(--accent-color);
+    font-style: italic;
+    padding: 10px 20px;
+    align-self: flex-start;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.input-area {
+    display: flex;
+    padding: 15px;
+    background: rgba(7, 51, 50, 0.8);
+    border-top: 1px solid var(--accent-color);
+}
+
+.input-ansar {
+    flex: 1;
+    padding: 12px 15px;
+    background: rgba(7, 51, 50, 0.5);
+    border: 1px solid var(--accent-color);
+    border-radius: 25px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-ansar:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.btn-ansar {
+    background: linear-gradient(135deg, rgba(155, 156, 40, 0.2), transparent);
+    border: 1px solid var(--accent-color);
+    color: var(--text-color);
+    border-radius: 25px;
+    padding: 0 25px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-ansar:hover {
+    background: linear-gradient(135deg, rgba(155, 156, 40, 0.3), transparent);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.btn-ansar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.error-message {
+    color: #ff6b6b;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    border-top: 1px solid rgba(155, 156, 40, 0.2);
+}
+
+@media (max-width: 600px) {
+    .container {
+        border-radius: 0;
+    }
+    
+    #chat-container {
+        height: 65vh;
+    }
+    
+    .ansar-message {
+        max-width: 90%;
+    }
+    
+    .btn-ansar {
+        padding: 0 20px;
+    }
+}
+      /* Styles des bulles de message */
+.message {
+    max-width: 80%;
+    padding: 15px;
+    margin: 8px 0;
+    border-radius: 18px;
+    position: relative;
+    animation: fadeIn 0.3s ease;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Messages du bot (gauche) */
+.bot-message {
+    align-self: flex-start;
+    background: rgba(31, 74, 73, 0.4);
+    border: 1px solid var(--accent-color);
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 0 15px var(--accent-glow);
+    margin-right: auto;
+}
+
+/* Messages de l'utilisateur (droite) */
+.user-message {
+    align-self: flex-end;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-bottom-right-radius: 5px;
+    margin-left: auto;
+}
+
+/* En-tête des messages */
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    color: var(--accent-color);
+}
+
+/* Contenu des messages */
+.message-content {
+    font-size: 0.95rem;
+}
+      /* Style du bouton avec icône */
+#send-button {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(155, 156, 40, 0.2);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    cursor: pointer;
+    margin-left: 10px; /* Conserve l'espacement avec le champ de texte */
+}
+
+
+#send-button i {
+    font-size: 1.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+
+
+@keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.3; }
+    70% { transform: scale(1.2); opacity: 0.1; }
+    100% { transform: scale(1.3); opacity: 0; }
+}
+
+/* Animation au survol */
+#send-button:hover i {
+    transform: translateY(-3px) rotate(15deg);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+/* Effet cliqué */
+#send-button:active i {
+    transform: translateY(0) rotate(0deg);
+    transition: all 0.1s;
+}
+      .delete-history-btn {
+    background: none;
+    border: none;
+    color: #ff3b3b; /* Rouge vif */
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s;
+}
+
+.delete-history-btn:hover {
+    color: #ff0000; /* Rouge plus intense au survol */
+    text-decoration: underline;
+}
+      .logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    animation: pulseGlow 2s infinite alternate;
+}
+      header {
+    padding: 15px 20px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    border-bottom: 1px solid var(--accent-color);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.logo {
+    height: 50px; /* Ajustez cette valeur selon la taille souhaitée */
+    width: auto; /* Conserve les proportions originales */
+    object-fit: contain;
+}
+
+.title-wrapper {
+    text-align: left;
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px; 
+} 
+      .input-footer {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto; /* Ceci pousse le footer tout en bas */
+}
+      /* Style pour le message de limite atteinte */
+.limit-message {
+    position: sticky;
+    bottom: 80px; /* Position au-dessus du champ de saisie */
+    background: rgba(255, 59, 59, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid #ff3b3b;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 0 15px 15px 15px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 59, 59, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.limit-message-content {
+    flex: 1;
+}
+
+.close-limit-message {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-left: 10px;
+}
+    </style>
+</head>
+<body>
+     
+    <!-- Conteneur principal -->
+    <div class="container ansar-glass holographic-effect">
+        <!-- En-tête -->
+       <header>
+    <div class="header-content">
+        <img src="ansar-x-icon.png" alt="ANSAR-X Logo" class="logo">
+        <div class="title-wrapper">
+            <h1>ANSAR-GPT</h1>
+            <div class="subtitle">Intelligence islamique spécialisée</div>
+        </div>
+    </div>
+</header>
+        
+        <!-- Zone de chat -->
+        <div id="chat-container">
+            <div class="bot-message ansar-message">
+                <div class="message-header">
+                    <span>ANSAR-GPT</span>
+                </div>
+                <div class="message-content">
+                    Assalamou alaykoum wa rahmatoullahi wa barakatouh. Je suis ANSAR‑GPT, une Intelligence Artificielle spécialisé dans la religion islamique. Je réponds uniquement aux questions concernant le Coran, la Sunna, le fiqh, l’histoire islamique ou les valeurs morales en Islam. Mes réponses sont fournies à titre informatif uniquement et ne doivent pas être considérées comme des vérités absolues ou des avis juridiques contraignants.
+                </div>
+            </div>
+        </div>
+      <!-- Zone de saisie -->
+<button id="clear-history" class="delete-history-btn">
+  <i class="fas fa-trash"></i>
+</button>
+
+        <div class="input-area">
+
+            <input type="text" id="user-input" placeholder="Posez votre question islamique..." autocomplete="off" class="input-ansar">
+            <button id="send-button" class="btn-ansar">
+<i class="fad fa-paper-plane"></i>
+    <span class="btn-pulse"></span> <!-- Effet de pulsation -->
+</button>
+        </div>
+        
+        <!-- Message d'erreur -->
+        <div id="error-message" class="error-message"></div>
+        
+        <!-- Pied de page -->
+        <div class="footer">
+
+        </div>
+    </div>
+
+
+<script>
+    const API_KEY = "0c64da8295204d9cdac8feb7ae4d06f91078bd56ae85c9325e21f6069c2e8e79";
+    const API_URL = "https://api.together.xyz/v1/chat/completions";
+    
+    const islamicKeywords = [
+    'islam', 'islaam', 'islaem', 'islame', 'musulman', 'muslim', 'moslim', 'muslman', 'muslime',
+    'coran', 'quran', 'kuran', 'qour\'an', 'qur\'an', 'koraan', 'livre d\'allah',
+    'sourate', 'surah', 'sorate', 'surat', 'soorate', 'ayat', 'aya', 'aayat', 'ayah',
+    'allah', 'allahou', 'allahu', 'allah akbar', 'allahou akbar', 'subhanallah', 'al hamdoulillah',
+    'mohammed', 'muhammad', 'mohamed', 'muhammed', 'mahomet', 'prophet', 'prophete', 'nabi', 'rasoul',
+    'sunnah', 'sounna', 'sunna', 'hadith', 'hadis', 'hadiths', 'sahih', 'boukhari', 'muslim', 'tirmidhi',
+    'fiqh', 'fiq', 'charia', 'sharia', 'chari\'a', 'fatwa', 'fatoua', 'ouléma', 'oulema', 'sheikh', 'cheikh',
+    'tawhid', 'tauhid', 'aqida', 'aqeeda', 'iman', 'imane', 'kufr', 'koufr', 'mécréance',
+    'halal', 'halaal', 'haram', 'haraam', 'makrouh', 'moustahab', 'mubah',
+    'prière', 'salat', 'salah', 'namaz', 'salaat', 'prière musulmane',
+    'jeûne', 'jeune', 'ramadan', 'ramadhan', 'ramazan', 'ramdan', 'sawm', 'siyam',
+    'zakat', 'zakah', 'zakaat', 'aumône', 'sadaqa', 'sadaka',
+    'hajj', 'hadj', 'haj', 'omra', 'oumra', 'umrah', 'pilgrimage',
+    'chahada', 'shahada', 'attestation de foi',
+    'adam', 'adem', 'idris', 'idriss', 'noé', 'nuh', 'nouh', 'ibrahim', 'abraham', 'ismael', 'ismail', 'ishaq', 'isaac',
+    'moussa', 'moïse', 'mousa', 'daoud', 'david', 'sulayman', 'solomon', 'yousouf', 'joseph',
+    'ayoub', 'job', 'yunus', 'jonas', 'ilyes', 'elie', 'zakariya', 'zacharie', 'yahya', 'jean le baptiste',
+    'issa', 'jésus', 'jesus', 'mariam', 'marie', 'fatima', 'aïcha', 'aisha', 'khadija', 'khadidja',
+    'abou bakr', 'omar', 'othman', 'ali', 'hassan', 'hussain', 'bilal', 'salman al farisi',
+    'fatiha', 'al fatiha', 'fatiha coran', 'baqara', 'al baqara', 'ali imran', 'nissa', 'nisa', 'maidah',
+    'an\'am', 'a\'raf', 'anfal', 'tawbah', 'younous', 'houd', 'yusuf', 'ra\'d', 'ibrahim', 'hijr',
+    'kahf', 'mariam', 'ta ha', 'anbiya', 'hajj', 'mouminoun', 'nour', 'furqane', 'shu\'ara',
+    'naml', 'qasas', 'ankabout', 'roum', 'luqman', 'sajda', 'ahzab', 'saba', 'fatir', 'yassin',
+    'saffat', 'sad', 'zoumar', 'ghafir', 'fussilat', 'shoura', 'zukhruf', 'dukhan', 'jathiya',
+    'ahqaf', 'muhammad', 'fath', 'hujurat', 'qaf', 'dhariyat', 'tour', 'nejm', 'qamar',
+    'rahman', 'waqia', 'hadid', 'moujadala', 'Mouhamed', 'Mouhamad', 'Ahmed', 'Ahmad', 'hachr', 'mumtahana', 'saff', 'jumua', 'munafiqoun',
+    'taghaboun', 'talaq', 'tahrim', 'moulk', 'naba', 'nazi\'at', 'abasa', 'takwir', 'infitar',
+    'moutaffifin', 'inchiqaq', 'bourouj', 'tariq', 'a\'la', 'ghachiya', 'fajr', 'balad', 'chams',
+    'layl', 'duha', 'charh', 'tin', 'alaq', 'qadr', 'bayyina', 'zalzala', 'adiyat', 'qari\'a',
+    'takathour', 'asr', 'houmaza', 'fil', 'quraysh', 'maoun', 'kawthar', 'kafiroun', 'nasr',
+    'masad', 'lahab', 'ikhlas', 'falaq', 'nas',
+    'djinn', 'jinn', 'chaytan', 'iblis', 'satan', 'sihr', 'sorcellerie', 'roqya', 'ruqya',
+    'mecque', 'mekka', 'makkah', 'médine', 'medina', 'yathrib', 'jerusalem', 'al aqsa', 'al aqsa',
+    'kaaba', 'ka\'ba', 'kaba', 'pierre noire', 'zamzam', 'mount arafat', 'mina', 'muzzalifa',
+    'qiyamah', 'fin du monde', 'jour dernier', 'jugement dernier', 'jannah', 'paradis', 'janah',
+    'jahannam', 'enfer', 'nar', 'barzakh', 'résurrection', 'trompette', 'israfil',
+    'miraj', 'isra wal miraj', 'voyage nocturne', 'bouraq',
+    'adhan', 'azan', 'iqama', 'takbir', 'tasbih', 'tahlil', 'verset', 'tahmid', 'istighfar',
+    'doua', 'dua', 'douroud', 'salat ibrahimiya', 'qounout', 'soujoud', 'rukou',
+    'sunnite', 'sunni', 'chiite', 'shia', 'chii', 'malikite', 'hanafite', 'chaféite', 'hanbalite',
+    'salafiste', 'salaf', 'soufi', 'tasawwuf', 'tariqa', 'mouride', 'tidjane',
+    'hijab', 'hidjab', 'niqab', 'burqa', 'khimar', 'abaya', 'modestie',
+    'dawaa', 'dawa', 'tabligh', 'ijma', 'qiyas', 'ijtihad',
+    'muezzin', 'minaret', 'minbar', 'mimbar', 'khoutba', 'sermon',
+    'tahara', 'ablution', 'ghusl', 'wudu', 'woudou', 'tayammoum',
+    'mawloud', 'mawlid', 'eid', 'aid', 'eid al fitr', 'eid al adha', 'aïd el kebir', 'aïd el fitr',
+    'dhikr', 'zikr', 'tawassoul', 'istikhara', 'qadar', 'qadr', 'taqwa', 'taqwaa',
+    'sadaqah', 'waqf', 'hudud', 'hudood', 'hijra', 'hégire', 'muharram', 'ramadhan', 'chaabane',
+    'chaaban', 'rajab', 'chawwal', 'dhul hijja', 'dhul qi\'dah', 'safar', 'rabi al awwal', 'rabi al thani',
+    'jumu\'ah', 'jumua', 'vendredi', 'khoutba jumu\'ah', 'asr', 'maghrib', 'isha', 'fajr', 'dhuhr', 'zuhr',
+    'qibla', 'qiblah', 'ka\'bah', 'mihrab', 'musalla', 'sajjada', 'turbah', 'misbaha', 'tasbeeh',
+    'suhoor', 'suhur', 'iftar', 'fitar', 'tarawih', 'taraweeh', 'qiyam al layl', 'tahajjud', 'witir',
+    'qunut', 'du\'a al qunut', 'istiaadha', 'basmala', 'ta\'awwudh', 'taawuz', 'salawat', 'durood',
+    'salawat ibrahimiyya', 'salat al tawbah', 'salat al hajat', 'salat al istikhara', 'salat al janazah',
+    'janazah', 'janaza', 'dafan', 'qubur', 'qabr', 'kafan', 'ghusl al mayyit', 'talqin', 'shahid', 'shuhada',
+    'jihad', 'jihaad', 'mujahid', 'mujahideen', 'qital', 'qitaal', 'dar al islam', 'dar al harb', 'dar al kufr',
+    'ummah', 'ummah', 'khilafah', 'califat', 'amir', 'emir', 'wali', 'waliy', 'wali Allah', 'awliya', 'awliyaa',
+    'suhbah', 'sohba', 'tarbiyah', 'tazkiyah', 'ihsan', 'ihsaan', 'sabr', 'shukr', 'rida', 'tawakkul', 'tawakkul',
+    'khawf', 'khashyah', 'haya', 'hayaa', 'ikhlas', 'ikhlass', 'siddiq', 'siddiqeen', 'shafa\'ah', 'shafaa', 'shafaa\'ah',
+    'hawd', 'hawd al kawthar', 'sirat', 'siraat', 'mizan', 'meezan', 'hisab', 'hisaab', 'sijjin', 'illiyyin',
+    'houri', 'hoor', 'hoor al ayn', 'wilaya', 'wilayah', 'bai\'ah', 'bayah', 'bay\'a', 'itikaf', 'i\'tikaf', 'etikaf',
+    'mufti', 'qadi', 'qadhi', 'faqih', 'fuqaha', 'mujtahid', 'taqlid', 'taqleed', 'ijtihad', 'ijtihaad', 'usul al fiqh',
+    'usool al fiqh', 'qawaid al fiqh', 'fiqh al sunnah', 'fiqh as sunnah', 'fiqh al hadith', 'fiqh al maliki', 'fiqh al hanafi',
+    'fiqh al shafi\'i', 'fiqh al hanbali', 'fiqh al ja\'fari', 'fiqh al zahiri', 'fiqh al thahiri', 'fiqh al salaf', 'fiqh al salafiyyah',
+    'fiqh al tabi\'in', 'fiqh al tabieen', 'fiqh al sahaba', 'fiqh al sahaby', 'fiqh al quran', 'fiqh al koran', 'fiqh al sunna',
+    'fiqh al aqeeda', 'fiqh al iman', 'fiqh al ibadat', 'fiqh al muamalat', 'fiqh al munakahat', 'fiqh al mawarith', 'fiqh al jinayat',
+    'fiqh al hudud', 'fiqh al qisas', 'fiqh al diyat', 'fiqh al jihad', 'fiqh al siyar', 'fiqh al dawla', 'fiqh al khilafa',
+    'fiqh al imama', 'fiqh al wilaya', 'fiqh al amwal', 'fiqh al zakat', 'fiqh al sadaqat', 'fiqh al waqf', 'fiqh al hibah',
+    'fiqh al wasiyya', 'fiqh al mirath', 'fiqh al faraid', 'fiqh al qada', 'fiqh al shahadat', 'fiqh al qada wal shahadat',
+    'fiqh al qada wal hisba', 'fiqh al hisba', 'fiqh al muhtasib', 'fiqh al qada wal muhtasib', 'fiqh al qada wal mazalim',
+    'fiqh al mazalim', 'fiqh al qada wal mazalim wal hisba', 'fiqh al qada wal mazalim wal muhtasib', 'fiqh al qada wal mazalim wal hisba wal muhtasib',
+    'fiqh al qada wal mazalim wal hisba wal muhtasib wal wilaya', 'fiqh al qada wal mazalim wal hisba wal muhtasib wal wilaya wal imama',
+    'fiqh al qada wal mazalim wal hisba wal muhtasib wal wilaya wal imama wal khilafa', 'fiqh al qada wal mazalim wal hisba wal muhtasib wal wilaya wal imama wal khilafa wal dawla',
+    'fiqh al qada wal mazalim wal hisba wal muhtasib wal wilaya wal imama wal khilafa wal dawla al islamiyya',
+      // Salutations islamiques
+    'salam', 'salam aleykoum', 'assalamou aleykoum', 'salam alaykum', 'salam alaykoum', 'salam aleykum', 
+    'as salam aleykoum', 'as-salam alaykum', 'salem', 'salem aleykoum', 'salaam', 'salaam aleykum',
+    'aleykoum salam', 'alaykoum salam', 'aleykum salam', 'wa aleykoum salam', 'wa alaykoum salam', 'wa aleykum salam',
+    'wa alaykum assalam', 'wa aleykoum assalam', 'wa alaykoum assalam', 'wa aleykum assalam',
+    'marhaba', 'marhaban', 'marhaba bik', 'marhaba bikum', 'ahlan', 'ahlan wa sahlan', 'ahlan bik', 'ahlan bikum',
+    'sabah el khair', 'sabah al khair', 'sbah el khir', 'sbah el khair', 'bonjour', 'bjr', 'bonsoir', 'bsr',
+    'bonne nuit', 'bonne journée', 'bonne soirée', 'salut', 'hello', 'hi', 'coucou', 'bienvenue', 'welcome',
+    'rahimakallah', 'barakallahou fik', 'barak allah fik', 'barakallah fik', 'jazakallah', 'jazak allah', 'jazak allah khair',
+    'jazakumullah', 'jazakum allah', 'jazakum allah khair', 'fi amanillah', 'fi aman allah', 'ma assalama', 'ma salamah',
+    'allah hafiz', 'allah yahfazk', 'allah yahfazkoum', 'in sha allah', 'inshallah', 'inchallah', 'macha allah', 'mashallah',
+    'masha allah', 'tabarakallah', 'subhanallah', 'alhamdulillah', 'hamdoulillah', 'el hamdoulillah', 'la ilaha illallah',
+    'la ilaha illa allah', 'astaghfirullah', 'astaghfir allah', 'astaghfiroullah', 'nawakhtou', 'nawakhto', 'nawakhtou billah',
+    'taqabbal allah', 'taqabbal allah minna wa minkum', 'allahumma ameen', 'ameen', 'amin', 'ya allah', 'ya rabbi', 'ya rab',
+    'ya karim', 'ya rahman', 'ya rahim', 'ya latif', 'ya ghaffar', 'ya ghafour', 'ya tawwab', 'ya salam', 'ya moumin',
+    'ya muhaymin', 'ya aziz', 'ya jabbar', 'ya mutakabbir', 'ya khaliq', 'ya bari', 'ya mussawir', 'ya gaffar', 'ya kahhar',
+    'ya wahhab', 'ya razzak', 'ya fattah', 'ya alim', 'ya qabid', 'ya basit', 'ya khafid', 'ya rafi', 'ya mouiz', 'ya mouzil',
+    'ya sami', 'ya basir', 'ya hakam', 'ya adl', 'ya latif', 'ya khabir', 'ya halim', 'ya azeem', 'ya ghafour', 'ya chakour',
+    'ya ali', 'ya kabir', 'ya hafiz', 'ya mouqit', 'ya hassib', 'ya jalil', 'ya karim', 'ya raqib', 'ya moujib', 'ya wasi',
+    'ya hakim', 'ya wadoud', 'ya majid', 'ya bais', 'ya chahid', 'ya haqq', 'ya wakil', 'ya qawi', 'ya matin', 'ya wali',
+    'ya hamid', 'ya muhsi', 'ya mubdi', 'ya mouid', 'ya muhyi', 'ya moumit', 'ya hay', 'ya qayyoum', 'ya wajid', 'ya majid',
+    'ya wahid', 'ya samad', 'ya qadir', 'ya mouqtadir', 'ya mouqaddim', 'ya mouakhir', 'ya awwal', 'ya akhir', 'ya zahir',
+    'ya batin', 'ya wali', 'ya moula', 'ya nour', 'ya hadi', 'ya badi', 'ya baqi', 'ya warith', 'ya rashid', 'ya sabour',
+    'ya raouf', 'ya malik', 'ya doul', 'ya moumin', 'ya muhaymin', 'ya aziz', 'ya jabbar', 'ya mutakabbir', 'ya khaliq',
+    'ya bari', 'ya mussawir', 'ya gaffar', 'merci', 'arabe', 'fr', 'toi', 'tu','Merci', 'ya kahhar', 'ya wahhab', 'ya razzak', 'ya fattah', 'ya alim', 'ya qabid',
+    'ya basit', 'ya khafid', 'ya rafi', 'ya mouiz', 'ya mouzil', 'ya sami', 'ya basir', 'ya hakam', 'ya adl', 'ya latif',
+    'ya khabir', 'ya halim', 'ya azeem', 'ya ghafour', 'ya chakour', 'ya ali', 'ya kabir', 'ya hafiz', 'ya mouqit', 'ya hassib',
+    'ya jalil', 'ya karim', 'ya raqib', 'ya moujib', 'ya wasi', 'ya hakim', 'ya wadoud', 'ya majid', 'ya bais', 'ya chahid',
+    'ya haqq', 'ya wakil', 'ya qawi', 'ya matin', 'ya wali', 'ya hamid', 'ya muhsi', 'ya mubdi', 'ya mouid', 'ya muhyi',
+    'ya moumit', 'ya hay', 'ya qayyoum', 'ya wajid', 'ya majid', 'ya wahid', 'ya samad', 'ya qadir', 'ya mouqtadir', 'ya mouqaddim',
+    'ya mouakhir', 'ya awwal', 'ya akhir', 'ya zahir', 'ya batin', 'ya wali', 'ya moula', 'ya nour', 'ya hadi', 'ya badi',
+    'ya baqi', 'ya warith', 'ya rashid', 'ya sabour', 'ya raouf', 'ya malik', 'ya doul', 'ya moumin', 'ya muhaymin', 'ya aziz',
+    'ya jabbar', 'ya mutakabbir', 'ya khaliq', 'ya bari', 'ya mussawir', 'ya gaffar', 'ya kahhar', 'ya wahhab', 'ya razzak',
+    'ya fattah', 'ya alim', 'ya qabid', 'ya basit', 'ya khafid', 'ya rafi', 'ya mouiz', 'ya mouzil', 'ya sami', 'ya basir',
+    'ya hakam', 'ya adl', 'ya latif', 'ya khabir', 'ya halim', 'ya azeem', 'ya ghafour', 'ya chakour', 'ya ali', 'ya kabir',
+    'ya hafiz', 'ya mouqit', 'ya hassib', 'ya jalil', 'ya karim', 'ya raqib', 'ya moujib', 'ya wasi', 'ya hakim', 'ya wadoud',
+    'ya majid', 'ya bais', 'ya chahid', 'ya haqq', 'ya wakil', 'ya qawi', 'ya matin', 'ya wali', 'ya hamid', 'ya muhsi',
+    'ya mubdi', 'ya mouid', 'ya muhyi', 'ya moumit', 'arabe', 'ya hay', 'ya qayyoum', 'ya wajid', 'ya majid', 'ya wahid', 'ya samad',
+    'ya qadir', 'ya mouqtadir', 'ya mouqaddim', 'ya mouakhir', 'ya awwal', 'ya akhir', 'ya zahir', 'ya batin', 'ya wali',
+    'ya moula', 'ya nour', 'ya hadi', 'ya badi', 'ya baqi', 'ya warith', 'ya rashid', 'ya sabour', 'ya raouf', 'ya malik',
+    'ya doul', 'ya moumin', 'ya muhaymin', 'ya aziz', 'ya jabbar', 'ya mutakabbir', 'ya khaliq', 'ya bari', 'ya mussawir',
+    'ya gaffar', 'ya kahhar', 'ya wahhab', 'ya razzak', 'ya fattah', 'ya alim', 'ya qabid', 'ya basit', 'ya khafid', 'ya rafi',
+    'ya mouiz', 'ya mouzil', 'ya sami', 'ya basir', 'ya hakam', 'ya adl', 'ya latif', 'ya khabir', 'ya halim', 'ya azeem',
+    'ya ghafour', 'ya chakour', 'ya ali', 'ya kabir', 'ya hafiz', 'ya mouqit', 'ya hassib', 'ya jalil', 'ya karim', 'ya raqib',
+    'ya moujib', 'ya wasi', 'ya hakim', 'ya wadoud', 'ya majid', 'ya bais', 'ya chahid', 'ya haqq', 'ya wakil', 'ya qawi',
+    'ya matin', 'ya wali', 'ya hamid', 'ya muhsi', 'ya mubdi', 'ya mouid', 'ya muhyi', 'ya moumit', 'ya hay', 'ya qayyoum',
+    'ya wajid', 'ya majid', 'ya wahid', 'ya samad', 'ya qadir', 'ya mouqtadir', 'ya mouqaddim', 'ya mouakhir', 'ya awwal',
+    'ya akhir', 'ya zahir', 'ya batin', 'ya wali', 'ya moula', 'ya nour', 'ya hadi', 'ya badi', 'ya baqi', 'ya warith',
+    'ya rashid', 'ya sabour', 'ya raouf', 'ya malik', 'ya doul'
+];
+    
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendButton = document.getElementById('send-button');
+    const errorMessage = document.getElementById('error-message');
+    
+    let conversationHistory = [
+        { 
+            role: "system", 
+            content: "Vous êtes une IA spécialisée uniquement dans la religion islamique. Vous répondez uniquement aux questions concernant l’Islam (Coran, Sunna authentique, fiqh, histoire islamique, valeurs morales, prophètes, etc.) de manière respectueuse, précise et bienveillante. Vos réponses ne dépassent jamais 100 mots et, si la question peut être traitée de manière concise, vous donnez un résumé clair. Vous citez toujours vos sources (versets coraniques, hadiths sahîh, savants reconnus) quand c’est possible, citations de sources islamiques uniquement. Vous n’inventez jamais d’informations et ne répondez à rien qui ne concerne pas l’Islam."
+        }
+    ];
+    
+    // Fonction pour vérifier si la question est islamique
+    function isIslamicQuestion(question) {
+        const lowerQuestion = question.toLowerCase();
+        return islamicKeywords.some(keyword => lowerQuestion.includes(keyword.toLowerCase()));
+    }
+    
+    // Fonction pour ajouter un message au chat
+    function addMessage(content, role) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(role === 'user' ? 'user-message' : 'bot-message');
+        messageDiv.textContent = content;
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    // Fonction pour afficher l'indicateur de frappe
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('typing-indicator');
+        typingDiv.id = 'typing-indicator';
+        typingDiv.textContent = "ANSAR‑GPT, réponse en cours";
+        chatContainer.appendChild(typingDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+    
+    // Fonction pour masquer l'indicateur de frappe
+    function hideTypingIndicator() {
+        const typingDiv = document.getElementById('typing-indicator');
+        if (typingDiv) {
+            typingDiv.remove();
+        }
+    }
+    // Fonction pour afficher le message de limite
+function showLimitMessage() {
+    // Vérifier si le message existe déjà
+    if (document.getElementById('limit-message')) return;
+    
+    const limitMessage = document.createElement('div');
+    limitMessage.id = 'limit-message';
+    limitMessage.className = 'limit-message';
+    
+    limitMessage.innerHTML = `
+        <div class="limit-message-content">
+           Limite atteinte : 10 000 tokens consommés. Merci de réessayez après un délai de 6 heures.
+        </div>
+        <button class="close-limit-message" onclick="closeLimitMessage()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+    
+    // Insérer juste au-dessus du champ de saisie
+    const inputArea = document.querySelector('.input-area');
+    inputArea.parentNode.insertBefore(limitMessage, inputArea);
+}
+
+// Fonction pour fermer le message
+function closeLimitMessage() {
+    const limitMessage = document.getElementById('limit-message');
+    if (limitMessage) {
+        limitMessage.remove();
+    }
+}
+    // Fonction pour envoyer le message à l'API
+    async function sendMessage() {
+        const message = userInput.value.trim();
+        if (!message) return;
+        
+        // Désactiver le bouton pendant le traitement
+        sendButton.disabled = true;
+        userInput.disabled = true;
+        
+        // Ajouter le message de l'utilisateur
+        addMessage(message, 'user');
+        userInput.value = '';
+        
+        // Vérifier si la question est islamique
+        if (!isIslamicQuestion(message)) {
+            addMessage("Je n’ai été programmé que pour répondre aux questions en lien avec l’Islam. Pour toute question concernant le Coran, la Sunna, le fiqh ou l’histoire islamique, je serai heureux de vous aider.", 'bot');
+            sendButton.disabled = false;
+            userInput.disabled = false;
+            userInput.focus();
+            return;
+        }
+        
+        // Si la question est islamique, on continue
+        conversationHistory.push({ role: "user", content: message });
+        
+        // Afficher l'indicateur de frappe
+        showTypingIndicator();
+        errorMessage.textContent = '';
+        
+        try {
+            // Appel à l'API Together AI
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${API_KEY}`
+                },
+                body: JSON.stringify({
+    model: "meta-llama/Llama-3-8b-chat-hf",  
+    messages: conversationHistory,
+    max_tokens: 1000,
+    temperature: 0.7
+})
+            });
+            
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Erreur inconnue');
+            }
+            
+            const data = await response.json();
+            const botResponse = data.choices[0].message.content;
+            
+            // Ajouter la réponse de l'IA
+            addMessage(botResponse, 'bot');
+            conversationHistory.push({ role: "assistant", content: botResponse });
+            
+        } catch (error) {
+    if (error.message.includes('Credit limit exceeded')) {
+        showLimitMessage();
+    } else {
+        errorMessage.textContent = `Erreur : ${error.message}`;
+    }
+    console.error("Erreur API:", error);
+} finally {
+    hideTypingIndicator();
+    sendButton.disabled = false;
+    userInput.disabled = false;
+    userInput.focus();
+}
+    }
+    // Effacer l'historique
+document.getElementById('clear-history').addEventListener('click', function() {
+    // Réinitialiser l'affichage
+    document.getElementById('chat-container').innerHTML = `
+        <div class="bot-message ansar-message">
+            <div class="message-header">
+                <span>ANSAR-X</span>
+            </div>
+            <div class="message-content">
+                Assalamou alaykoum wa rahmatoullahi wa barakatouh. Je suis ANSAR‑X, un assistant spécialisé dans la religion islamique. Je réponds uniquement aux questions concernant le Coran, la Sunna, le fiqh, l’histoire islamique ou les valeurs morales en Islam. Mes réponses sont fournies à titre informatif uniquement et ne doivent pas être considérées comme des vérités absolues ou des avis juridiques contraignants.
+            </div>
+        </div>`;
+    
+    // Réinitialiser uniquement l'historique utilisateur
+    conversationHistory = conversationHistory.filter(msg => msg.role === "system");
+});
+    // Écouteurs d'événements
+    sendButton.addEventListener('click', sendMessage);
+    userInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    
+    // Focus initial sur le champ de saisie
+    userInput.focus();
+</script>
+</body>
+</html>
