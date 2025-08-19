@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Institut Al Mouyassar - Dakar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #073332;
+            --secondary-color: #1f4a49;
+            --accent-color: #9b9c28;
+            --bg-color: #073332;
+            --text-color: #ffffff;
+            --font-arabic: 'Traditional Arabic', 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Écran d'accueil */
+        #accueil {
+            text-align: center;
+            padding: 20vh 0;
+            background: var(--bg-color);
+        }
+
+        #accueil h1 {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .accueil-btn {
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 1rem 2rem;
+            margin: 1rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .accueil-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Cacher contenu par défaut */
+        #main-content, #pdf-viewer { 
+            display: none; 
+        }
+
+        /* PDF viewer */
+        #pdf-viewer {
+            padding: 2rem 0;
+        }
+
+        #pdf-viewer embed {
+            width: 100%;
+            height: 80vh;
+            border: none;
+        }
+
+        /* Bouton retour en haut */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+        }
+
+        #back-to-top:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--text-color);
+            padding: 2rem 0;
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 0%;
+            border: none;         /* supprime la bordure */
+            margin: 1rem auto; /* centrer horizontalement */
+            overflow: hidden;
+        } 
+
+        .logo img {
+            width: 300%;
+            height: 300%;
+            object-fit: cover !important;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle, .quote {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .verse {
+            font-family: var(--font-arabic);
+            font-size: 1.2rem;
+            direction: rtl;
+            color: var(--accent-color);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--secondary-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            padding: 0.8rem 1rem;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 2rem 0;
+        }
+
+        .section-title h2 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        /* Grid for mobile-first */
+        .life-grid, .pillar-grid, .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .life-card, .pillar-card, .program-card {
+            background: var(--secondary-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .life-card:hover, .pillar-card:hover, .program-card:hover {
+            transform: scale(1.05);
+        }
+
+        .life-img, .program-img {
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .life-img img, .program-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .life-card:hover img, .program-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .life-content, .program-content {
+            padding: 1rem;
+        }
+
+        .life-content h3, .program-content h3, .pillar-card h3 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+        }
+
+        ul li {
+            list-style: none;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: '\f058';
+            font-family: 'Font Awesome 6 Free';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Vision */
+        .vision {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photoa1.jpg');
+            background-size: cover;
+            color: var(--text-color);
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight {
+            color: var(--accent-color);
+        }
+
+        /* Responsive for larger screens */
+        @media (min-width: 768px) {
+            .life-grid, .pillar-grid, .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 { font-size: 2.5rem; }
+            .section-title h2 { font-size: 2rem; }
+            .logo { width: 120px; height: 120px; }
+            .life-img, .program-img { height: 200px; }
+        }
+
+        @media (min-width: 1024px) {
+            .life-grid { grid-template-columns: repeat(3, 1fr); }
+            .pillar-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        #pdf-viewer {
+            display: none;
+            width: 100%;
+            padding: 20px 0;
+        }
+        
+        .viewer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+        
+        .accueil-btn {
+            padding: 10px 20px;
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .accueil-btn:hover {
+            background: #3556a3;
+        }
+        
+        .zoom-controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .zoom-controls button {
+            padding: 8px 15px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .zoom-controls button:hover {
+            background: #e0e0e0;
+        }
+        
+        .pdf-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .pdf-viewport {
+            display: flex;
+            transition: transform 0.5s ease;
+            width: 300%; /* 3 x 100% pour les 3 parties */
+        }
+        
+        .pdf-frame {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            flex-shrink: 0;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            margin-top: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .nav-btn {
+            padding: 10px 20px;
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .nav-btn:hover:not(:disabled) {
+            background: #3556a3;
+        }
+        
+        .nav-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        .page-indicator {
+            font-weight: bold;
+            color: #4b6cb7;
+        }
+      .counter {
+  font-size: 28px;
+  color: gold;
+  font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Écran d'accueil -->
+    <section id="accueil">
+        <div class="container">
+            <div class="logo" style="display: flex; justify-content: center; align-items: center;">
+                <img src="https://i.postimg.cc/FsCQqBz6/logo-144x144-6.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+            </div>
+           
+            <h1>Bienvenue à l'Institut Al Mouyassar</h1>
+            <button class="accueil-btn" onclick="showMainContent()" style="background-color:#005044; color:#fff;">Info</button>
+<button class="accueil-btn" onclick="showPdfViewer()" style="background-color:#005044; color:#fff;">Magazine</button>
+
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <div id="main-content">
+        <header class="animate-on-scroll">
+            <div class="container">
+                <button class="accueil-btn" onclick="backToAccueil()" style="display:flex; align-items:center; justify-content:flex-start; background-color:#073332; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo" style="display: flex; justify-content: center; align-items: center;">
+                    <img src="https://i.postimg.cc/FsCQqBz6/logo-144x144-6.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                </div>
+                <h1>INSTITUT CORANIQUE ALMOUYASSAR</h1>
+                <p class="subtitle">Dakar - Sénégal</p>
+                <p class="quote">"ALMOUYASSAR est notre maison, le <span class="highlight">Coran</span> est notre vie, et la réussite est notre voie."</p>
+                <p class="verse">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ</p>
+                <p class="quote">« Et en effet, Nous avons rendu le <span class="highlight">Coran</span> facile à la méditation. Y a-t-il donc quelqu'un pour réfléchir ? » (Coran 54)</p>
+            </div>
+        </header>
+
+        <nav>
+            <div class="container nav-container">
+                <a href="#vie-scolaire" class="nav-link" title="Vie Scolaire">
+                    <i class="fas fa-school"></i>
+                </a>
+                <a href="#vision" class="nav-link" title="Notre Vision">
+                    <i class="fas fa-eye"></i>
+                </a>
+                <a href="#piliers" class="nav-link" title="Nos Piliers">
+                    <i class="fas fa-university"></i>
+                </a>
+                <a href="#programmes" class="nav-link" title="Programmes">
+                    <i class="fas fa-book-open"></i>
+                </a>
+                <a href="#contact" class="nav-link" title="Contact">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </nav>
+
+        <section id="vie-scolaire" class="animate-on-scroll">
+            <div class="container">
+                <div class="scroll-indicator" style="text-align: center; margin-bottom: 10px;">
+                    <i class="fas fa-arrow-down" style="font-size: 24px; color: #3498db;"></i>
+                </div>
+                <div class="section-title"><h2>VIE SCOLAIRE ET ACTIVITÉS</h2></div>
+                <p class="text-center">Un cadre enrichissant pour former des <span class="highlight">citoyens</span> responsables et musulmans engagés.</p>
+                <div class="life-grid">
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/Hsg6D34w/Design-sans-titre.png" alt=""></div><div class="life-content"><h3>Santé & Bien-être</h3><ul><li>Suivi médical</li><li>Environnement sain</li><li>Équilibre alimentaire</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/HnZn26Tq/Design-sans-titre-1.png" alt=""></div><div class="life-content"><h3>Activités Sportives</h3><ul><li>Football</li><li>Arts martiaux</li><li>Éducation physique</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/MGmW59D9/Design-sans-titre-2.png" alt=""></div><div class="life-content"><h3>Sorties Culturelles</h3><ul><li>Visites TER</li><li>Musées</li><li>Institutions</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/cLgshmDS/sq-jys-qb.png" alt=""></div><div class="life-content"><h3>Civisme & Discipline</h3><ul><li>Levée couleurs</li><li>Respect règles</li><li>Engagement citoyen</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/J0rrQCF6/ehq-brfe.png" alt=""></div><div class="life-content"><h3>Colonies Internationales</h3><ul><li>Échanges culturels</li><li>Découvertes</li><li>Rencontres</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/sgrMMbjL/dfhfdh-gfs.png" alt=""></div><div class="life-content"><h3>Éveil Religieux</h3><ul><li>Causeries spirituelles</li><li>Hadith jour</li><li>Concours coraniques</li></ul></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vision" class="vision animate-on-scroll">
+            <div class="container">
+                <h2>UNE VISION POUR L'AVENIR</h2>
+                <p>Le Complexe Arabo-islamique <span class="highlight">Almougassar</span></p>
+                <p>En construction à Pikine, ce futur complexe comprendra :</p>
+                <ul><li>Un Daara ultramoderne avec bibliothèque</li><li>Une mosquée intégrée</li><li>Des résidences internes</li><li>Réfectoire et espaces communs</li></ul>
+                <p>Objectif : épanouissement <span class="highlight">religieux</span>, intellectuel et moral.</p>
+            </div>
+        </section>
+ 
+        <section id="piliers" class="animate-on-scroll">
+            <div class="container">
+                <div class="section-title"><h2>NOS PILIERS HUMAINS</h2></div>
+                <div class="life-grid">
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/x8yTSTw3/E-DSQTG-FDREYR.png" alt=""></div><div class="life-content"><h3>Nos Enseignants</h3><ul><li>Savants expérimentés,</li><li>Hafiz</li><li> Pédagogues dévoués.</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/3RHJdvFH/qdhfb-dhr.png" alt=""></div><div class="life-content"><h3>Nos Anciens Élèves</h3><ul><li>Via Ansar Al Mouyassar : tutorat, mentorat.</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/mDNZMgm1/erg-vf.png" alt=""></div><div class="life-content"><h3>Notre Communauté</h3><ul><li>AMDMEC (Parents) depuis 2009.</li></ul></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="identite" class="animate-on-scroll">
+            <div class="container">
+                <div class="section-title"><h2>NOTRE IDENTITÉ</h2></div>
+                <p>Mission : Le <span class="highlight">Coran</span> au cœur. Fondé en 2007 par Cheikh El Hadji Abdallah Niasse.</p>
+                <div class="life-grid">
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/wx2Tj3tS/g-y-hb.png" alt=""></div><div class="life-content"><h3>Spiritualité</h3><ul><li>Tajwid</li><li>Fiqh</li><li>Hadith</li><li>Tawhid</li><li>Sira</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/Y0dpnyKp/th-jmqgdkfngv.png" alt=""></div><div class="life-content"><h3>Éducation Académique</h3><ul><li>Langues</li><li>Maths</li><li>Sciences</li><li>Culture</li></ul></div></div>
+                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/PqD5X4Z4/ryh-nyei-jds.png" alt=""></div><div class="life-content"><h3>Discipline & Valeurs</h3><ul><li>Respect</li><li>Responsabilité</li><li>Esprit équipe</li><li>Engagement</li></ul></div></div>
+                </div>
+<div class="text-center" id="chiffres-cles">
+  <h3 style="font-size: 32px; color: gold;">Chiffres Clés</h3>
+  <p>Élèves :  <span class="counter" data-target="+550">0</span></p>
+<p>Huffaz :  <span class="counter" data-target="+466">0</span></p>
+
+  <p style="font-size: 18px; color: gold;">100% CFEE Ecole reconnu - Agrément N°0048/MEN</p>
+</div>
+            </div>
+        </section>
+
+        <section id="programmes" class="animate-on-scroll">
+            <div class="container">
+                <div class="section-title"><h2>NOS PROGRAMMES D'EXCELLENCE</h2></div>
+                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/nrhxDYsN/Captrgveure.png" alt=""></div><div class="program-content"><h3>Double Cursus</h3><p>Mémorisation Coran + scolarité classique.</p><ul><li>Mémorisation quotidienne</li><li>Programme complet</li><li>Suivi personnalisé</li><li>Équilibre</li></ul></div></div>
+                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/mgsSTd0L/iuy-ycs-q.png" alt=""></div><div class="program-content"><h3>Passerelle Accélérée</h3><p>3 ans pour Huffaz vers collège.</p><ul><li>Intensif</li><li>Rattrapage</li><li>Préparation</li><li>Pratique coranique</li></ul></div></div>
+                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/CKpsLcXM/er-fdqgvf.png" alt=""></div><div class="program-content"><h3>Daara Vacance</h3><p>Pour 6-15 ans en vacances.</p><ul><li>Révision Coran</li><li>Éducation religieuse</li><li>Sport</li><li>Sorties</li><li>Ateliers</li></ul></div></div>
+            </div>
+        </section>
+
+        <section id="contact" class="animate-on-scroll">
+            <div class="container">
+                <div class="section-title"><h2>CONTACTS & ADMISSIONS</h2></div>
+                <div class="contact-grid">
+                    <div><h3>Rejoindre</h3><p><i class="fas fa-map-marker-alt"></i> CICES Foire, Villa 171 – Dakar</p><p><i class="fas fa-phone"></i> +221 78 292 14 14 / 77 292 14 14</p><p><i class="fas fa-envelope"></i> dara.almouyassar@gmail.com</p><p><i class="fab fa-facebook-f"></i> ALMOUYASSAR66</p><p><i class="fab fa-youtube"></i> ALMOUYASSARTV</p></div>
+                    <div><h3>Admissions</h3><ul><li>Âge 6-9 ans</li><li>Pièces: Extrait naissance, 4 photos, ID parent</li></ul><p>Pour les élèves internes : prévoir un trousseau personnel comprenant au minimum :
+couverture, tenue de sport (vêtements et
+chaussures), serviette, pyjama et nécessaire
+de toilette</p></div>
+                    <p style="text-align:center; color:#777; font-size:14px; margin-top:15px;">
+                        Pour plus d'informations ou pour visiter l'institut, contactez l'administration.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+   <!-- Section PDF -->
+<section id="pdf-viewer">
+    <div class="container">
+        <div class="viewer-controls">
+            <button class="accueil-btn" onclick="backToAccueil()" 
+                    style="display:flex; align-items:center; justify-content:flex-start; background-color:#073332; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">
+                <i class="fas fa-arrow-left"></i>
+            </button>               
+        </div>
+        
+        <div class="pdf-container" style="max-width:1000px; margin:0 auto; padding:10px;">
+            <!-- Début des images -->
+<img src="https://i.postimg.cc/Ss0dD55C/1.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/L59zWMVY/2.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/8z9mz9T9/3.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/3R7pyHVS/4.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/qvP2TKLd/5.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/JnXmJhYN/6.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/XvwG9Km8/7.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/Hk6s01rv/8.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/k5ZJZNFx/9.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/nzRvNPS3/10.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/8PjS8fc4/11.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/L5mjYMY4/12.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/fbCkqqbH/13.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/85WcDGWC/14.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/BQ581v09/15.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/k5sdPkKb/16.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/k5HvGyrg/17.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/nLFPB2wK/18.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/NfQmgnyx/19.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/gcHR6yX2/20.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/9F1TzBZH/21.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/tCfqrZHV/22.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/Z5tkBrSj/23.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/cCpVWqRd/24.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/cJ7d4FtQ/25.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/WzScMYgV/26.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/7LwpXwb2/27.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/fyN2WvX0/28.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/P50JpNd4/29.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/bryxFVkL/30.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/prd5Q74Y/31.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/XY53PL0f/32.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/Zq9fHstm/33.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/4yv9Z6by/34.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/TPkQv62F/35.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/SKw2MTgj/36.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/fWYXxsns/37.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/xCc504cC/38.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/kMwMrYW8/39.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/Y04qCwTV/40.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/k4qCzW4f/41.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/nrvVD1cY/42.png" alt="" class="pdf-image">
+<img src="https://i.postimg.cc/kGC2jV3m/43.png" alt="" class="pdf-image">
+
+        </div>
+    </div>
+</section>
+
+<!-- CSS pour gérer les images -->
+<style>
+.pdf-image {
+    width: 100%;       /* occupe toute la largeur */
+    height: auto;      /* garde les proportions */
+    display: block;    /* supprime l'espace en bas de l'image */
+    margin-bottom: 8px; /* espace entre images */
+}
+</style>
+
+
+
+    <button id="back-to-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Fonctions pour gérer l'affichage des pages
+        function showMainContent() {
+            document.getElementById('accueil').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+            document.getElementById('pdf-viewer').style.display = 'none';
+            document.getElementById('back-to-top').style.display = 'block';
+        }
+
+        function showPdfViewer() {
+            document.getElementById('accueil').style.display = 'none';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('pdf-viewer').style.display = 'block';
+            document.getElementById('back-to-top').style.display = 'block';
+        }
+
+        function backToAccueil() {
+            document.getElementById('accueil').style.display = 'block';
+            document.getElementById('main-content').style.display = 'none';
+            document.getElementById('pdf-viewer').style.display = 'none';
+            document.getElementById('back-to-top').style.display = 'none';
+        }
+
+        // Retour en haut
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Animation scroll
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+        // Navigation fluide
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Gestion du PDF
+        let currentPart = 1;
+        let zoomLevel = 1;
+        
+        function navigatePdf(direction) {
+            currentPart += direction;
+            if (currentPart < 1) currentPart = 1;
+            if (currentPart > 3) currentPart = 3;
+            
+            updatePdfView();
+        }
+        
+        function updatePdfView() {
+            const viewport = document.querySelector('.pdf-viewport');
+            viewport.style.transform = `translateX(-${(currentPart-1)*100}%)`;
+            
+            document.querySelector('.current-part').textContent = `Partie ${currentPart}`;
+            
+            // Mettre à jour l'état des boutons de navigation
+            document.querySelector('.nav-btn:first-child').disabled = currentPart === 1;
+            document.querySelector('.nav-btn:last-child').disabled = currentPart === 3;
+        }
+      function animateCounters() {
+  const counters = document.querySelectorAll('.counter');
+
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    let count = 0;
+    const duration = 2000; // 4 secondes
+    const fps = 5; // nombre de mises à jour par seconde
+    const increment = target / (duration / (1000 / fps));
+
+    const timer = setInterval(() => {
+      count += increment;
+      if (count >= target) {
+        counter.textContent = "+" + target; // ajoute le +
+        clearInterval(timer);
+      } else {
+        counter.textContent = "+" + Math.floor(count);
+      }
+    }, 1000 / fps);
+  });
+}
+
+
+// Déclenche l'animation quand la section apparaît
+window.addEventListener('scroll', () => {
+  const section = document.getElementById('chiffres-cles');
+  const sectionTop = section.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+
+  if (sectionTop < screenHeight) {
+    animateCounters();
+  }
+});
+
+        function changeZoom(factor) {
+            zoomLevel *= factor;
+            const frames = document.querySelectorAll('.pdf-frame');
+            
+            frames.forEach(frame => {
+                frame.style.transform = `scale(${zoomLevel})`;
+                frame.style.transformOrigin = 'top left';
+            });
+        }
+    </script>
+</body>
+</html>
