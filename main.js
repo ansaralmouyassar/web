@@ -259,6 +259,18 @@ case 'quizz':
       case 'personal':
         updatePersonalPage();
         break;
+         case 'almouyassar':
+  const almouyassarIframe = document.querySelector('#almouyassar iframe');
+  if (almouyassarIframe && (!almouyassarIframe.src || almouyassarIframe.src === '')) {
+    almouyassarIframe.src = 'almouyassar.html';
+  }
+  break;
+           case 'ia':
+  const iaIframe = document.querySelector('#ia iframe');
+  if (iaIframe && (!iaIframe.src || iaIframe.src === '')) {
+    iaIframe.src = 'ia.html';
+  }
+  break;
       case 'projet':
         const projetIframe = document.getElementById('projet-iframe');
         if (projetIframe) {
@@ -293,6 +305,7 @@ case 'quizz':
           return;
         }
         break;
+        
       case 'admin-members':
         if (currentUser?.role === 'president' || currentUser?.role === 'secretaire' || currentUser?.role === 'admin') {
           updateEditMembersList();
@@ -4378,7 +4391,7 @@ function showWelcomeGuide() {
       <div id="help-content">
         <button id="help-close">×</button>
         <h3 style="color: var(--accent-color); margin-top: 0;">Bienvenue dans ANSAR - Instructions</h3>
-        <p>Pour revenir à l'acceuil, utilisez les boutons retour en haut à gauche</p>
+        <p>Pour revenir à l'acceuil, utilisez le bouton home en bas a gauche</p>
 
 
                 
