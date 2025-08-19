@@ -520,25 +520,8 @@ function getChatbotResponse(message) {
 
   // Vérifier les codes secrets
   const secretCodes = [
-    'ADMIN12301012000',
-    'JESUISTRESORIER444',
-    'SECRETAIRE000',
-    'PRESIDENT000',
-    '33333333',
-    '44444444',
-    '55555555',
-    'JESUISTRESORIER444',
-    '66666666',
-    '77777777',
-    '88888888',
-    'PRESIDENT000',
-    '99999999',
-    '11112222',
-    '33334444',
-    'SECRETAIRE000',
-    '55556666',
-    '77778888',
-    '99990000'
+      'eegregshr r he'
+   
   ];
 
   console.log('Vérification du message:', message); // Journal pour débogage
@@ -550,7 +533,7 @@ function getChatbotResponse(message) {
   }
 
   // Réponses génériques pour autres messages
-  switch(trimmedMsg.toLowerCase()) {
+ switch(trimmedMsg.toLowerCase()) {
     // Salutations
     case "salam": 
       return "Wa ealeykoum Salam, comment puis-je vous aider";
@@ -585,9 +568,153 @@ function getChatbotResponse(message) {
       return "Soutenir l'institut en participant à son développement.";
     
     // Réponse par défaut
+   // Salutations
+    case "salam": 
+    case "salaam":
+    case "salaam alaykoum":
+    case "salem":
+      return "Wa ealeykoum Salam, comment puis-je vous aider";
+    case "bonjour":
+    case "bon jour":
+    case "bonjur":
+    case "bjr":
+      return "Bonjour! Comment puis-je vous aider?";
+    case "salut":
+    case "salu":
+    case "slt":
+    case "salutt":
+      return "Salut! Que puis-je faire pour vous?";
+    
+    // Fonctionnalités générales
+    case "app":
+    case "application":
+    case "apk":
+    case "appli":
+      return "L'application permet aux membres de gérer leurs données personnelles, les cotisations et les événements de l'association.";
+    case "aide":
+    case "help":
+    case "aider":
+    case "assistance":
+      return "Je peux vous renseigner sur l'association ANSAR ALMOUYASSAR et son application. Posez-moi vos questions!";
+    case "fonctionnalités":
+    case "fonctionnalite":
+    case "features":
+    case "fonction":
+      return "ANSAR ALMOUYASSAR est une application complète qui permet :\n- La gestion des membres et des activités\n- Outils spirituels (Coran, prière, tasbih, quibla)\n- Promotion des projets et métiers\n- Communication interne et gestion des événements";
+    
+    // Outils spirituels
+    case "quibla":
+    case "kibla":
+    case "qibla":
+    case "kiblat":
+      return "Comment utiliser l'outil Quibla :\n1. Allez dans la PAGE D'ACCUEIL\n2. Sélectionnez 'Quibla'\n3. Autorisez l'accès à votre position\n4. Cliquez sur actualiser\n5. Tenez votre téléphone à plat pour plus de précision";
+    case "tasbih":
+    case "tassbih":
+    case "tasbi":
+    case "compteur":
+      return "Comment utiliser le compteur de Tasbih :\n1. Allez dans la page d'accueil\n2. Sélectionnez 'Tasbih'\n3. Appuyez sur l'écran pour compter\n4. Bouton Réinitialiser pour reprendre\n5. Cliquez sur le crayon pour changer le nombre de dhikr";
+    case "prière":
+    case "priere":
+    case "horaire":
+    case "heures":
+      return "Comment consulter les horaires de prière :\n1. Sélectionnez 'Prière'\n2. Les horaires s'affichent avec votre localisation\n3. Par défaut, les heures de la Mecque sont affichées";
+    case "coran":
+    case "quran":
+    case "kuran":
+    case "lecture":
+      return "Comment lire le Coran dans l'application :\n1. Allez dans la page d'accueil\n2. Sélectionnez 'Coran'\n3. Choisissez Lire, écouter ou traduction";
+    case "hadith":
+    case "hadit":
+    case "hadis":
+    case "hadiith":
+      return "Comment utiliser le module de Hadiths :\n1. Allez dans la page d'accueil\n2. Sélectionnez 'Hadiths'\n3. Parcourez par catégorie\n4. Utilisez la recherche pour un hadith spécifique";
+    
+    // Quiz
+    case "quiz":
+    case "quizz":
+    case "qiz":
+    case "question":
+      return "Comment participer au Quiz :\n1. Sélectionnez 'Quiz' dans la page d'accueil\n2. Choisissez parmi 10 quizz disponibles\n3. Répondez aux questions (10 par quiz)\n4. Consultez votre score et comparez";
+    
+    // Connexion
+    case "connexion":
+    case "connecter":
+    case "login":
+    case "conectar":
+      return "Comment me connecter :\n1. Cliquez sur l'icône 'Personne'\n2. Entrez votre code membre\n3. Entrez votre mot de passe\n4. Cliquez sur 'Se connecter'\nContactez le Gestionnaire C.I.M pour aide";
+    case "mot de passe":
+    case "mdp":
+    case "password":
+    case "oublie":
+      return "J'ai oublié mon mot de passe :\n1. Contactez le secrétaire ou administrateur\n2. Fournissez nom complet et code membre\n3. Le problème sera résolu rapidement";
+    
+    // Cotisations
+    case "cotisation":
+    case "paiement":
+    case "payer":
+    case "payment":
+      return "Comment payer mes cotisations :\n1. Connectez-vous à votre espace\n2. Allez dans 'Cotisations'\n3. Choisissez le type (mensuelle/globale)\n4. Sélectionnez méthode de paiement (Wave/Orange Money)";
+    
+    // Événements
+    case "événement":
+    case "evenement":
+    case "event":
+    case "ceremonie":
+      return "Comment voir les événements :\n1. Allez dans la section 'Événements'\n2. La liste des événements s'affiche\n3. Voir aussi le compte à rebours sur l'accueil";
+    
+    // Projets et Métiers
+    case "métier":
+    case "metier":
+    case "projet":
+    case "promouvoir":
+      return "Comment promouvoir mon métier :\n1. Allez dans 'Projets Ansar'\n2. Sélectionnez 'Promouvoir mon métier'\n3. Remplissez le formulaire\n4. Soumettez pour validation";
+    
+    // Informations existantes (conservées)
+    case "politique":
+    case "confidentialité":
+    case "confidentialite":
+    case "données":
+      return "Consultez notre politique de confidentialité dans la page paramètre";
+    case "almouyassar":
+    case "mouyassar":
+    case "institut":
+    case "al mouyassar":
+      return "L'Institut Coranique Al Mouyassar est un établissement d'enseignement religieux qui forme des Huffaz (mémorisateurs du Coran). Il organise chaque année une cérémonie de remise des diplômes.";
+    case "réseaux":
+    case "reseaux":
+    case "social":
+    case "réseau":
+      return "Suivez-nous sur TikTok (@ansaralmouyassar), Instagram (@ansaralmouyassar), Snapchat (ansar102023) et YouTube (@almouyassartv).";
+    case "diplome":
+    case "diplôme":
+    case "ceremonie":
+    case "graduation":
+      return "La 12ème Cérémonie de Remise des Diplômes aux Huffaz aura lieu le 24 Août 2025 au Grand Théâtre National Doudou Ndiaye Rose de Dakar. Mise en place à 13h45.";
+    case "conference":
+    case "conférence":
+    case "lieu":
+    case "endroit":
+      return "La cérémonie se tiendra au Grand Théâtre National Doudou Ndiaye Rose de Dakar.";
+    case "ansar":
+    case "anssar":
+    case "ansar almouyassar":
+    case "association":
+      return "L'association ANSAR ALMOUYASSAR regroupe les anciens élèves et ressortissants de l'institut coranique Al Mouyassar, un établissement d'enseignement islamique réputé pour son excellence dans la transmission du Coran et des sciences islamiques. Notre mission est de maintenir les liens entre les anciens élèves, de promouvoir les valeurs islamiques et de contribuer au développement de notre communauté à travers diverses activités éducatives, sociales et caritatives.";
+    case "mission":
+    case "vision":
+    case "objectif":
+    case "but":
+      return "Notre mission est de maintenir les liens entre les anciens élèves, de promouvoir les valeurs islamiques...";
+    case "activités":
+    case "activite":
+    case "activity":
+    case "actions":
+      return "Soutenir l'institut en participant à son développement.";
+    
+    // Réponse par défaut
     default:
       return "Désolé, je n'ai pas compris votre demande, posez-moi une question sur ANSAR ALMOUYASSAR.";
-  }
+}
 }
 // ==================== FONCTIONS MEMBRES ====================
 
