@@ -3225,3 +3225,14 @@ select:focus, select:active {
   object-fit: cover; /* Couvre la zone sans déformation */
   border-radius: 8px; /* Conserve les coins arrondis */
 }
+
+.icon-ia {
+  width: 27px;   /* ajuste la taille, 24px est la taille standard des icônes */
+  height: 27px;
+  object-fit: contain; /* garde les proportions sans déformation */
+  vertical-align: middle; /* aligne au centre comme les autres icônes */
+}
+.bottom-nav .nav-item {
+  text-decoration: none; /* supprime le trait (soulignement) */
+  color: inherit;        /* garde la couleur du parent */
+}
