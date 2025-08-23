@@ -3,701 +3,1147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Institut Al Mouyassar - Dakar</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Gestion de l'Internat - Sorties</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        :root {
-            --primary-color: #073332;
-            --secondary-color: #1f4a49;
-            --accent-color: #9b9c28;
-            --bg-color: #073332;
-            --text-color: #ffffff;
-            --font-arabic: 'Traditional Arabic', 'Arial', sans-serif;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background: var(--bg-color);
-            color: var(--text-color);
+        * {
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            line-height: 1.6;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .tab-button:hover {
+            background-color: #1abc9c;
+        }
+        
+        .tab-button.active {
+            background-color: #1abc9c;
+        }
+        
         .container {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 2rem auto;
             padding: 0 1rem;
         }
-
-        /* Écran d'accueil */
-        #accueil {
-            text-align: center;
-            padding: 20vh 0;
-            background: var(--bg-color);
-        }
-
-        #accueil h1 {
-            font-size: 2rem;
-            color: var(--accent-color);
-        }
-
-        .accueil-btn {
-            background: var(--accent-color);
-            color: var(--text-color);
-            border: none;
-            padding: 1rem 2rem;
-            margin: 1rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: background 0.3s;
-        }
-
-        .accueil-btn:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Cacher contenu par défaut */
-        #main-content, #pdf-viewer { 
-            display: none; 
-        }
-
-        /* PDF viewer */
-        #pdf-viewer {
-            padding: 2rem 0;
-        }
-
-        #pdf-viewer embed {
-            width: 100%;
-            height: 80vh;
-            border: none;
-        }
-
-        /* Bouton retour en haut */
-        #back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--accent-color);
-            color: var(--text-color);
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
+        
+        .tab-content {
             display: none;
-            z-index: 1000;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-
-        #back-to-top:hover {
-            background: var(--secondary-color);
+        
+        .tab-content.active {
+            display: block;
         }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--text-color);
-            padding: 2rem 0;
-            text-align: center;
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #1abc9c;
+            padding-bottom: 0.5rem;
         }
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 0%;
-            border: none;         /* supprime la bordure */
-            margin: 1rem auto; /* centrer horizontalement */
-            overflow: hidden;
-        } 
-
-        .logo img {
-            width: 300%;
-            height: 300%;
-            object-fit: cover !important;
+        
+        form {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
-
-        h1 {
-            font-size: 1.8rem;
-            color: var(--accent-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle, .quote {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .verse {
-            font-family: var(--font-arabic);
-            font-size: 1.2rem;
-            direction: rtl;
-            color: var(--accent-color);
-        }
-
-        /* Navigation */
-        nav {
-            background: var(--secondary-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-link {
-            padding: 0.8rem 1rem;
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-link:hover {
-            color: var(--accent-color);
-        }
-
-        /* Sections */
-        section {
-            padding: 2rem 0;
-        }
-
-        .section-title h2 {
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            text-align: center;
+        
+        .form-group {
             margin-bottom: 1rem;
         }
-
-        /* Grid for mobile-first */
-        .life-grid, .pillar-grid, .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1rem;
-        }
-
-        .life-card, .pillar-card, .program-card {
-            background: var(--secondary-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-
-        .life-card:hover, .pillar-card:hover, .program-card:hover {
-            transform: scale(1.05);
-        }
-
-        .life-img, .program-img {
-            height: 150px;
-            overflow: hidden;
-        }
-
-        .life-img img, .program-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-          max-width: 100%;
-    max-height: 100%;
-        }
-
-        .life-card:hover img, .program-card:hover img {
-            transform: none;
-        }
-
-        .life-content, .program-content {
-            padding: 1rem;
-        }
-
-        .life-content h3, .program-content h3, .pillar-card h3 {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-        }
-
-        ul li {
-            list-style: none;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        ul li::before {
-            content: '\f058';
-            font-family: 'Font Awesome 6 Free';
-            color: var(--accent-color);
-            position: absolute;
-            left: 0;
-        }
-
-        /* Vision */
-        .vision {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('photoa1.jpg');
-            background-size: cover;
-            color: var(--text-color);
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        /* Animations */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .highlight {
-            color: var(--accent-color);
-        }
-
-        /* Responsive for larger screens */
-        @media (min-width: 768px) {
-            .life-grid, .pillar-grid, .contact-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            h1 { font-size: 2.5rem; }
-            .section-title h2 { font-size: 2rem; }
-            .logo { width: 120px; height: 120px; }
-            .life-img, .program-img { height: 200px; }
-        }
-
-        @media (min-width: 1024px) {
-            .life-grid { grid-template-columns: repeat(3, 1fr); }
-            .pillar-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        #pdf-viewer {
-            display: none;
-            width: 100%;
-            padding: 20px 0;
-        }
         
-        .viewer-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 0 20px;
-        }
-        
-        .accueil-btn {
-            padding: 10px 20px;
-            background: #4b6cb7;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
             font-weight: bold;
-            transition: background 0.3s;
         }
         
-        .accueil-btn:hover {
-            background: #3556a3;
-        }
-        
-        .zoom-controls {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .zoom-controls button {
-            padding: 8px 15px;
-            background: #f0f0f0;
+        input, select, textarea {
+            width: 100%;
+            padding: 0.5rem;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #16a085;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
             font-weight: bold;
         }
         
-        .zoom-controls button:hover {
-            background: #e0e0e0;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         
-        .pdf-container {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
+        .stat-card {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
         }
         
-        .pdf-viewport {
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1abc9c;
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+        }
+        
+        .actions {
             display: flex;
-            transition: transform 0.5s ease;
-            width: 300%; /* 3 x 100% pour les 3 parties */
+            gap: 0.5rem;
         }
         
-        .pdf-frame {
-            width: 100%;
-            height: 80vh;
-            border: none;
-            flex-shrink: 0;
+        .btn-edit {
+            background-color: #3498db;
         }
         
-        .navigation {
+        .btn-delete {
+            background-color: #e74c3c;
+        }
+        
+        .btn-validate {
+            background-color: #27ae60;
+        }
+        
+        .btn-reject {
+            background-color: #e74c3c;
+        }
+        
+        .sortie-section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+        
+        .qr-code {
+            margin: 1rem 0;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+        }
+        
+        .autorisation {
+            border: 1px solid #ddd;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        
+        .scan-section {
+            text-align: center;
+            padding: 2rem;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+        
+        .camera-feed {
+            width: 100%;
+            max-width: 400px;
+            height: 300px;
+            background-color: #ddd;
+            margin: 1rem auto;
+            display: flex;
             align-items: center;
-            padding: 20px;
-            margin-top: 20px;
-            background: #f9f9f9;
-            border-radius: 8px;
+            justify-content: center;
+            border-radius: 5px;
         }
         
-        .nav-btn {
-            padding: 10px 20px;
-            background: #4b6cb7;
+        .historique-sorties {
+            margin-top: 2rem;
+        }
+        
+        .parent-search {
+            margin-bottom: 2rem;
+        }
+        
+        .eleve-space {
+            display: none;
+        }
+        
+        .sub-tabs {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .sub-tab-button {
+            padding: 8px 16px;
+            margin-right: 10px;
+            background-color: #34495e;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
         }
         
-        .nav-btn:hover:not(:disabled) {
-            background: #3556a3;
+        .sub-tab-button.active {
+            background-color: #1abc9c;
         }
         
-        .nav-btn:disabled {
-            background: #cccccc;
-            cursor: not-allowed;
+        .sub-tab-content {
+            display: none;
         }
         
-        .page-indicator {
-            font-weight: bold;
-            color: #4b6cb7;
+        .sub-tab-content.active {
+            display: block;
         }
-      .counter {
-  font-size: 28px;
-  color: gold;
-  font-weight: bold;
-}
-
+        
+        .immeuble-A { background-color: #ff0000; }
+        .immeuble-B { background-color: #ffff00; }
+        .immeuble-C { background-color: #00ff00; }
+        .immeuble-D { background-color: #0000ff; }
+        .immeuble-E { background-color: #ff00ff; }
+        .immeuble-F { background-color: #00ffff; }
+        .immeuble-G { background-color: #ffa500; }
+        
+        .animation-success {
+            border: 2px solid green;
+            animation: flash-green 1s;
+        }
+        
+        .animation-failure {
+            border: 2px solid red;
+            animation: flash-red 1s;
+        }
+        
+        @keyframes flash-green {
+            0% { background-color: rgba(0,255,0,0.3); }
+            100% { background-color: transparent; }
+        }
+        
+        @keyframes flash-red {
+            0% { background-color: rgba(255,0,0,0.3); }
+            100% { background-color: transparent; }
+        }
+        
+        @media (max-width: 768px) {
+            form {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-button {
+                margin: 5px 0;
+                width: 80%;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Écran d'accueil -->
-    <section id="accueil">
-        <div class="container">
-            <div class="logo" style="display: flex; justify-content: center; align-items: center;">
-                <img src="https://i.postimg.cc/J0fN2Jm5/logo-144x144-9.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
-            </div>
-           
-            <h1>Bienvenue à l'Institut Al Mouyassar</h1>
-            <button class="accueil-btn" onclick="showMainContent()" style="background-color:#005044; color:#fff;">Info</button>
-<button class="accueil-btn" onclick="showPdfViewer()" style="background-color:#005044; color:#fff;">Magazine</button>
-
+    <header>
+        <h1>Gestion de l'Internat - Système de Sortie</h1>
+        <div class="tabs">
+            <button class="tab-button active" data-tab="bureau">Bureau</button>
+            <button class="tab-button" data-tab="surveillant">Surveillant</button>
+            <button class="tab-button" data-tab="parents">Parents</button>
+            <button class="tab-button" data-tab="sorties">Gestion des Sorties</button>
         </div>
-    </section>
+    </header>
 
-    <!-- Contenu principal -->
-    <div id="main-content">
-        <header class="animate-on-scroll">
-            <div class="container">
-                <button class="accueil-btn" onclick="backToAccueil()" style="display:flex; align-items:center; justify-content:flex-start; background-color:#073332; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <div class="logo" style="display: flex; justify-content: center; align-items: center;">
-                    <img src="https://i.postimg.cc/J0fN2Jm5/logo-144x144-9.png" alt="Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
-                </div>
-                <h1>INSTITUT CORANIQUE ALMOUYASSAR</h1>
-                <p class="subtitle">Dakar - Sénégal</p>
-                <p class="quote">"ALMOUYASSAR est notre maison, le <span class="highlight">Coran</span> est notre vie, et la réussite est notre voie."</p>
-                <p class="verse">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ فَهَلْ مِن مُّدَّكِرٍ</p>
-                <p class="quote">« Et en effet, Nous avons rendu le <span class="highlight">Coran</span> facile à la méditation. Y a-t-il donc quelqu'un pour réfléchir ? » (Coran 54)</p>
-            </div>
-        </header>
-
-        <nav>
-            <div class="container nav-container">
-                <a href="#vie-scolaire" class="nav-link" title="Vie Scolaire">
-                    <i class="fas fa-school"></i>
-                </a>
-                <a href="#vision" class="nav-link" title="Notre Vision">
-                    <i class="fas fa-eye"></i>
-                </a>
-                <a href="#piliers" class="nav-link" title="Nos Piliers">
-                    <i class="fas fa-university"></i>
-                </a>
-                <a href="#programmes" class="nav-link" title="Programmes">
-                    <i class="fas fa-book-open"></i>
-                </a>
-                <a href="#contact" class="nav-link" title="Contact">
-                    <i class="fas fa-envelope"></i>
-                </a>
-            </div>
-        </nav>
-
-        <section id="vie-scolaire" class="animate-on-scroll">
-            <div class="container">
-                <div class="scroll-indicator" style="text-align: center; margin-bottom: 10px;">
-                    <i class="fas fa-arrow-down" style="font-size: 24px; color: #3498db;"></i>
-                </div>
-                <div class="section-title"><h2>VIE SCOLAIRE ET ACTIVITÉS</h2></div>
-                <p class="text-center">Un cadre enrichissant pour former des <span class="highlight">citoyens</span> responsables et musulmans engagés.</p>
-                <div class="life-grid">
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/8CXrwkwK/Design-sans-titre-3.png" alt=""></div><div class="life-content"><h3>Santé & Bien-être</h3><ul><li>Suivi médical</li><li>Environnement sain</li><li>Équilibre alimentaire</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/HnZn26Tq/Design-sans-titre-1.png" alt=""></div><div class="life-content"><h3>Activités Sportives</h3><ul><li>Football</li><li>Arts martiaux</li><li>Éducation physique</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/MGmW59D9/Design-sans-titre-2.png" alt=""></div><div class="life-content"><h3>Sorties Culturelles</h3><ul><li>Visites TER</li><li>Musées</li><li>Institutions</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/cLgshmDS/sq-jys-qb.png" alt=""></div><div class="life-content"><h3>Civisme & Discipline</h3><ul><li>Levée couleurs</li><li>Respect règles</li><li>Engagement citoyen</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/J0rrQCF6/ehq-brfe.png" alt=""></div><div class="life-content"><h3>Colonies Internationales</h3><ul><li>Échanges culturels</li><li>Découvertes</li><li>Rencontres</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/sgrMMbjL/dfhfdh-gfs.png" alt=""></div><div class="life-content"><h3>Éveil Religieux</h3><ul><li>Causeries spirituelles</li><li>Hadith jour</li><li>Concours coraniques</li></ul></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="vision" class="vision animate-on-scroll">
-            <div class="container">
-                <h2>UNE VISION POUR L'AVENIR</h2>
-                <p>Le Complexe Arabo-islamique <span class="highlight">Almougassar</span></p>
-                <p>En construction à Pikine, ce futur complexe comprendra :</p>
-                <ul><li>Un Daara ultramoderne avec bibliothèque</li><li>Une mosquée intégrée</li><li>Des résidences internes</li><li>Réfectoire et espaces communs</li></ul>
-                <p>Objectif : épanouissement <span class="highlight">religieux</span>, intellectuel et moral.</p>
-            </div>
-        </section>
- 
-        <section id="piliers" class="animate-on-scroll">
-            <div class="container">
-                <div class="section-title"><h2>NOS PILIERS HUMAINS</h2></div>
-                <div class="life-grid">
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/x8yTSTw3/E-DSQTG-FDREYR.png" alt=""></div><div class="life-content"><h3>Nos Enseignants</h3><ul><li>Savants expérimentés,</li><li>Hafiz</li><li> Pédagogues dévoués.</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/3RHJdvFH/qdhfb-dhr.png" alt=""></div><div class="life-content"><h3>Nos Anciens Élèves</h3><ul><li>Via Ansar Al Mouyassar : tutorat, mentorat.</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/mDNZMgm1/erg-vf.png" alt=""></div><div class="life-content"><h3>Notre Communauté</h3><ul><li>AMDMEC (Parents) depuis 2009.</li></ul></div></div>
-                </div>
-            </div>
-        </section>
-
-        <section id="identite" class="animate-on-scroll">
-            <div class="container">
-                <div class="section-title"><h2>NOTRE IDENTITÉ</h2></div>
-                <p>Mission : Le <span class="highlight">Coran</span> au cœur. Fondé en 2007 par Cheikh El Hadji Abdallah Niasse.</p>
-                <div class="life-grid">
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/wx2Tj3tS/g-y-hb.png" alt=""></div><div class="life-content"><h3>Spiritualité</h3><ul><li>Tajwid</li><li>Fiqh</li><li>Hadith</li><li>Tawhid</li><li>Sira</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/Y0dpnyKp/th-jmqgdkfngv.png" alt=""></div><div class="life-content"><h3>Éducation Académique</h3><ul><li>Langues</li><li>Maths</li><li>Sciences</li><li>Culture</li></ul></div></div>
-                    <div class="life-card"><div class="life-img"><img src="https://i.postimg.cc/PqD5X4Z4/ryh-nyei-jds.png" alt=""></div><div class="life-content"><h3>Discipline & Valeurs</h3><ul><li>Respect</li><li>Responsabilité</li><li>Esprit équipe</li><li>Engagement</li></ul></div></div>
-                </div>
-<div class="text-center" id="chiffres-cles">
-  <h3 style="font-size: 32px; color: gold;">Chiffres Clés</h3>
-  <p>Élèves :  <span class="counter" data-target="+550">0</span></p>
-<p>Huffaz :  <span class="counter" data-target="+466">0</span></p>
-
-  <p style="font-size: 18px; color: gold;">100% CFEE Ecole reconnu - Agrément N°0048/MEN</p>
-</div>
-            </div>
-        </section>
-
-        <section id="programmes" class="animate-on-scroll">
-            <div class="container">
-                <div class="section-title"><h2>NOS PROGRAMMES D'EXCELLENCE</h2></div>
-                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/nrhxDYsN/Captrgveure.png" alt=""></div><div class="program-content"><h3>Double Cursus</h3><p>Mémorisation Coran + scolarité classique.</p><ul><li>Mémorisation quotidienne</li><li>Programme complet</li><li>Suivi personnalisé</li><li>Équilibre</li></ul></div></div>
-                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/mgsSTd0L/iuy-ycs-q.png" alt=""></div><div class="program-content"><h3>Passerelle Accélérée</h3><p>3 ans pour Huffaz vers collège.</p><ul><li>Intensif</li><li>Rattrapage</li><li>Préparation</li><li>Pratique coranique</li></ul></div></div>
-                <div class="program-card"><div class="program-img"><img src="https://i.postimg.cc/CKpsLcXM/er-fdqgvf.png" alt=""></div><div class="program-content"><h3>Daara Vacance</h3><p>Pour 6-15 ans en vacances.</p><ul><li>Révision Coran</li><li>Éducation religieuse</li><li>Sport</li><li>Sorties</li><li>Ateliers</li></ul></div></div>
-            </div>
-        </section>
-
-        <section id="contact" class="animate-on-scroll">
-            <div class="container">
-                <div class="section-title"><h2>CONTACTS & ADMISSIONS</h2></div>
-                <div class="contact-grid">
-                    <div><h3>Rejoindre</h3><p><i class="fas fa-map-marker-alt"></i> CICES Foire, Villa 171 – Dakar</p><p><i class="fas fa-phone"></i> +221 78 292 14 14 / 77 292 14 14</p><p><i class="fas fa-envelope"></i> dara.almouyassar@gmail.com</p><p><i class="fab fa-facebook-f"></i> ALMOUYASSAR66</p><p><i class="fab fa-youtube"></i> ALMOUYASSARTV</p></div>
-                    <div><h3>Admissions</h3><ul><li>Âge 6-9 ans</li><li>Pièces: Extrait naissance, 4 photos, ID parent</li></ul><p>Pour les élèves internes : prévoir un trousseau personnel comprenant au minimum :
-couverture, tenue de sport (vêtements et
-chaussures), serviette, pyjama et nécessaire
-de toilette</p></div>
-                    <p style="text-align:center; color:#777; font-size:14px; margin-top:15px;">
-                        Pour plus d'informations ou pour visiter l'institut, contactez l'administration.
-                    </p>
-                </div>
-            </div>
-        </section>
-    </div>
-
-   <!-- Section PDF -->
-<section id="pdf-viewer">
     <div class="container">
-        <div class="viewer-controls">
-            <button class="accueil-btn" onclick="backToAccueil()" 
-                    style="display:flex; align-items:center; justify-content:flex-start; background-color:#073332; color:white; border:none; padding:10px 15px; border-radius:8px; cursor:pointer;">
-                <i class="fas fa-arrow-left"></i>
-            </button>               
+        <!-- Section Bureau -->
+        <div id="bureau" class="tab-content active">
+            <h2>Gestion des Élèves</h2>
+            
+            <form id="eleve-form">
+                <div class="form-group">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" id="prenom" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date-naissance">Date de naissance:</label>
+                    <input type="date" id="date-naissance" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adresse">Adresse:</label>
+                    <input type="text" id="adresse" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone-pere">Téléphone Père:</label>
+                    <input type="tel" id="telephone-pere">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone-mere">Téléphone Mère:</label>
+                    <input type="tel" id="telephone-mere">
+                </div>
+                
+                <div class="form-group">
+                    <label for="telephone-tuteur">Téléphone Tuteur:</label>
+                    <input type="tel" id="telephone-tuteur">
+                </div>
+                
+                <div class="form-group">
+                    <label for="nationalite">Nationalité:</label>
+                    <input type="text" id="nationalite" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="situation-parents">Situation des parents:</label>
+                    <select id="situation-parents" required>
+                        <option value="mariés">Mariés</option>
+                        <option value="divorcés">Divorcés</option>
+                        <option value="autres">Autres</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="date-inscription">Date d'inscription:</label>
+                    <input type="date" id="date-inscription" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="immeuble">Immeuble:</label>
+                    <select id="immeuble" required>
+                        <option value="A">Immeuble A</option>
+                        <option value="B">Immeuble B</option>
+                        <option value="C">Immeuble C</option>
+                        <option value="D">Immeuble D</option>
+                        <option value="E">Immeuble E</option>
+                        <option value="F">Immeuble F</option>
+                        <option value="G">Immeuble G</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="surveillant">Surveillant:</label>
+                    <input type="text" id="surveillant" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="oustaz">Oustaz:</label>
+                    <input type="text" id="oustaz" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="memorisation">Niveau de mémorisation:</label>
+                    <select id="memorisation" required>
+                        <option value="débutant">Débutant</option>
+                        <option value="intermédiaire">Intermédiaire</option>
+                        <option value="avancé">Avancé</option>
+                        <option value="expert">Expert</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Enregistrer l'élève</button>
+            </form>
+            
+            <h2>Liste des Élèves</h2>
+            <table id="eleves-table">
+                <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Date de naissance</th>
+                        <th>Immeuble</th>
+                        <th>Surveillant</th>
+                        <th>Oustaz</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="eleves-list">
+                    <!-- Les élèves seront ajoutés ici dynamiquement -->
+                </tbody>
+            </table>
+            
+            <h2>Autorisations de Sortie</h2>
+            <table id="demandes-table">
+                <thead>
+                    <tr>
+                        <th>Matricule</th>
+                        <th>Élève</th>
+                        <th>Récupérateur</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
+                        <th>Photo ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="demandes-list">
+                    <!-- Demandes ajoutées dynamiquement -->
+                </tbody>
+            </table>
+            
+            <h2>Statistiques</h2>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-label">Total des élèves</div>
+                    <div class="stat-value" id="total-eleves">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Élèves dans l'immeuble A</div>
+                    <div class="stat-value" id="eleves-immeuble-a">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Élèves dans l'immeuble B</div>
+                    <div class="stat-value" id="eleves-immeuble-b">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Élèves dans l'immeuble C</div>
+                    <div class="stat-value" id="eleves-immeuble-c">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Niveau Débutant</div>
+                    <div class="stat-value" id="niveau-debutant">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Niveau Intermédiaire</div>
+                    <div class="stat-value" id="niveau-intermediaire">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Niveau Avancé</div>
+                    <div class="stat-value" id="niveau-avance">0</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-label">Niveau Expert</div>
+                    <div class="stat-value" id="niveau-expert">0</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="pdf-container" style="max-width:1000px; margin:0 auto; padding:10px;">
-            <!-- Début des images -->
-<img src="https://i.postimg.cc/Ss0dD55C/1.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/L59zWMVY/2.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/8z9mz9T9/3.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/3R7pyHVS/4.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/qvP2TKLd/5.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/JnXmJhYN/6.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/XvwG9Km8/7.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/Hk6s01rv/8.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/k5ZJZNFx/9.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/nzRvNPS3/10.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/8PjS8fc4/11.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/L5mjYMY4/12.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/fbCkqqbH/13.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/85WcDGWC/14.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/BQ581v09/15.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/k5sdPkKb/16.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/k5HvGyrg/17.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/nLFPB2wK/18.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/NfQmgnyx/19.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/gcHR6yX2/20.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/9F1TzBZH/21.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/tCfqrZHV/22.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/Z5tkBrSj/23.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/cCpVWqRd/24.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/cJ7d4FtQ/25.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/WzScMYgV/26.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/7LwpXwb2/27.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/fyN2WvX0/28.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/P50JpNd4/29.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/bryxFVkL/30.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/prd5Q74Y/31.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/XY53PL0f/32.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/Zq9fHstm/33.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/4yv9Z6by/34.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/TPkQv62F/35.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/SKw2MTgj/36.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/fWYXxsns/37.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/xCc504cC/38.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/kMwMrYW8/39.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/Y04qCwTV/40.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/k4qCzW4f/41.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/nrvVD1cY/42.png" alt="" class="pdf-image">
-<img src="https://i.postimg.cc/mrsdrvvy/Magazine-Almouyassar-1-pdf.png" alt="" class="pdf-image">
 
+        <!-- Section Surveillant -->
+        <div id="surveillant" class="tab-content">
+            <h2>Espace Surveillant</h2>
+            <div class="scan-section">
+                <h3>Valider QR Code</h3>
+                <div id="camera-feed" class="camera-feed">
+                    <p>Caméra active - Simulation de scan QR</p>
+                </div>
+                <div id="scan-result"></div>
+            </div>
+            <div class="historique-sorties">
+                <h3>Historique des Sorties</h3>
+                <button onclick="effacerHistorique()">Effacer Historique</button>
+                <table id="sorties-table">
+                    <thead>
+                        <tr>
+                            <th>Élève</th>
+                            <th>Personne autorisée</th>
+                            <th>Date sortie</th>
+                            <th>Date retour</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sorties-list">
+                        <!-- Les sorties seront ajoutées ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Section Parents -->
+        <div id="parents" class="tab-content">
+            <h2>Espace Parents</h2>
+            <div class="parent-search">
+                <form id="parent-search-form">
+                    <div class="form-group">
+                        <label for="matricule-search">Matricule:</label>
+                        <input type="text" id="matricule-search" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom-prenom-search">Nom/Prénom:</label>
+                        <input type="text" id="nom-prenom-search" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date-naissance-search">Date de naissance:</label>
+                        <input type="date" id="date-naissance-search" required>
+                    </div>
+                    <button type="submit">Rechercher</button>
+                </form>
+            </div>
+            <div id="eleve-space" class="eleve-space">
+                <div class="sub-tabs">
+                    <button class="sub-tab-button active" data-sub-tab="info">INFO</button>
+                    <button class="sub-tab-button" data-sub-tab="recuperation">RECUPERATION</button>
+                </div>
+                <div id="info" class="sub-tab-content active">
+                    <p><strong>Nom:</strong> <span id="eleve-nom"></span></p>
+                    <p><strong>Prénom:</strong> <span id="eleve-prenom"></span></p>
+                    <p><strong>Immeuble:</strong> <span id="eleve-immeuble"></span></p>
+                    <p><strong>Oustaz:</strong> <span id="eleve-oustaz"></span></p>
+                    <p><strong>Surveillant:</strong> <span id="eleve-surveillant"></span></p>
+                    <div id="qr-info" class="qr-code"></div>
+                </div>
+                <div id="recuperation" class="sub-tab-content">
+                    <form id="recuperation-form">
+                        <div class="form-group">
+                            <label for="recup-nom">Nom du récupérateur:</label>
+                            <input type="text" id="recup-nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recup-prenom">Prénom du récupérateur:</label>
+                            <input type="text" id="recup-prenom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recup-tel">Numéro de téléphone:</label>
+                            <input type="tel" id="recup-tel" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recup-email">Adresse email (facultatif):</label>
+                            <input type="email" id="recup-email">
+                        </div>
+                        <div class="form-group">
+                            <label for="recup-photo">Photo de la carte d'identité du récupérateur (facultatif, sera comparée lors de la récupération):</label>
+                            <input type="file" id="recup-photo" accept="image/*">
+                        </div>
+                        <button type="submit">Soumettre</button>
+                    </form>
+                    <div id="qr-recuperation" class="qr-code"></div>
+                    <img id="recup-photo-display" style="max-width: 200px; display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Gestion des Sorties -->
+        <div id="sorties" class="tab-content">
+            <h2>Gestion Digitalisée des Sorties</h2>
+            
+            <div class="sortie-section">
+                <h3>Générer une Autorisation de Sortie</h3>
+                <form id="autorisation-form">
+                    <div class="form-group">
+                        <label for="eleve-sortie">Sélectionner l'élève:</label>
+                        <select id="eleve-sortie" required>
+                            <option value="">-- Sélectionner un élève --</option>
+                            <!-- Options ajoutées dynamiquement -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="personne-autorisee">Personne autorisée à récupérer l'élève:</label>
+                        <input type="text" id="personne-autorisee" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lien-parente">Lien de parenté:</label>
+                        <input type="text" id="lien-parente" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date-sortie">Date de sortie:</label>
+                        <input type="datetime-local" id="date-sortie" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date-retour">Date de retour prévue:</label>
+                        <input type="datetime-local" id="date-retour" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doc-identity">Numéro de pièce d'identité:</label>
+                        <input type="text" id="doc-identity" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="type-doc">Type de pièce:</label>
+                        <select id="type-doc" required>
+                            <option value="cni">Carte Nationale d'Identité</option>
+                            <option value="passeport">Passeport</option>
+                            <option value="permis">Permis de Conduire</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit">Générer l'autorisation</button>
+                </form>
+            </div>
+            
+            <div class="sortie-section" id="autorisation-result" style="display: none;">
+                <h3>Autorisation de Sortie Générée</h3>
+                <div class="autorisation">
+                    <h4>FICHE D'AUTORISATION DE SORTIE</h4>
+                    <p><strong>Élève:</strong> <span id="auth-eleve"></span></p>
+                    <p><strong>Immeuble:</strong> <span id="auth-immeuble"></span></p>
+                    <p><strong>Personne autorisée:</strong> <span id="auth-personne"></span></p>
+                    <p><strong>Lien de parenté:</strong> <span id="auth-lien"></span></p>
+                    <p><strong>Date de sortie:</strong> <span id="auth-sortie"></span></p>
+                    <p><strong>Date de retour:</strong> <span id="auth-retour"></span></p>
+                    <p><strong>Pièce d'identité:</strong> <span id="auth-doc"></span> (N°: <span id="auth-doc-num"></span>)</p>
+                    <p><strong>Code de validation:</strong> <span id="auth-code"></span></p>
+                    
+                    <div class="qr-code" id="qrcode"></div>
+                    
+                    <button onclick="imprimerAutorisation()">Imprimer l'autorisation</button>
+                </div>
+            </div>
+            
+            <div class="scan-section">
+                <h3>Valider une Sortie avec QR Code</h3>
+                <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
+                
+                <div class="camera-feed">
+                    <p>Simulation de caméra - En production, intégration avec API de scan QR</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="manual-code">Ou saisir manuellement le code:</label>
+                    <input type="text" id="manual-code" placeholder="Saisir le code de validation">
+                    <button onclick="validerSortieManuelle()">Valider la sortie</button>
+                </div>
+            </div>
+            
+            <div class="historique-sorties">
+                <h3>Historique des Sorties</h3>
+                <table id="sorties-table-gestion">
+                    <thead>
+                        <tr>
+                            <th>Élève</th>
+                            <th>Personne autorisée</th>
+                            <th>Date sortie</th>
+                            <th>Date retour</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sorties-list-gestion">
+                        <!-- Les sorties seront ajoutées ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</section>
-
-<!-- CSS pour gérer les images -->
-<style>
-.pdf-image {
-    width: 100%;       /* occupe toute la largeur */
-    height: auto;      /* garde les proportions */
-    display: block;    /* supprime l'espace en bas de l'image */
-    margin-bottom: 8px; /* espace entre images */
-}
-</style>
-
-
-
-    <button id="back-to-top" onclick="scrollToTop()">↑</button>
 
     <script>
-        // Fonctions pour gérer l'affichage des pages
-        function showMainContent() {
-            document.getElementById('accueil').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
-            document.getElementById('pdf-viewer').style.display = 'none';
-            document.getElementById('back-to-top').style.display = 'block';
-        }
-
-        function showPdfViewer() {
-            document.getElementById('accueil').style.display = 'none';
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('pdf-viewer').style.display = 'block';
-            document.getElementById('back-to-top').style.display = 'block';
-        }
-
-        function backToAccueil() {
-            document.getElementById('accueil').style.display = 'block';
-            document.getElementById('main-content').style.display = 'none';
-            document.getElementById('pdf-viewer').style.display = 'none';
-            document.getElementById('back-to-top').style.display = 'none';
-        }
-
-        // Retour en haut
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Animation scroll
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
-
-        // Navigation fluide
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        // Gestion des onglets
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+                
+                if (button.dataset.tab === 'sorties') {
+                    mettreAJourListeElevesSortie();
+                    afficherHistoriqueSorties('sorties-list-gestion');
+                } else if (button.dataset.tab === 'surveillant') {
+                    initCameraSurveillant();
+                    afficherHistoriqueSorties('sorties-list');
+                } else if (button.dataset.tab === 'parents') {
+                    resetParentSpace();
+                }
             });
         });
 
-        // Gestion du PDF
-        let currentPart = 1;
-        let zoomLevel = 1;
-        
-        function navigatePdf(direction) {
-            currentPart += direction;
-            if (currentPart < 1) currentPart = 1;
-            if (currentPart > 3) currentPart = 3;
+        // Stockage
+        let eleves = JSON.parse(localStorage.getItem('eleves')) || [];
+        let autorisations = JSON.parse(localStorage.getItem('autorisations')) || [];
+        let demandes = JSON.parse(localStorage.getItem('demandes')) || [];
+        let lastMatricule = JSON.parse(localStorage.getItem('lastMatricule')) || 7000;
+
+        // Enregistrer élève avec matricule auto
+        document.getElementById('eleve-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            lastMatricule++;
+            const matricule = lastMatricule;
+            localStorage.setItem('lastMatricule', JSON.stringify(lastMatricule));
             
-            updatePdfView();
-        }
-        
-        function updatePdfView() {
-            const viewport = document.querySelector('.pdf-viewport');
-            viewport.style.transform = `translateX(-${(currentPart-1)*100}%)`;
+            const nouvelEleve = {
+                id: Date.now(),
+                matricule,
+                nom: document.getElementById('nom').value,
+                prenom: document.getElementById('prenom').value,
+                dateNaissance: document.getElementById('date-naissance').value,
+                adresse: document.getElementById('adresse').value,
+                telephonePere: document.getElementById('telephone-pere').value,
+                telephoneMere: document.getElementById('telephone-mere').value,
+                telephoneTuteur: document.getElementById('telephone-tuteur').value,
+                nationalite: document.getElementById('nationalite').value,
+                situationParents: document.getElementById('situation-parents').value,
+                dateInscription: document.getElementById('date-inscription').value,
+                immeuble: document.getElementById('immeuble').value,
+                surveillant: document.getElementById('surveillant').value,
+                oustaz: document.getElementById('oustaz').value,
+                memorisation: document.getElementById('memorisation').value
+            };
             
-            document.querySelector('.current-part').textContent = `Partie ${currentPart}`;
-            
-            // Mettre à jour l'état des boutons de navigation
-            document.querySelector('.nav-btn:first-child').disabled = currentPart === 1;
-            document.querySelector('.nav-btn:last-child').disabled = currentPart === 3;
-        }
-      function animateCounters() {
-  const counters = document.querySelectorAll('.counter');
+            eleves.push(nouvelEleve);
+            localStorage.setItem('eleves', JSON.stringify(eleves));
+            this.reset();
+            afficherEleves();
+            afficherDemandes();
+            mettreAJourStatistiques();
+        });
 
-  counters.forEach(counter => {
-    const target = +counter.getAttribute('data-target');
-    let count = 0;
-    const duration = 2000; // 4 secondes
-    const fps = 5; // nombre de mises à jour par seconde
-    const increment = target / (duration / (1000 / fps));
-
-    const timer = setInterval(() => {
-      count += increment;
-      if (count >= target) {
-        counter.textContent = "+" + target; // ajoute le +
-        clearInterval(timer);
-      } else {
-        counter.textContent = "+" + Math.floor(count);
-      }
-    }, 1000 / fps);
-  });
-}
-
-
-// Déclenche l'animation quand la section apparaît
-window.addEventListener('scroll', () => {
-  const section = document.getElementById('chiffres-cles');
-  const sectionTop = section.getBoundingClientRect().top;
-  const screenHeight = window.innerHeight;
-
-  if (sectionTop < screenHeight) {
-    animateCounters();
-  }
-});
-
-        function changeZoom(factor) {
-            zoomLevel *= factor;
-            const frames = document.querySelectorAll('.pdf-frame');
-            
-            frames.forEach(frame => {
-                frame.style.transform = `scale(${zoomLevel})`;
-                frame.style.transformOrigin = 'top left';
+        // Afficher élèves
+        function afficherEleves() {
+            const tbody = document.getElementById('eleves-list');
+            tbody.innerHTML = '';
+            eleves.forEach(eleve => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${eleve.matricule}</td>
+                    <td>${eleve.nom}</td>
+                    <td>${eleve.prenom}</td>
+                    <td>${new Date(eleve.dateNaissance).toLocaleDateString()}</td>
+                    <td>${eleve.immeuble}</td>
+                    <td>${eleve.surveillant}</td>
+                    <td>${eleve.oustaz}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editerEleve(${eleve.id})">Modifier</button>
+                        <button class="btn-delete" onclick="supprimerEleve(${eleve.id})">Supprimer</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
         }
+
+        // Mettre à jour stats
+        function mettreAJourStatistiques() {
+            document.getElementById('total-eleves').textContent = eleves.length;
+            document.getElementById('eleves-immeuble-a').textContent = eleves.filter(e => e.immeuble === 'A').length;
+            document.getElementById('eleves-immeuble-b').textContent = eleves.filter(e => e.immeuble === 'B').length;
+            document.getElementById('eleves-immeuble-c').textContent = eleves.filter(e => e.immeuble === 'C').length;
+            document.getElementById('niveau-debutant').textContent = eleves.filter(e => e.memorisation === 'débutant').length;
+            document.getElementById('niveau-intermediaire').textContent = eleves.filter(e => e.memorisation === 'intermédiaire').length;
+            document.getElementById('niveau-avance').textContent = eleves.filter(e => e.memorisation === 'avancé').length;
+            document.getElementById('niveau-expert').textContent = eleves.filter(e => e.memorisation === 'expert').length;
+        }
+
+        // Éditer élève
+        window.editerEleve = function(id) {
+            const eleve = eleves.find(e => e.id === id);
+            if (eleve) {
+                document.getElementById('nom').value = eleve.nom;
+                document.getElementById('prenom').value = eleve.prenom;
+                document.getElementById('date-naissance').value = eleve.dateNaissance;
+                document.getElementById('adresse').value = eleve.adresse;
+                document.getElementById('telephone-pere').value = eleve.telephonePere;
+                document.getElementById('telephone-mere').value = eleve.telephoneMere;
+                document.getElementById('telephone-tuteur').value = eleve.telephoneTuteur;
+                document.getElementById('nationalite').value = eleve.nationalite;
+                document.getElementById('situation-parents').value = eleve.situationParents;
+                document.getElementById('date-inscription').value = eleve.dateInscription;
+                document.getElementById('immeuble').value = eleve.immeuble;
+                document.getElementById('surveillant').value = eleve.surveillant;
+                document.getElementById('oustaz').value = eleve.oustaz;
+                document.getElementById('memorisation').value = eleve.memorisation;
+                supprimerEleve(id, false);
+            }
+        };
+
+        // Supprimer élève
+        window.supprimerEleve = function(id, update = true) {
+            if (confirm('Supprimer cet élève ?')) {
+                eleves = eleves.filter(e => e.id !== id);
+                localStorage.setItem('eleves', JSON.stringify(eleves));
+                if (update) {
+                    afficherEleves();
+                    afficherDemandes();
+                    mettreAJourStatistiques();
+                }
+            }
+        };
+
+        // Afficher demandes en bureau
+        function afficherDemandes() {
+            const tbody = document.getElementById('demandes-list');
+            tbody.innerHTML = '';
+            demandes.forEach(demande => {
+                if (demande.statut === 'en-attente') {
+                    const eleve = eleves.find(e => e.id === demande.eleveId);
+                    if (!eleve) return;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                    <td>${eleve.matricule}</td>
+                        <td>${eleve.nom} ${eleve.prenom}</td>
+                        <td>${demande.recupNom} ${demande.recupPrenom}</td>
+                        <td>${demande.recupTel}</td>
+                        <td>${demande.recupEmail || 'N/A'}</td>
+                        <td>${demande.recupPhoto ? '<img src="' + demande.recupPhoto + '" width="50">' : 'N/A'}</td>
+                        <td class="actions">
+                            <button class="btn-validate" onclick="validerDemande(${demande.id})">Valider</button>
+                            <button class="btn-reject" onclick="rejeterDemande(${demande.id})">Rejeter</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
+        }
+
+        // Valider demande
+        window.validerDemande = function(id) {
+            const demande = demandes.find(d => d.id === id);
+            if (demande) {
+                demande.statut = 'validee';
+                localStorage.setItem('demandes', JSON.stringify(demandes));
+                const eleve = eleves.find(e => e.id === demande.eleveId);
+                if (eleve) {
+                    const qrData = {
+                        nom: eleve.nom,
+                        prenom: eleve.prenom,
+                        dateNaissance: eleve.dateNaissance,
+                        immeuble: eleve.immeuble,
+                        surveillant: eleve.surveillant,
+                        oustaz: eleve.oustaz,
+                        recupPhoto: demande.recupPhoto || ''
+                    };
+                    demande.qrData = qrData;
+                }
+                afficherDemandes();
+            }
+        };
+
+        // Rejeter demande
+        window.rejeterDemande = function(id) {
+            demandes = demandes.filter(d => d.id !== id);
+            localStorage.setItem('demandes', JSON.stringify(demandes));
+            afficherDemandes();
+        };
+
+        // Recherche parent
+      document.getElementById('parent-search-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const matricule = document.getElementById('matricule-search').value;
+    const dateNaissance = document.getElementById('date-naissance-search').value;
+    
+    const eleve = eleves.find(e => 
+        e.matricule == matricule && 
+        e.dateNaissance === dateNaissance
+    );
+    
+    if (eleve) {
+        document.getElementById('eleve-space').style.display = 'block';
+        document.getElementById('eleve-nom').textContent = eleve.nom;
+        document.getElementById('eleve-prenom').textContent = eleve.prenom;
+        document.getElementById('eleve-immeuble').textContent = eleve.immeuble;
+        document.getElementById('eleve-oustaz').textContent = eleve.oustaz;
+        document.getElementById('eleve-surveillant').textContent = eleve.surveillant;
+        
+        const demande = demandes.find(d => d.eleveId === eleve.id && d.statut === 'validee');
+        if (demande) {
+            genererQRParent(demande.qrData, 'qr-info');
+            genererQRParent(demande.qrData, 'qr-recuperation');
+            if (demande.qrData.recupPhoto) {
+                document.getElementById('recup-photo-display').src = demande.qrData.recupPhoto;
+                document.getElementById('recup-photo-display').style.display = 'block';
+            }
+        } else {
+            document.getElementById('qr-info').innerHTML = '';
+            document.getElementById('qr-recuperation').innerHTML = '';
+            document.getElementById('recup-photo-display').style.display = 'none';
+        }
+    } else {
+        alert('Matricule ou date de naissance invalide');
+    }
+});
+        // Reset espace parent
+        function resetParentSpace() {
+            document.getElementById('eleve-space').style.display = 'none';
+            document.getElementById('parent-search-form').reset();
+        }
+
+        // Sous-onglets parent
+        document.querySelectorAll('.sub-tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.sub-tab-button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.sub-tab-content').forEach(content => content.classList.remove('active'));
+                button.classList.add('active');
+                document.getElementById(button.dataset.subTab).classList.add('active');
+            });
+        });
+
+        // Soumettre récupération
+       document.getElementById('recuperation-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const matricule = document.getElementById('matricule-search').value;
+    const eleve = eleves.find(e => e.matricule == matricule);
+    if (!eleve) {
+        alert('Veuillez d\'abord rechercher un élève valide.');
+        return;
+    }
+const existingDemande = demandes.find(d => d.eleveId === eleve.id);
+if (existingDemande) {
+    alert('Une demande existe déjà pour cet élève. Attendez la suppression par le bureau.');
+    return;
+}
+    const file = document.getElementById('recup-photo').files[0];
+    const processSubmission = (photoData) => {
+        const demande = {
+            id: Date.now(),
+            eleveId: eleve.id,
+            recupNom: document.getElementById('recup-nom').value,
+            recupPrenom: document.getElementById('recup-prenom').value,
+            recupTel: document.getElementById('recup-tel').value,
+            recupEmail: document.getElementById('recup-email').value,
+            recupPhoto: photoData || null,
+            statut: 'en-attente'
+        };
+        demandes.push(demande);
+        localStorage.setItem('demandes', JSON.stringify(demandes));
+        afficherDemandes();
+        this.reset();
+        alert('Demande de récupération soumise avec succès !');
+    };
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            processSubmission(event.target.result);
+        };
+        reader.readAsDataURL(file);
+    } else {
+        processSubmission(null);
+    }
+});
+
+        // Générer QR parent
+        function genererQRParent(data, elementId) {
+            const qrElement = document.getElementById(elementId);
+            qrElement.innerHTML = '';
+            const qrText = JSON.stringify(data);
+            new QRCode(qrElement, {
+                text: qrText,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff"
+            });
+            qrElement.classList.add(`immeuble-${data.immeuble}`);
+        }
+
+        // Init caméra surveillant (simulation)
+        function initCameraSurveillant() {
+            // Simulation: suppose scan retourne code QR
+            setTimeout(() => {
+                // Exemple code scanné
+                const scannedData = { /* data from QR */ };
+                validerQR(scannedData);
+            }, 3000); // Simule scan après 3s
+        }
+
+        // Valider QR
+        function validerQR(data) {
+            // Vérifier si valide
+            const isValid = true; // Simulation
+            const resultDiv = document.getElementById('scan-result');
+            if (isValid) {
+                resultDiv.classList.add('animation-success');
+                // Enregistrer comme récupéré
+                const auth = autorisations.find(a => true); // Match data
+                if (auth) auth.statut = 'recuperee';
+                localStorage.setItem('autorisations', JSON.stringify(autorisations));
+                afficherHistoriqueSorties('sorties-list');
+            } else {
+                resultDiv.classList.add('animation-failure');
+            }
+            setTimeout(() => resultDiv.classList.remove('animation-success', 'animation-failure'), 1000);
+        }
+
+        // Effacer historique
+        window.effacerHistorique = function() {
+            if (confirm('Effacer historique ?')) {
+                autorisations = [];
+                localStorage.setItem('autorisations', JSON.stringify(autorisations));
+                afficherHistoriqueSorties('sorties-list');
+            }
+        };
+
+        // Mettre à jour liste élèves sortie
+        function mettreAJourListeElevesSortie() {
+            const select = document.getElementById('eleve-sortie');
+            select.innerHTML = '<option value="">-- Sélectionner un élève --</option>';
+            eleves.forEach(eleve => {
+                const option = document.createElement('option');
+                option.value = eleve.id;
+                option.textContent = `${eleve.nom} ${eleve.prenom} (Immeuble ${eleve.immeuble})`;
+                select.appendChild(option);
+            });
+        }
+
+        // Générer autorisation
+        document.getElementById('autorisation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const eleveId = document.getElementById('eleve-sortie').value;
+            const eleve = eleves.find(e => e.id == eleveId);
+            if (!eleve) return alert('Élève invalide');
+            
+            const code = genererCodeUnique();
+            const autorisation = {
+                id: Date.now(),
+                eleveId: eleve.id,
+                personne: document.getElementById('personne-autorisee').value,
+                lien: document.getElementById('lien-parente').value,
+                dateSortie: document.getElementById('date-sortie').value,
+                dateRetour: document.getElementById('date-retour').value,
+                docType: document.getElementById('type-doc').value,
+                docNum: document.getElementById('doc-identity').value,
+                code,
+                statut: 'en-attente'
+            };
+            autorisations.push(autorisation);
+            localStorage.setItem('autorisations', JSON.stringify(autorisations));
+            
+            document.getElementById('auth-eleve').textContent = `${eleve.nom} ${eleve.prenom}`;
+            document.getElementById('auth-immeuble').textContent = eleve.immeuble;
+            document.getElementById('auth-personne').textContent = autorisation.personne;
+            document.getElementById('auth-lien').textContent = autorisation.lien;
+            document.getElementById('auth-sortie').textContent = new Date(autorisation.dateSortie).toLocaleString();
+            document.getElementById('auth-retour').textContent = new Date(autorisation.dateRetour).toLocaleString();
+            document.getElementById('auth-doc').textContent = document.getElementById('type-doc').options[document.getElementById('type-doc').selectedIndex].text;
+            document.getElementById('auth-doc-num').textContent = autorisation.docNum;
+            document.getElementById('auth-code').textContent = code;
+            
+            document.getElementById('qrcode').innerHTML = '';
+            new QRCode(document.getElementById('qrcode'), {
+                text: JSON.stringify({id: autorisation.id, code, eleve: `${eleve.nom} ${eleve.prenom}`}),
+                width: 128,
+                height: 128
+            });
+            
+            document.getElementById('autorisation-result').style.display = 'block';
+            afficherHistoriqueSorties('sorties-list-gestion');
+            this.reset();
+        });
+
+        // Code unique
+        function genererCodeUnique() {
+            return Math.random().toString(36).substring(2, 10).toUpperCase();
+        }
+
+        // Imprimer
+        window.imprimerAutorisation = function() {
+            const contenu = document.querySelector('.autorisation').innerHTML;
+            const win = window.open('', '_blank');
+            win.document.write(`<html><head><title>Autorisation</title><style>body {font-family: Arial; padding: 20px;} h4 {color: #2c3e50;} p {margin: 10px 0;}</style></head><body>${contenu}</body></html>`);
+            win.document.close();
+            win.print();
+        };
+
+        // Valider manuelle
+        window.validerSortieManuelle = function() {
+            const code = document.getElementById('manual-code').value;
+            if (!code) return alert('Saisir code');
+            const auth = autorisations.find(a => a.code === code);
+            if (auth) {
+                auth.statut = 'validee';
+                localStorage.setItem('autorisations', JSON.stringify(autorisations));
+                alert(`Sortie validée pour ${auth.eleveId}`);
+                afficherHistoriqueSorties('sorties-list-gestion');
+            } else {
+                alert('Code invalide');
+            }
+        };
+
+        // Afficher historique
+        function afficherHistoriqueSorties(tbodyId) {
+            const tbody = document.getElementById(tbodyId);
+            tbody.innerHTML = '';
+            autorisations.forEach(auth => {
+                const eleve = eleves.find(e => e.id == auth.eleveId);
+                if (!eleve) return;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${eleve.nom} ${eleve.prenom}</td>
+                    <td>${auth.personne} (${auth.lien})</td>
+                    <td>${new Date(auth.dateSortie).toLocaleString()}</td>
+                    <td>${new Date(auth.dateRetour).toLocaleString()}</td>
+                    <td>${auth.statut}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Init
+        afficherEleves();
+        afficherDemandes();
+        mettreAJourStatistiques();
+        afficherHistoriqueSorties('sorties-list');
+        afficherHistoriqueSorties('sorties-list-gestion');
     </script>
 </body>
 </html>
