@@ -7,16 +7,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <style>
+        :root {
+            --primary-color: #073332;
+            --secondary-color: #1f4a49;
+            --accent-color: #9b9c28;
+            --bg-color: #073332;
+            --text-color: #ffffff;
+            --font-arabic: 'Traditional Arabic', 'Arial', sans-serif;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        body {
-            background-color: #f5f5f5;
-            color: #333;
-        }
+        
         header {
             background-color: #2c3e50;
             color: white;
@@ -24,12 +40,14 @@
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        
         .tabs {
             display: flex;
             justify-content: center;
             margin-top: 1rem;
             flex-wrap: wrap;
         }
+        
         .tab-button {
             padding: 10px 20px;
             margin: 0 5px;
@@ -40,17 +58,21 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+        
         .tab-button:hover {
             background-color: #1abc9c;
         }
+        
         .tab-button.active {
             background-color: #1abc9c;
         }
+        
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
+        
         .tab-content {
             display: none;
             background-color: white;
@@ -58,35 +80,42 @@
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        
         .tab-content.active {
             display: block;
         }
+        
         h2 {
             color: #2c3e50;
             margin-bottom: 1.5rem;
             border-bottom: 2px solid #1abc9c;
             padding-bottom: 0.5rem;
         }
+        
         form {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
+        
         .form-group {
             margin-bottom: 1rem;
         }
+        
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
+        
         input, select, textarea {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
+        
         button {
             background-color: #1abc9c;
             color: white;
@@ -96,29 +125,35 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+        
         button:hover {
             background-color: #16a085;
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
         }
+        
         th, td {
             padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
+        
         th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
+        
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
+        
         .stat-card {
             background-color: white;
             padding: 1rem;
@@ -126,42 +161,52 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
         }
+        
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
             color: #1abc9c;
             margin: 0.5rem 0;
         }
+        
         .stat-label {
             color: #7f8c8d;
         }
+        
         .actions {
             display: flex;
             gap: 0.5rem;
         }
+        
         .btn-edit {
             background-color: #3498db;
         }
+        
         .btn-delete {
             background-color: #e74c3c;
         }
+        
         .btn-validate {
             background-color: #27ae60;
         }
+        
         .btn-reject {
             background-color: #e74c3c;
         }
+        
         .sortie-section {
             margin-bottom: 2rem;
             padding: 1rem;
             border: 1px solid #eee;
             border-radius: 5px;
         }
+        
         .qr-code {
             margin: 1rem 0;
             display: flex;
             justify-content: center;
         }
+        
         .autorisation {
             border: 1px solid #ddd;
             padding: 1rem;
@@ -169,6 +214,7 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
+        
         .scan-section {
             text-align: center;
             padding: 2rem;
@@ -176,26 +222,32 @@
             border-radius: 5px;
             margin: 1rem 0;
         }
+        
         .camera-feed {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             margin: 1rem auto;
             border-radius: 5px;
         }
+        
         .historique-sorties {
             margin-top: 2rem;
         }
+        
         .parent-search {
             margin-bottom: 2rem;
         }
+        
         .eleve-space {
             display: none;
         }
+        
         .sub-tabs {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 1rem;
         }
+        
         .sub-tab-button {
             padding: 8px 16px;
             margin-right: 10px;
@@ -205,15 +257,19 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        
         .sub-tab-button.active {
             background-color: #1abc9c;
         }
+        
         .sub-tab-content {
             display: none;
         }
+        
         .sub-tab-content.active {
             display: block;
         }
+        
         .immeuble-A { background-color: #ff0000; }
         .immeuble-B { background-color: #ffff00; }
         .immeuble-C { background-color: #00ff00; }
@@ -221,36 +277,134 @@
         .immeuble-E { background-color: #ff00ff; }
         .immeuble-F { background-color: #00ffff; }
         .immeuble-G { background-color: #ffa500; }
+        
         .animation-success {
             border: 2px solid green;
             animation: flash-green 1s;
         }
+        
         .animation-failure {
             border: 2px solid red;
             animation: flash-red 1s;
         }
+        
         @keyframes flash-green {
             0% { background-color: rgba(0,255,0,0.3); }
             100% { background-color: transparent; }
         }
+        
         @keyframes flash-red {
             0% { background-color: rgba(255,0,0,0.3); }
             100% { background-color: transparent; }
         }
+        
         @media (max-width: 768px) {
             form {
                 grid-template-columns: 1fr;
             }
+            
             .stats {
                 grid-template-columns: 1fr;
             }
+            
             .tabs {
                 flex-direction: column;
                 align-items: center;
             }
+            
             .tab-button {
                 margin: 5px 0;
                 width: 80%;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            color: #333;
+            padding: 1rem;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            z-index: 1000;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .modal-close {
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        .modal-content {
+            text-align: center;
+        }
+
+        .modal-qr {
+            margin-bottom: 1rem;
+        }
+
+        .modal-details {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .modal-left, .modal-right {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .share-icon {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .confirmation-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            color: #333;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            z-index: 1000;
+            max-width: 90vw;
+            text-align: center;
+        }
+
+        .confirmation-modal img {
+            max-width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-modal button {
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        @media (max-width: 480px) {
+            .modal-details {
+                flex-direction: column;
             }
         }
     </style>
@@ -270,39 +424,48 @@
         <!-- Section Bureau -->
         <div id="bureau" class="tab-content active">
             <h2>Gestion des Élèves</h2>
+            
             <form id="eleve-form">
                 <div class="form-group">
                     <label for="nom">Nom:</label>
                     <input type="text" id="nom" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="prenom">Prénom:</label>
                     <input type="text" id="prenom" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="date-naissance">Date de naissance:</label>
                     <input type="date" id="date-naissance" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="adresse">Adresse:</label>
                     <input type="text" id="adresse" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="telephone-pere">Téléphone Père:</label>
                     <input type="tel" id="telephone-pere">
                 </div>
+                
                 <div class="form-group">
                     <label for="telephone-mere">Téléphone Mère:</label>
                     <input type="tel" id="telephone-mere">
                 </div>
+                
                 <div class="form-group">
                     <label for="telephone-tuteur">Téléphone Tuteur:</label>
                     <input type="tel" id="telephone-tuteur">
                 </div>
+                
                 <div class="form-group">
                     <label for="nationalite">Nationalité:</label>
                     <input type="text" id="nationalite" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="situation-parents">Situation des parents:</label>
                     <select id="situation-parents" required>
@@ -311,10 +474,12 @@
                         <option value="autres">Autres</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
                     <label for="date-inscription">Date d'inscription:</label>
                     <input type="date" id="date-inscription" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="immeuble">Immeuble:</label>
                     <select id="immeuble" required>
@@ -327,14 +492,17 @@
                         <option value="G">Immeuble G</option>
                     </select>
                 </div>
+                
                 <div class="form-group">
                     <label for="surveillant">Surveillant:</label>
                     <input type="text" id="surveillant" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="oustaz">Oustaz:</label>
                     <input type="text" id="oustaz" required>
                 </div>
+                
                 <div class="form-group">
                     <label for="memorisation">Niveau de mémorisation:</label>
                     <select id="memorisation" required>
@@ -344,6 +512,7 @@
                         <option value="expert">Expert</option>
                     </select>
                 </div>
+                
                 <button type="submit">Enregistrer l'élève</button>
             </form>
             
@@ -396,30 +565,37 @@
                     <div class="stat-label">Total des élèves</div>
                     <div class="stat-value" id="total-eleves">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble A</div>
                     <div class="stat-value" id="eleves-immeuble-a">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble B</div>
                     <div class="stat-value" id="eleves-immeuble-b">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble C</div>
                     <div class="stat-value" id="eleves-immeuble-c">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Débutant</div>
                     <div class="stat-value" id="niveau-debutant">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Intermédiaire</div>
                     <div class="stat-value" id="niveau-intermediaire">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Avancé</div>
                     <div class="stat-value" id="niveau-avance">0</div>
                 </div>
+                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Expert</div>
                     <div class="stat-value" id="niveau-expert">0</div>
@@ -433,7 +609,7 @@
             <div class="scan-section">
                 <h3>Valider QR Code</h3>
                 <div class="camera-feed">
-                    <video id="video-surveillant" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
+                    <video id="video-surveillant" autoplay style="width: 100%; max-width: 600px; border-radius: 5px;"></video>
                     <canvas id="canvas-surveillant" style="display: none;"></canvas>
                 </div>
                 <div id="scan-result"></div>
@@ -510,7 +686,7 @@
                             <input type="email" id="recup-email">
                         </div>
                         <div class="form-group">
-                            <label for="recup-photo">Photo de la carte d'identité du récupérateur (facultatif, sera comparée lors de la récupération):</label>
+                            <label for="recup-photo">Photo de la carte d'identité du récupérateur (facultatif):</label>
                             <input type="file" id="recup-photo" accept="image/*">
                         </div>
                         <button type="submit">Soumettre</button>
@@ -524,6 +700,7 @@
         <!-- Section Gestion des Sorties -->
         <div id="sorties" class="tab-content">
             <h2>Gestion Digitalisée des Sorties</h2>
+            
             <div class="sortie-section">
                 <h3>Générer une Autorisation de Sortie</h3>
                 <form id="autorisation-form">
@@ -534,26 +711,32 @@
                             <!-- Options ajoutées dynamiquement -->
                         </select>
                     </div>
+                    
                     <div class="form-group">
                         <label for="personne-autorisee">Personne autorisée à récupérer l'élève:</label>
                         <input type="text" id="personne-autorisee" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="lien-parente">Lien de parenté:</label>
                         <input type="text" id="lien-parente" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="date-sortie">Date de sortie:</label>
                         <input type="datetime-local" id="date-sortie" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="date-retour">Date de retour prévue:</label>
                         <input type="datetime-local" id="date-retour" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="doc-identity">Numéro de pièce d'identité:</label>
                         <input type="text" id="doc-identity" required>
                     </div>
+                    
                     <div class="form-group">
                         <label for="type-doc">Type de pièce:</label>
                         <select id="type-doc" required>
@@ -563,9 +746,11 @@
                             <option value="autre">Autre</option>
                         </select>
                     </div>
+                    
                     <button type="submit">Générer l'autorisation</button>
                 </form>
             </div>
+            
             <div class="sortie-section" id="autorisation-result" style="display: none;">
                 <h3>Autorisation de Sortie Générée</h3>
                 <div class="autorisation">
@@ -578,24 +763,28 @@
                     <p><strong>Date de retour:</strong> <span id="auth-retour"></span></p>
                     <p><strong>Pièce d'identité:</strong> <span id="auth-doc"></span> (N°: <span id="auth-doc-num"></span>)</p>
                     <p><strong>Code de validation:</strong> <span id="auth-code"></span></p>
-                    <div class="qr-code" id="qrcode"></div>
-                    <button onclick="imprimerAutorisation()">Imprimer l'autorisation</button>
+                    <button onclick="showAutorisationModal()">Autorisation</button>
                 </div>
             </div>
+            
             <div class="scan-section">
                 <h3>Valider une Sortie avec QR Code</h3>
                 <p>Scannez le QR Code pour enregistrer la sortie de l'élève. Assurez-vous que le QR code est bien centré et éclairé.</p>
+                
                 <div class="camera-feed">
-                    <video id="video-sorties" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
+                    <video id="video-sorties" autoplay style="width: 100%; max-width: 600px; border-radius: 5px;"></video>
                     <canvas id="canvas-sorties" style="display: none;"></canvas>
                 </div>
+                
                 <div id="scan-result-sorties"></div>
+                
                 <div class="form-group">
                     <label for="manual-code">Ou saisir manuellement le code:</label>
                     <input type="text" id="manual-code" placeholder="Saisir le code de validation">
                     <button onclick="validerSortieManuelle()">Valider la sortie</button>
                 </div>
             </div>
+            
             <div class="historique-sorties">
                 <h3>Historique des Sorties</h3>
                 <table id="sorties-table-gestion">
@@ -614,6 +803,41 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <!-- Modal for Autorisation -->
+    <div id="autorisation-modal" class="modal">
+        <div class="modal-header">
+            <span class="share-icon" onclick="shareAutorisation()">🔗</span>
+            <span class="modal-close" onclick="closeModal('autorisation-modal')">×</span>
+        </div>
+        <div class="modal-content">
+            <div class="modal-qr" id="modal-qrcode"></div>
+            <div class="modal-details">
+                <div class="modal-left">
+                    <p><strong>Immeuble:</strong> <span id="modal-immeuble"></span></p>
+                </div>
+                <div class="modal-right">
+                    <p><strong>Nom Prénom:</strong> <span id="modal-nom-prenom"></span></p>
+                    <p><strong>Date de Naissance:</strong> <span id="modal-date-naissance"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="confirmation-modal" style="display: none;">
+        <span class="modal-close" onclick="closeModal('confirmation-modal')">×</span>
+        <h3>Confirmer Récupération</h3>
+        <img id="modal-photo" src="" alt="Photo ID" style="display: none;">
+        <p><strong>Nom:</strong> <span id="confirm-nom"></span></p>
+        <p><strong>Prénom:</strong> <span id="confirm-prenom"></span></p>
+        <p><strong>Date de Naissance:</strong> <span id="confirm-date-naissance"></span></p>
+        <p><strong>Immeuble:</strong> <span id="confirm-immeuble"></span></p>
+        <p><strong>Oustaz:</strong> <span id="confirm-oustaz"></span></p>
+        <p><strong>Surveillant:</strong> <span id="confirm-surveillant"></span></p>
+        <p><strong>Téléphone:</strong> <span id="confirm-telephone"></span></p>
+        <button class="btn-validate" onclick="confirmRecuperation()">Valider</button>
     </div>
 
     <script>
@@ -643,6 +867,8 @@
         let autorisations = JSON.parse(localStorage.getItem('autorisations')) || [];
         let demandes = JSON.parse(localStorage.getItem('demandes')) || [];
         let lastMatricule = JSON.parse(localStorage.getItem('lastMatricule')) || 7000;
+        let currentAuth = null;
+        let currentStream = null;
 
         // Enregistrer élève avec matricule auto
         document.getElementById('eleve-form').addEventListener('submit', function(e) {
@@ -791,14 +1017,19 @@
                 const eleve = eleves.find(e => e.id === demande.eleveId);
                 if (eleve) {
                     const qrData = {
+                        identifier: 'ALMOUYASSAR',
                         id: demande.id,
                         code: genererCodeUnique(),
                         nom: eleve.nom,
-                        prenom: eleve.prenom
+                        prenom: eleve.prenom,
+                        dateNaissance: eleve.dateNaissance,
+                        immeuble: eleve.immeuble,
+                        surveillant: eleve.surveillant,
+                        oustaz: eleve.oustaz,
+                        recupPhoto: demande.recupPhoto || '',
+                        recupTel: demande.recupTel || ''
                     };
                     demande.qrData = qrData;
-                    genererQRParent(qrData, 'qr-info');
-                    genererQRParent(qrData, 'qr-recuperation');
                 }
                 localStorage.setItem('demandes', JSON.stringify(demandes));
                 afficherDemandes();
@@ -931,6 +1162,7 @@
         function genererQRParent(data, elementId) {
             const qrElement = document.getElementById(elementId);
             qrElement.innerHTML = '';
+            data.identifier = 'ALMOUYASSAR';
             const qrText = JSON.stringify(data);
             new QRCode(qrElement, {
                 text: qrText,
@@ -940,6 +1172,7 @@
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H
             });
+            qrElement.classList.add(`immeuble-${data.immeuble}`);
         }
 
         function initCameraSurveillant() {
@@ -956,10 +1189,11 @@
 
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
                 .then(stream => {
+                    currentStream = stream;
                     video.srcObject = stream;
                     video.play();
-                    canvas.width = video.videoWidth || 400;
-                    canvas.height = video.videoHeight || 300;
+                    canvas.width = video.videoWidth || 600;
+                    canvas.height = video.videoHeight || 450;
 
                     const ctx = canvas.getContext('2d');
 
@@ -976,9 +1210,7 @@
                             if (code) {
                                 try {
                                     const scannedData = JSON.parse(code.data);
-                                    validerQR(scannedData);
-                                    stream.getTracks().forEach(track => track.stop());
-                                    return;
+                                    showConfirmationModal(scannedData);
                                 } catch (e) {
                                     resultDiv.innerHTML = '<p>QR code invalide. Assurez-vous qu\'il est bien centré et éclairé.</p>';
                                     resultDiv.classList.add('animation-failure');
@@ -1013,10 +1245,11 @@
 
             navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
                 .then(stream => {
+                    currentStream = stream;
                     video.srcObject = stream;
                     video.play();
-                    canvas.width = video.videoWidth || 400;
-                    canvas.height = video.videoHeight || 300;
+                    canvas.width = video.videoWidth || 600;
+                    canvas.height = video.videoHeight || 450;
 
                     const ctx = canvas.getContext('2d');
 
@@ -1033,9 +1266,7 @@
                             if (code) {
                                 try {
                                     const scannedData = JSON.parse(code.data);
-                                    validerQR(scannedData);
-                                    stream.getTracks().forEach(track => track.stop());
-                                    return;
+                                    showConfirmationModal(scannedData);
                                 } catch (e) {
                                     resultDiv.innerHTML = '<p>QR code invalide. Assurez-vous qu\'il est bien centré et éclairé.</p>';
                                     resultDiv.classList.add('animation-failure');
@@ -1058,27 +1289,75 @@
 
         function validerQR(data) {
             const resultDiv = document.getElementById('scan-result-sorties') || document.getElementById('scan-result');
+            if (!data.identifier || data.identifier !== 'ALMOUYASSAR') {
+                resultDiv.innerHTML = '<p>QR code invalide (identifiant manquant).</p>';
+                resultDiv.classList.add('animation-failure');
+                setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                return;
+            }
             const auth = autorisations.find(a => a.id == data.id && a.code === data.code);
             if (auth && auth.statut === 'validee') {
-                const eleve = eleves.find(e => e.id == auth.eleveId);
-                if (!eleve) {
-                    resultDiv.innerHTML = '<p>Élève introuvable</p>';
-                    resultDiv.classList.add('animation-failure');
-                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
-                    return;
-                }
                 auth.statut = 'recuperee';
                 localStorage.setItem('autorisations', JSON.stringify(autorisations));
-                resultDiv.innerHTML = `<p>Sortie validée pour ${data.eleve}</p>`;
+                resultDiv.innerHTML = `<p>Sortie validée pour ${data.nom} ${data.prenom}</p>`;
                 resultDiv.classList.add('animation-success');
                 afficherHistoriqueSorties('sorties-list');
                 afficherHistoriqueSorties('sorties-list-gestion');
             } else {
-                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé. Vérifiez l\'éclairage et la mise au point.</p>';
+                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé.</p>';
                 resultDiv.classList.add('animation-failure');
             }
             setTimeout(() => resultDiv.classList.remove('animation-success', 'animation-failure'), 1000);
         }
+
+        function showConfirmationModal(data) {
+            if (!data.identifier || data.identifier !== 'ALMOUYASSAR') {
+                const resultDiv = document.getElementById('scan-result-sorties') || document.getElementById('scan-result');
+                resultDiv.innerHTML = '<p>QR code invalide (identifiant manquant).</p>';
+                resultDiv.classList.add('animation-failure');
+                setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                return;
+            }
+            currentAuth = autorisations.find(a => a.id == data.id && a.code === data.code);
+            if (!currentAuth || currentAuth.statut !== 'validee') {
+                const resultDiv = document.getElementById('scan-result-sorties') || document.getElementById('scan-result');
+                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé.</p>';
+                resultDiv.classList.add('animation-failure');
+                setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                return;
+            }
+            const eleve = eleves.find(e => e.id == currentAuth.eleveId);
+            if (!eleve) return;
+
+            document.getElementById('confirm-nom').textContent = data.nom;
+            document.getElementById('confirm-prenom').textContent = data.prenom;
+            document.getElementById('confirm-date-naissance').textContent = new Date(data.dateNaissance).toLocaleDateString();
+            document.getElementById('confirm-immeuble').textContent = data.immeuble;
+            document.getElementById('confirm-oustaz').textContent = data.oustaz;
+            document.getElementById('confirm-surveillant').textContent = data.surveillant;
+            document.getElementById('confirm-telephone').textContent = data.recupTel;
+            const photo = document.getElementById('modal-photo');
+            if (data.recupPhoto) {
+                photo.src = data.recupPhoto;
+                photo.style.display = 'block';
+            } else {
+                photo.style.display = 'none';
+            }
+            document.getElementById('confirmation-modal').style.display = 'block';
+        }
+
+        window.confirmRecuperation = function() {
+            if (currentAuth) {
+                currentAuth.statut = 'recuperee';
+                localStorage.setItem('autorisations', JSON.stringify(autorisations));
+                afficherHistoriqueSorties('sorties-list-gestion');
+                const resultDiv = document.getElementById('scan-result-sorties') || document.getElementById('scan-result');
+                resultDiv.innerHTML = '<p>Récupération confirmée.</p>';
+                resultDiv.classList.add('animation-success');
+                setTimeout(() => resultDiv.classList.remove('animation-success'), 1000);
+            }
+            closeModal('confirmation-modal');
+        };
 
         window.effacerHistorique = function() {
             if (confirm('Effacer historique ?')) {
@@ -1116,7 +1395,7 @@
                 docType: document.getElementById('type-doc').value,
                 docNum: document.getElementById('doc-identity').value,
                 code,
-                statut: 'validee' // Changé à 'validee' pour compatibilité avec validerQR
+                statut: 'validee'
             };
             autorisations.push(autorisation);
             localStorage.setItem('autorisations', JSON.stringify(autorisations));
@@ -1131,19 +1410,9 @@
             document.getElementById('auth-doc-num').textContent = autorisation.docNum;
             document.getElementById('auth-code').textContent = code;
             
-            document.getElementById('qrcode').innerHTML = '';
-            new QRCode(document.getElementById('qrcode'), {
-                text: JSON.stringify({id: autorisation.id, code, eleve: `${eleve.nom} ${eleve.prenom}`}),
-                width: 256,
-                height: 256,
-                colorDark: "#000000",
-                colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
-            });
-            
             document.getElementById('autorisation-result').style.display = 'block';
-            afficherHistoriqueSorties('sorties-list-gestion');
             this.reset();
+            afficherHistoriqueSorties('sorties-list-gestion');
         });
 
         function genererCodeUnique() {
@@ -1162,13 +1431,13 @@
             const code = document.getElementById('manual-code').value;
             if (!code) return alert('Saisir code');
             const auth = autorisations.find(a => a.code === code);
-            if (auth) {
-                auth.statut = 'validee';
+            if (auth && auth.statut === 'validee') {
+                auth.statut = 'recuperee';
                 localStorage.setItem('autorisations', JSON.stringify(autorisations));
                 alert(`Sortie validée pour ${auth.eleveId}`);
                 afficherHistoriqueSorties('sorties-list-gestion');
             } else {
-                alert('Code invalide');
+                alert('Code invalide ou déjà utilisé');
             }
         };
 
@@ -1196,6 +1465,49 @@
                 tbody.appendChild(tr);
             });
         }
+
+        window.showAutorisationModal = function() {
+            const modal = document.getElementById('autorisation-modal');
+            const qrElement = document.getElementById('modal-qrcode');
+            qrElement.innerHTML = '';
+            const data = {
+                identifier: 'ALMOUYASSAR',
+                id: currentAuth.id,
+                code: currentAuth.code,
+                eleve: document.getElementById('auth-eleve').textContent
+            };
+            new QRCode(qrElement, {
+                text: JSON.stringify(data),
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            document.getElementById('modal-nom-prenom').textContent = document.getElementById('auth-eleve').textContent;
+            document.getElementById('modal-date-naissance').textContent = new Date(eleves.find(e => e.id == currentAuth.eleveId).dateNaissance).toLocaleDateString();
+            document.getElementById('modal-immeuble').textContent = document.getElementById('auth-immeuble').textContent;
+            modal.classList.add('active');
+        };
+
+        window.closeModal = function(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            if (modalId === 'confirmation-modal') {
+                document.getElementById('confirmation-modal').style.display = 'none';
+            }
+        };
+
+        window.shareAutorisation = function() {
+            const text = `Fiche d'autorisation:\nÉlève: ${document.getElementById('auth-eleve').textContent}\nImmeuble: ${document.getElementById('auth-immeuble').textContent}\nCode: ${document.getElementById('auth-code').textContent}`;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Autorisation de Sortie',
+                    text: text
+                }).catch(console.error);
+            } else {
+                alert('Partage non supporté. Copiez le texte manuellement.');
+            }
+        };
 
         // Init
         afficherEleves();
