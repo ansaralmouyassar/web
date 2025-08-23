@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de l'Internat - Sorties</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -212,12 +212,7 @@
         .camera-feed {
             width: 100%;
             max-width: 400px;
-            height: 300px;
-            background-color: #ddd;
             margin: 1rem auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             border-radius: 5px;
         }
         
@@ -325,48 +320,39 @@
         <!-- Section Bureau -->
         <div id="bureau" class="tab-content active">
             <h2>Gestion des Élèves</h2>
-            
             <form id="eleve-form">
                 <div class="form-group">
                     <label for="nom">Nom:</label>
                     <input type="text" id="nom" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="prenom">Prénom:</label>
                     <input type="text" id="prenom" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="date-naissance">Date de naissance:</label>
                     <input type="date" id="date-naissance" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="adresse">Adresse:</label>
                     <input type="text" id="adresse" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="telephone-pere">Téléphone Père:</label>
                     <input type="tel" id="telephone-pere">
                 </div>
-                
                 <div class="form-group">
                     <label for="telephone-mere">Téléphone Mère:</label>
                     <input type="tel" id="telephone-mere">
                 </div>
-                
                 <div class="form-group">
                     <label for="telephone-tuteur">Téléphone Tuteur:</label>
                     <input type="tel" id="telephone-tuteur">
                 </div>
-                
                 <div class="form-group">
                     <label for="nationalite">Nationalité:</label>
                     <input type="text" id="nationalite" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="situation-parents">Situation des parents:</label>
                     <select id="situation-parents" required>
@@ -375,12 +361,10 @@
                         <option value="autres">Autres</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="date-inscription">Date d'inscription:</label>
                     <input type="date" id="date-inscription" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="immeuble">Immeuble:</label>
                     <select id="immeuble" required>
@@ -393,17 +377,14 @@
                         <option value="G">Immeuble G</option>
                     </select>
                 </div>
-                
                 <div class="form-group">
                     <label for="surveillant">Surveillant:</label>
                     <input type="text" id="surveillant" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="oustaz">Oustaz:</label>
                     <input type="text" id="oustaz" required>
                 </div>
-                
                 <div class="form-group">
                     <label for="memorisation">Niveau de mémorisation:</label>
                     <select id="memorisation" required>
@@ -413,7 +394,6 @@
                         <option value="expert">Expert</option>
                     </select>
                 </div>
-                
                 <button type="submit">Enregistrer l'élève</button>
             </form>
             
@@ -437,12 +417,12 @@
             </table>
             
             <h2>Autorisations de Sortie</h2>
-         <div class="actions">
-    <button onclick="afficherElevesAutorises()">Élèves Autorisés</button>
-    <button onclick="afficherElevesNonAutorises()">Élèves Non Autorisés</button>
-    <button onclick="afficherElevesRecuperes()">Élèves Récupérés</button>
-    <button onclick="afficherElevesNonRecuperes()">Élèves Non Récupérés</button>
-</div>
+            <div class="actions">
+                <button onclick="afficherElevesAutorises()">Élèves Autorisés</button>
+                <button onclick="afficherElevesNonAutorises()">Élèves Non Autorisés</button>
+                <button onclick="afficherElevesRecuperes()">Élèves Récupérés</button>
+                <button onclick="afficherElevesNonRecuperes()">Élèves Non Récupérés</button>
+            </div>
             <table id="demandes-table">
                 <thead>
                     <tr>
@@ -466,37 +446,30 @@
                     <div class="stat-label">Total des élèves</div>
                     <div class="stat-value" id="total-eleves">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble A</div>
                     <div class="stat-value" id="eleves-immeuble-a">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble B</div>
                     <div class="stat-value" id="eleves-immeuble-b">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Élèves dans l'immeuble C</div>
                     <div class="stat-value" id="eleves-immeuble-c">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Débutant</div>
                     <div class="stat-value" id="niveau-debutant">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Intermédiaire</div>
                     <div class="stat-value" id="niveau-intermediaire">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Avancé</div>
                     <div class="stat-value" id="niveau-avance">0</div>
                 </div>
-                
                 <div class="stat-card">
                     <div class="stat-label">Niveau Expert</div>
                     <div class="stat-value" id="niveau-expert">0</div>
@@ -505,34 +478,35 @@
         </div>
 
         <!-- Section Surveillant -->
-       <div id="surveillant" class="tab-content">
-    <h2>Espace Surveillant</h2>
-    <div class="scan-section">
-        <h3>Valider QR Code</h3>
-        <div id="camera-feed" class="camera-feed">
-            <p>Caméra active - En attente de scan QR</p>
+        <div id="surveillant" class="tab-content">
+            <h2>Espace Surveillant</h2>
+            <div class="scan-section">
+                <h3>Valider QR Code</h3>
+                <div class="camera-feed">
+                    <video id="video-surveillant" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
+                    <canvas id="canvas-surveillant" style="display: none;"></canvas>
+                </div>
+                <div id="scan-result"></div>
+            </div>
+            <div class="historique-sorties">
+                <h3>Historique des Sorties</h3>
+                <button onclick="effacerHistorique()">Effacer Historique</button>
+                <table id="sorties-table">
+                    <thead>
+                        <tr>
+                            <th>Matricule Élève</th>
+                            <th>Personne autorisée</th>
+                            <th>Date sortie</th>
+                            <th>Date retour</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sorties-list">
+                        <!-- Les sorties seront ajoutées ici dynamiquement -->
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div id="scan-result"></div>
-    </div>
-    <div class="historique-sorties">
-        <h3>Historique des Sorties</h3>
-        <button onclick="effacerHistorique()">Effacer Historique</button>
-        <table id="sorties-table">
-            <thead>
-                <tr>
-                    <th>Matricule Élève</th>
-                    <th>Personne autorisée</th>
-                    <th>Date sortie</th>
-                    <th>Date retour</th>
-                    <th>Statut</th>
-                </tr>
-            </thead>
-            <tbody id="sorties-list">
-                <!-- Les sorties seront ajoutées ici dynamiquement -->
-            </tbody>
-        </table>
-    </div>
-</div>
 
         <!-- Section Parents -->
         <div id="parents" class="tab-content">
@@ -611,32 +585,26 @@
                             <!-- Options ajoutées dynamiquement -->
                         </select>
                     </div>
-                    
                     <div class="form-group">
                         <label for="personne-autorisee">Personne autorisée à récupérer l'élève:</label>
                         <input type="text" id="personne-autorisee" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="lien-parente">Lien de parenté:</label>
                         <input type="text" id="lien-parente" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="date-sortie">Date de sortie:</label>
                         <input type="datetime-local" id="date-sortie" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="date-retour">Date de retour prévue:</label>
                         <input type="datetime-local" id="date-retour" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="doc-identity">Numéro de pièce d'identité:</label>
                         <input type="text" id="doc-identity" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="type-doc">Type de pièce:</label>
                         <select id="type-doc" required>
@@ -646,7 +614,6 @@
                             <option value="autre">Autre</option>
                         </select>
                     </div>
-                    
                     <button type="submit">Générer l'autorisation</button>
                 </form>
             </div>
@@ -663,27 +630,25 @@
                     <p><strong>Date de retour:</strong> <span id="auth-retour"></span></p>
                     <p><strong>Pièce d'identité:</strong> <span id="auth-doc"></span> (N°: <span id="auth-doc-num"></span>)</p>
                     <p><strong>Code de validation:</strong> <span id="auth-code"></span></p>
-                    
                     <div class="qr-code" id="qrcode"></div>
-                    
                     <button onclick="imprimerAutorisation()">Imprimer l'autorisation</button>
                 </div>
             </div>
             
             <div class="scan-section">
-    <h3>Valider une Sortie avec QR Code</h3>
-    <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
-    <div class="camera-feed">
-        <video id="video" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
-        <canvas id="canvas" style="display: none;"></canvas>
-    </div>
-    <div id="scan-result"></div>
-    <div class="form-group">
-        <label for="manual-code">Ou saisir manuellement le code:</label>
-        <input type="text" id="manual-code" placeholder="Saisir le code de validation">
-        <button onclick="validerSortieManuelle()">Valider la sortie</button>
-    </div>
-</div>
+                <h3>Valider une Sortie avec QR Code</h3>
+                <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
+                <div class="camera-feed">
+                    <video id="video-sorties" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
+                    <canvas id="canvas-sorties" style="display: none;"></canvas>
+                </div>
+                <div id="scan-result-sorties"></div>
+                <div class="form-group">
+                    <label for="manual-code">Ou saisir manuellement le code:</label>
+                    <input type="text" id="manual-code" placeholder="Saisir le code de validation">
+                    <button onclick="validerSortieManuelle()">Valider la sortie</button>
+                </div>
+            </div>
             
             <div class="historique-sorties">
                 <h3>Historique des Sorties</h3>
@@ -717,6 +682,7 @@
                 if (button.dataset.tab === 'sorties') {
                     mettreAJourListeElevesSortie();
                     afficherHistoriqueSorties('sorties-list-gestion');
+                    initCameraSorties(); // Activer la caméra pour la section Gestion des Sorties
                 } else if (button.dataset.tab === 'surveillant') {
                     initCameraSurveillant();
                     afficherHistoriqueSorties('sorties-list');
@@ -836,133 +802,133 @@
             }
         };
 
-      function afficherDemandes(filter = 'all') {
-    const tbody = document.getElementById('demandes-list');
-    tbody.innerHTML = '';
-    demandes.forEach(demande => {
-        const eleve = eleves.find(e => e.id === demande.eleveId);
-        if (!eleve) return;
-        
-        const showDemande = 
-            filter === 'all' ||
-            (filter === 'autorises' && demande.statut === 'validee') ||
-            (filter === 'non-autorises' && demande.statut === 'en-attente') ||
-            (filter === 'recuperes' && demande.statut === 'recuperee') ||
-            (filter === 'non-recuperes' && (demande.statut === 'en-attente' || demande.statut === 'validee'));
-        
-        if (showDemande) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${eleve.matricule}</td>
-                <td>${demande.recupNom} ${demande.recupPrenom}</td>
-                <td>${demande.recupTel}</td>
-                <td>${demande.recupEmail || 'N/A'}</td>
-                <td>${demande.recupPhoto ? '<img src="' + demande.recupPhoto + '" width="50">' : 'N/A'}</td>
-                <td class="actions">
-                    ${demande.statut === 'en-attente' ? `
-                        <button class="btn-validate" onclick="validerDemande(${demande.id})">Valider</button>
-                        <button class="btn-reject" onclick="rejeterDemande(${demande.id})">Rejeter</button>
-                    ` : `
-                        <button class="btn-delete" onclick="supprimerDemande(${demande.id})">Supprimer</button>
-                    `}
-                </td>
-            `;
-            tbody.appendChild(tr);
+        function afficherDemandes(filter = 'all') {
+            const tbody = document.getElementById('demandes-list');
+            tbody.innerHTML = '';
+            demandes.forEach(demande => {
+                const eleve = eleves.find(e => e.id === demande.eleveId);
+                if (!eleve) return;
+                
+                const showDemande = 
+                    filter === 'all' ||
+                    (filter === 'autorises' && demande.statut === 'validee') ||
+                    (filter === 'non-autorises' && demande.statut === 'en-attente') ||
+                    (filter === 'recuperes' && demande.statut === 'recuperee') ||
+                    (filter === 'non-recuperes' && (demande.statut === 'en-attente' || demande.statut === 'validee'));
+                
+                if (showDemande) {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${eleve.matricule}</td>
+                        <td>${demande.recupNom} ${demande.recupPrenom}</td>
+                        <td>${demande.recupTel}</td>
+                        <td>${demande.recupEmail || 'N/A'}</td>
+                        <td>${demande.recupPhoto ? '<img src="' + demande.recupPhoto + '" width="50">' : 'N/A'}</td>
+                        <td class="actions">
+                            ${demande.statut === 'en-attente' ? `
+                                <button class="btn-validate" onclick="validerDemande(${demande.id})">Valider</button>
+                                <button class="btn-reject" onclick="rejeterDemande(${demande.id})">Rejeter</button>
+                            ` : `
+                                <button class="btn-delete" onclick="supprimerDemande(${demande.id})">Supprimer</button>
+                            `}
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            });
         }
-    });
-}
 
-        // Valider demande
-       window.validerDemande = function(id) {
-    const demande = demandes.find(d => d.id === id);
-    if (demande) {
-        demande.statut = 'validee';
-        const eleve = eleves.find(e => e.id === demande.eleveId);
-        if (eleve) {
-            const qrData = {
-                nom: eleve.nom,
-                prenom: eleve.prenom,
-                dateNaissance: eleve.dateNaissance,
-                immeuble: eleve.immeuble,
-                surveillant: eleve.surveillant,
-                oustaz: eleve.oustaz,
-                recupPhoto: demande.recupPhoto || ''
-            };
-            demande.qrData = qrData;
-        }
-        localStorage.setItem('demandes', JSON.stringify(demandes));
-        afficherDemandes();
-    }
-};
+        window.validerDemande = function(id) {
+            const demande = demandes.find(d => d.id === id);
+            if (demande) {
+                demande.statut = 'validee';
+                const eleve = eleves.find(e => e.id === demande.eleveId);
+                if (eleve) {
+                    const qrData = {
+                        nom: eleve.nom,
+                        prenom: eleve.prenom,
+                        dateNaissance: eleve.dateNaissance,
+                        immeuble: eleve.immeuble,
+                        surveillant: eleve.surveillant,
+                        oustaz: eleve.oustaz,
+                        recupPhoto: demande.recupPhoto || ''
+                    };
+                    demande.qrData = qrData;
+                }
+                localStorage.setItem('demandes', JSON.stringify(demandes));
+                afficherDemandes();
+            }
+        };
 
-        // Rejeter demande
         window.rejeterDemande = function(id) {
             demandes = demandes.filter(d => d.id !== id);
             localStorage.setItem('demandes', JSON.stringify(demandes));
             afficherDemandes();
         };
-window.afficherElevesAutorises = function() {
-    afficherDemandes('autorises');
-};
 
-window.afficherElevesNonAutorises = function() {
-    afficherDemandes('non-autorises');
-};
-      window.afficherElevesRecuperes = function() {
-    afficherDemandes('recuperes');
-};
+        window.afficherElevesAutorises = function() {
+            afficherDemandes('autorises');
+        };
 
-window.afficherElevesNonRecuperes = function() {
-    afficherDemandes('non-recuperes');
-};
-      window.supprimerDemande = function(id) {
-    demandes = demandes.filter(d => d.id !== id);
-    localStorage.setItem('demandes', JSON.stringify(demandes));
-    afficherDemandes();
-};
-        // Recherche parent
-     document.getElementById('parent-search-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const matricule = document.getElementById('matricule-search').value;
-    const dateNaissance = document.getElementById('date-naissance-search').value;
-    
-    const eleve = eleves.find(e => 
-        e.matricule == matricule && 
-        e.dateNaissance === dateNaissance
-    );
-    
-    if (eleve) {
-        document.getElementById('eleve-space').style.display = 'block';
-        document.getElementById('eleve-nom').textContent = eleve.nom;
-        document.getElementById('eleve-prenom').textContent = eleve.prenom;
-        document.getElementById('eleve-immeuble').textContent = eleve.immeuble;
-        document.getElementById('eleve-oustaz').textContent = eleve.oustaz;
-        document.getElementById('eleve-surveillant').textContent = eleve.surveillant;
-        
-        const demande = demandes.find(d => d.eleveId === eleve.id && d.statut === 'validee');
-        if (demande) {
-            genererQRParent(demande.qrData, 'qr-info');
-            genererQRParent(demande.qrData, 'qr-recuperation');
-            if (demande.qrData.recupPhoto) {
-                document.getElementById('recup-photo-display').src = demande.qrData.recupPhoto;
-                document.getElementById('recup-photo-display').style.display = 'block';
+        window.afficherElevesNonAutorises = function() {
+            afficherDemandes('non-autorises');
+        };
+
+        window.afficherElevesRecuperes = function() {
+            afficherDemandes('recuperes');
+        };
+
+        window.afficherElevesNonRecuperes = function() {
+            afficherDemandes('non-recuperes');
+        };
+
+        window.supprimerDemande = function(id) {
+            demandes = demandes.filter(d => d.id !== id);
+            localStorage.setItem('demandes', JSON.stringify(demandes));
+            afficherDemandes();
+        };
+
+        document.getElementById('parent-search-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const matricule = document.getElementById('matricule-search').value;
+            const dateNaissance = document.getElementById('date-naissance-search').value;
+            
+            const eleve = eleves.find(e => 
+                e.matricule == matricule && 
+                e.dateNaissance === dateNaissance
+            );
+            
+            if (eleve) {
+                document.getElementById('eleve-space').style.display = 'block';
+                document.getElementById('eleve-nom').textContent = eleve.nom;
+                document.getElementById('eleve-prenom').textContent = eleve.prenom;
+                document.getElementById('eleve-immeuble').textContent = eleve.immeuble;
+                document.getElementById('eleve-oustaz').textContent = eleve.oustaz;
+                document.getElementById('eleve-surveillant').textContent = eleve.surveillant;
+                
+                const demande = demandes.find(d => d.eleveId === eleve.id && d.statut === 'validee');
+                if (demande) {
+                    genererQRParent(demande.qrData, 'qr-info');
+                    genererQRParent(demande.qrData, 'qr-recuperation');
+                    if (demande.qrData.recupPhoto) {
+                        document.getElementById('recup-photo-display').src = demande.qrData.recupPhoto;
+                        document.getElementById('recup-photo-display').style.display = 'block';
+                    }
+                } else {
+                    document.getElementById('qr-info').innerHTML = '';
+                    document.getElementById('qr-recuperation').innerHTML = '';
+                    document.getElementById('recup-photo-display').style.display = 'none';
+                }
+            } else {
+                alert('Matricule ou date de naissance invalide');
             }
-        } else {
-            document.getElementById('qr-info').innerHTML = '';
-            document.getElementById('qr-recuperation').innerHTML = '';
-            document.getElementById('recup-photo-display').style.display = 'none';
-        }
-    } else {
-        alert('Matricule ou date de naissance invalide');
-    }
-});
-        // Reset espace parent
+        });
+
         function resetParentSpace() {
             document.getElementById('eleve-space').style.display = 'none';
             document.getElementById('parent-search-form').reset();
         }
 
-        // Sous-onglets parent
         document.querySelectorAll('.sub-tab-button').forEach(button => {
             button.addEventListener('click', () => {
                 document.querySelectorAll('.sub-tab-button').forEach(btn => btn.classList.remove('active'));
@@ -972,53 +938,51 @@ window.afficherElevesNonRecuperes = function() {
             });
         });
 
-        // Soumettre récupération
-document.getElementById('recuperation-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const matricule = document.getElementById('matricule-search').value;
-    const eleve = eleves.find(e => e.matricule == matricule);
-    if (!eleve) {
-        alert('Veuillez d\'abord rechercher un élève valide.');
-        return;
-    }
+        document.getElementById('recuperation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const matricule = document.getElementById('matricule-search').value;
+            const eleve = eleves.find(e => e.matricule == matricule);
+            if (!eleve) {
+                alert('Veuillez d\'abord rechercher un élève valide.');
+                return;
+            }
 
-    const existingDemande = demandes.find(d => d.eleveId === eleve.id);
-    if (existingDemande) {
-        alert('Une demande existe déjà pour cet élève. Attendez la suppression par le bureau.');
-        return;
-    }
+            const existingDemande = demandes.find(d => d.eleveId === eleve.id);
+            if (existingDemande) {
+                alert('Une demande existe déjà pour cet élève. Attendez la suppression par le bureau.');
+                return;
+            }
 
-    const file = document.getElementById('recup-photo').files[0];
-    const processSubmission = (photoData) => {
-        const demande = {
-            id: Date.now(),
-            eleveId: eleve.id,
-            recupNom: document.getElementById('recup-nom').value,
-            recupPrenom: document.getElementById('recup-prenom').value,
-            recupTel: document.getElementById('recup-tel').value,
-            recupEmail: document.getElementById('recup-email').value,
-            recupPhoto: photoData || null,
-            statut: 'en-attente'
-        };
-        demandes.push(demande);
-        localStorage.setItem('demandes', JSON.stringify(demandes));
-        afficherDemandes();
-        this.reset();
-        alert('Demande de récupération soumise avec succès !');
-    };
+            const file = document.getElementById('recup-photo').files[0];
+            const processSubmission = (photoData) => {
+                const demande = {
+                    id: Date.now(),
+                    eleveId: eleve.id,
+                    recupNom: document.getElementById('recup-nom').value,
+                    recupPrenom: document.getElementById('recup-prenom').value,
+                    recupTel: document.getElementById('recup-tel').value,
+                    recupEmail: document.getElementById('recup-email').value,
+                    recupPhoto: photoData || null,
+                    statut: 'en-attente'
+                };
+                demandes.push(demande);
+                localStorage.setItem('demandes', JSON.stringify(demandes));
+                afficherDemandes();
+                this.reset();
+                alert('Demande de récupération soumise avec succès !');
+            };
 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-            processSubmission(event.target.result);
-        };
-        reader.readAsDataURL(file);
-    } else {
-        processSubmission(null);
-    }
-});
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    processSubmission(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                processSubmission(null);
+            }
+        });
 
-        // Générer QR parent
         function genererQRParent(data, elementId) {
             const qrElement = document.getElementById(elementId);
             qrElement.innerHTML = '';
@@ -1033,92 +997,140 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             qrElement.classList.add(`immeuble-${data.immeuble}`);
         }
 
-        // Init caméra surveillant (simulation)
-    function initCameraSurveillant() {
-    const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const resultDiv = document.getElementById('scan-result');
+        function initCameraSurveillant() {
+            const video = document.getElementById('video-surveillant');
+            const canvas = document.getElementById('canvas-surveillant');
+            const resultDiv = document.getElementById('scan-result');
 
-    // Vérifier si l'accès à la caméra est disponible
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        resultDiv.innerHTML = '<p>Caméra non supportée par ce navigateur</p>';
-        resultDiv.classList.add('animation-failure');
-        setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
-        return;
-    }
-
-    // Accéder à la caméra
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
-        .then(stream => {
-            video.srcObject = stream;
-            video.play();
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-
-            const ctx = canvas.getContext('2d');
-
-            // Scanner les QR codes en continu
-            function scanQR() {
-                if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-                    if (code) {
-                        try {
-                            const scannedData = JSON.parse(code.data);
-                            validerQR(scannedData);
-                            // Arrêter la caméra après un scan réussi
-                            stream.getTracks().forEach(track => track.stop());
-                            return;
-                        } catch (e) {
-                            resultDiv.innerHTML = '<p>QR code invalide</p>';
-                            resultDiv.classList.add('animation-failure');
-                            setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
-                        }
-                    }
-                }
-                requestAnimationFrame(scanQR);
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                resultDiv.innerHTML = '<p>Caméra non supportée par ce navigateur</p>';
+                resultDiv.classList.add('animation-failure');
+                setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                return;
             }
 
-            scanQR();
-        })
-        .catch(err => {
-            console.error('Erreur d’accès à la caméra:', err);
-            resultDiv.innerHTML = '<p>Erreur d’accès à la caméra</p>';
-            resultDiv.classList.add('animation-failure');
-            setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
-        });
-}
- 
-        // Valider QR
-    function validerQR(data) {
-    const resultDiv = document.getElementById('scan-result');
-    const auth = autorisations.find(a => a.id == data.id && a.code === data.code);
-    if (auth && auth.statut === 'validee') {
-        const eleve = eleves.find(e => e.id == auth.eleveId);
-        if (!eleve) {
-            resultDiv.innerHTML = '<p>Élève introuvable</p>';
-            resultDiv.classList.add('animation-failure');
-            setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
-            return;
-        }
-        auth.statut = 'recuperee';
-        localStorage.setItem('autorisations', JSON.stringify(autorisations));
-        resultDiv.innerHTML = `<p>Sortie validée pour ${data.eleve}</p>`;
-        resultDiv.classList.add('animation-success');
-        afficherHistoriqueSorties('sorties-list');
-        afficherHistoriqueSorties('sorties-list-gestion');
-    } else {
-        resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé</p>';
-        resultDiv.classList.add('animation-failure');
-    }
-    setTimeout(() => resultDiv.classList.remove('animation-success', 'animation-failure'), 1000);
-}
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                    canvas.width = video.videoWidth || 400;
+                    canvas.height = video.videoHeight || 300;
 
-        // Effacer historique
+                    const ctx = canvas.getContext('2d');
+
+                    function scanQR() {
+                        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                            if (code) {
+                                try {
+                                    const scannedData = JSON.parse(code.data);
+                                    validerQR(scannedData);
+                                    stream.getTracks().forEach(track => track.stop());
+                                    return;
+                                } catch (e) {
+                                    resultDiv.innerHTML = '<p>QR code invalide</p>';
+                                    resultDiv.classList.add('animation-failure');
+                                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                                }
+                            }
+                        }
+                        requestAnimationFrame(scanQR);
+                    }
+
+                    scanQR();
+                })
+                .catch(err => {
+                    console.error('Erreur d’accès à la caméra:', err);
+                    resultDiv.innerHTML = '<p>Erreur d’accès à la caméra. Veuillez autoriser l\'accès.</p>';
+                    resultDiv.classList.add('animation-failure');
+                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                });
+        }
+
+        function initCameraSorties() {
+            const video = document.getElementById('video-sorties');
+            const canvas = document.getElementById('canvas-sorties');
+            const resultDiv = document.getElementById('scan-result-sorties');
+
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                resultDiv.innerHTML = '<p>Caméra non supportée par ce navigateur</p>';
+                resultDiv.classList.add('animation-failure');
+                setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                return;
+            }
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                    canvas.width = video.videoWidth || 400;
+                    canvas.height = video.videoHeight || 300;
+
+                    const ctx = canvas.getContext('2d');
+
+                    function scanQR() {
+                        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                            canvas.width = video.videoWidth;
+                            canvas.height = video.videoHeight;
+                            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                            if (code) {
+                                try {
+                                    const scannedData = JSON.parse(code.data);
+                                    validerQR(scannedData);
+                                    stream.getTracks().forEach(track => track.stop());
+                                    return;
+                                } catch (e) {
+                                    resultDiv.innerHTML = '<p>QR code invalide</p>';
+                                    resultDiv.classList.add('animation-failure');
+                                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                                }
+                            }
+                        }
+                        requestAnimationFrame(scanQR);
+                    }
+
+                    scanQR();
+                })
+                .catch(err => {
+                    console.error('Erreur d’accès à la caméra:', err);
+                    resultDiv.innerHTML = '<p>Erreur d’accès à la caméra. Veuillez autoriser l\'accès.</p>';
+                    resultDiv.classList.add('animation-failure');
+                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                });
+        }
+
+        function validerQR(data) {
+            const resultDiv = document.getElementById('scan-result-sorties') || document.getElementById('scan-result');
+            const auth = autorisations.find(a => a.id == data.id && a.code === data.code);
+            if (auth && auth.statut === 'validee') {
+                const eleve = eleves.find(e => e.id == auth.eleveId);
+                if (!eleve) {
+                    resultDiv.innerHTML = '<p>Élève introuvable</p>';
+                    resultDiv.classList.add('animation-failure');
+                    setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                    return;
+                }
+                auth.statut = 'recuperee';
+                localStorage.setItem('autorisations', JSON.stringify(autorisations));
+                resultDiv.innerHTML = `<p>Sortie validée pour ${data.eleve}</p>`;
+                resultDiv.classList.add('animation-success');
+                afficherHistoriqueSorties('sorties-list');
+                afficherHistoriqueSorties('sorties-list-gestion');
+            } else {
+                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé</p>';
+                resultDiv.classList.add('animation-failure');
+            }
+            setTimeout(() => resultDiv.classList.remove('animation-success', 'animation-failure'), 1000);
+        }
+
         window.effacerHistorique = function() {
             if (confirm('Effacer historique ?')) {
                 autorisations = [];
@@ -1127,7 +1139,6 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             }
         };
 
-        // Mettre à jour liste élèves sortie
         function mettreAJourListeElevesSortie() {
             const select = document.getElementById('eleve-sortie');
             select.innerHTML = '<option value="">-- Sélectionner un élève --</option>';
@@ -1139,7 +1150,6 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             });
         }
 
-        // Générer autorisation
         document.getElementById('autorisation-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const eleveId = document.getElementById('eleve-sortie').value;
@@ -1184,12 +1194,10 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             this.reset();
         });
 
-        // Code unique
         function genererCodeUnique() {
             return Math.random().toString(36).substring(2, 10).toUpperCase();
         }
 
-        // Imprimer
         window.imprimerAutorisation = function() {
             const contenu = document.querySelector('.autorisation').innerHTML;
             const win = window.open('', '_blank');
@@ -1198,7 +1206,6 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             win.print();
         };
 
-        // Valider manuelle
         window.validerSortieManuelle = function() {
             const code = document.getElementById('manual-code').value;
             if (!code) return alert('Saisir code');
@@ -1213,49 +1220,31 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             }
         };
 
-     // Modifier la fonction afficherHistoriqueSorties pour gérer le cas où il n'y a pas d'autorisations
-function afficherHistoriqueSorties(tbodyId) {
-    const tbody = document.getElementById(tbodyId);
-    tbody.innerHTML = '';
-    
-    if (!autorisations || autorisations.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Aucune sortie enregistrée</td></tr>';
-        return;
-    }
-    
-    autorisations.forEach(auth => {
-        const eleve = eleves.find(e => e.id == auth.eleveId);
-        if (!eleve) return;
-        
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${eleve.matricule || 'N/A'}</td>
-            <td>${auth.personne || 'N/A'} (${auth.lien || 'N/A'})</td>
-            <td>${auth.dateSortie ? new Date(auth.dateSortie).toLocaleString() : 'N/A'}</td>
-            <td>${auth.dateRetour ? new Date(auth.dateRetour).toLocaleString() : 'N/A'}</td>
-            <td>${auth.statut || 'N/A'}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
+        function afficherHistoriqueSorties(tbodyId) {
+            const tbody = document.getElementById(tbodyId);
+            tbody.innerHTML = '';
+            
+            if (!autorisations || autorisations.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Aucune sortie enregistrée</td></tr>';
+                return;
+            }
+            
+            autorisations.forEach(auth => {
+                const eleve = eleves.find(e => e.id == auth.eleveId);
+                if (!eleve) return;
+                
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${eleve.matricule || 'N/A'}</td>
+                    <td>${auth.personne || 'N/A'} (${auth.lien || 'N/A'})</td>
+                    <td>${auth.dateSortie ? new Date(auth.dateSortie).toLocaleString() : 'N/A'}</td>
+                    <td>${auth.dateRetour ? new Date(auth.dateRetour).toLocaleString() : 'N/A'}</td>
+                    <td>${auth.statut || 'N/A'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-// Modifier la fonction initCameraSurveillant pour éviter les erreurs
-function initCameraSurveillant() {
-    const cameraFeed = document.getElementById('camera-feed');
-    const resultDiv = document.getElementById('scan-result');
-    
-    cameraFeed.innerHTML = '<p>Caméra active - En attente de scan QR</p>';
-    resultDiv.innerHTML = '';
-    
-    // Simulation de scan QR - seulement s'il y a des autorisations
-    if (autorisations && autorisations.length > 0) {
-        setTimeout(() => {
-            const scannedData = JSON.parse(`{"id": "${autorisations[0].id}", "code": "${autorisations[0].code}", "eleve": "${eleves.find(e => e.id == autorisations[0].eleveId)?.nom} ${eleves.find(e => e.id == autorisations[0].eleveId)?.prenom}"}`);
-            validerQR(scannedData);
-        }, 2000);
-    }
-}
- 
         // Init
         afficherEleves();
         afficherDemandes();
