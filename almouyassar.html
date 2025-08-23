@@ -13,12 +13,10 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
         body {
             background-color: #f5f5f5;
             color: #333;
         }
-        
         header {
             background-color: #2c3e50;
             color: white;
@@ -26,14 +24,12 @@
             text-align: center;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
         .tabs {
             display: flex;
             justify-content: center;
             margin-top: 1rem;
             flex-wrap: wrap;
         }
-        
         .tab-button {
             padding: 10px 20px;
             margin: 0 5px;
@@ -44,21 +40,17 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
         .tab-button:hover {
             background-color: #1abc9c;
         }
-        
         .tab-button.active {
             background-color: #1abc9c;
         }
-        
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
-        
         .tab-content {
             display: none;
             background-color: white;
@@ -66,42 +58,35 @@
             border-radius: 5px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
         .tab-content.active {
             display: block;
         }
-        
         h2 {
             color: #2c3e50;
             margin-bottom: 1.5rem;
             border-bottom: 2px solid #1abc9c;
             padding-bottom: 0.5rem;
         }
-        
         form {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
         .form-group {
             margin-bottom: 1rem;
         }
-        
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
         }
-        
         input, select, textarea {
             width: 100%;
             padding: 0.5rem;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        
         button {
             background-color: #1abc9c;
             color: white;
@@ -111,35 +96,29 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        
         button:hover {
             background-color: #16a085;
         }
-        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 1rem;
         }
-        
         th, td {
             padding: 0.75rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-        
         th {
             background-color: #f2f2f2;
             font-weight: bold;
         }
-        
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
         .stat-card {
             background-color: white;
             padding: 1rem;
@@ -147,52 +126,42 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
         }
-        
         .stat-value {
             font-size: 2rem;
             font-weight: bold;
             color: #1abc9c;
             margin: 0.5rem 0;
         }
-        
         .stat-label {
             color: #7f8c8d;
         }
-        
         .actions {
             display: flex;
             gap: 0.5rem;
         }
-        
         .btn-edit {
             background-color: #3498db;
         }
-        
         .btn-delete {
             background-color: #e74c3c;
         }
-        
         .btn-validate {
             background-color: #27ae60;
         }
-        
         .btn-reject {
             background-color: #e74c3c;
         }
-        
         .sortie-section {
             margin-bottom: 2rem;
             padding: 1rem;
             border: 1px solid #eee;
             border-radius: 5px;
         }
-        
         .qr-code {
             margin: 1rem 0;
             display: flex;
             justify-content: center;
         }
-        
         .autorisation {
             border: 1px solid #ddd;
             padding: 1rem;
@@ -200,7 +169,6 @@
             border-radius: 5px;
             background-color: #f9f9f9;
         }
-        
         .scan-section {
             text-align: center;
             padding: 2rem;
@@ -208,32 +176,26 @@
             border-radius: 5px;
             margin: 1rem 0;
         }
-        
         .camera-feed {
             width: 100%;
             max-width: 400px;
             margin: 1rem auto;
             border-radius: 5px;
         }
-        
         .historique-sorties {
             margin-top: 2rem;
         }
-        
         .parent-search {
             margin-bottom: 2rem;
         }
-        
         .eleve-space {
             display: none;
         }
-        
         .sub-tabs {
             display: flex;
             justify-content: flex-start;
             margin-bottom: 1rem;
         }
-        
         .sub-tab-button {
             padding: 8px 16px;
             margin-right: 10px;
@@ -243,19 +205,15 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        
         .sub-tab-button.active {
             background-color: #1abc9c;
         }
-        
         .sub-tab-content {
             display: none;
         }
-        
         .sub-tab-content.active {
             display: block;
         }
-        
         .immeuble-A { background-color: #ff0000; }
         .immeuble-B { background-color: #ffff00; }
         .immeuble-C { background-color: #00ff00; }
@@ -263,41 +221,33 @@
         .immeuble-E { background-color: #ff00ff; }
         .immeuble-F { background-color: #00ffff; }
         .immeuble-G { background-color: #ffa500; }
-        
         .animation-success {
             border: 2px solid green;
             animation: flash-green 1s;
         }
-        
         .animation-failure {
             border: 2px solid red;
             animation: flash-red 1s;
         }
-        
         @keyframes flash-green {
             0% { background-color: rgba(0,255,0,0.3); }
             100% { background-color: transparent; }
         }
-        
         @keyframes flash-red {
             0% { background-color: rgba(255,0,0,0.3); }
             100% { background-color: transparent; }
         }
-        
         @media (max-width: 768px) {
             form {
                 grid-template-columns: 1fr;
             }
-            
             .stats {
                 grid-template-columns: 1fr;
             }
-            
             .tabs {
                 flex-direction: column;
                 align-items: center;
             }
-            
             .tab-button {
                 margin: 5px 0;
                 width: 80%;
@@ -574,7 +524,6 @@
         <!-- Section Gestion des Sorties -->
         <div id="sorties" class="tab-content">
             <h2>Gestion Digitalisée des Sorties</h2>
-            
             <div class="sortie-section">
                 <h3>Générer une Autorisation de Sortie</h3>
                 <form id="autorisation-form">
@@ -617,7 +566,6 @@
                     <button type="submit">Générer l'autorisation</button>
                 </form>
             </div>
-            
             <div class="sortie-section" id="autorisation-result" style="display: none;">
                 <h3>Autorisation de Sortie Générée</h3>
                 <div class="autorisation">
@@ -634,10 +582,9 @@
                     <button onclick="imprimerAutorisation()">Imprimer l'autorisation</button>
                 </div>
             </div>
-            
             <div class="scan-section">
                 <h3>Valider une Sortie avec QR Code</h3>
-                <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
+                <p>Scannez le QR Code pour enregistrer la sortie de l'élève. Assurez-vous que le QR code est bien centré et éclairé.</p>
                 <div class="camera-feed">
                     <video id="video-sorties" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
                     <canvas id="canvas-sorties" style="display: none;"></canvas>
@@ -649,7 +596,6 @@
                     <button onclick="validerSortieManuelle()">Valider la sortie</button>
                 </div>
             </div>
-            
             <div class="historique-sorties">
                 <h3>Historique des Sorties</h3>
                 <table id="sorties-table-gestion">
@@ -682,7 +628,7 @@
                 if (button.dataset.tab === 'sorties') {
                     mettreAJourListeElevesSortie();
                     afficherHistoriqueSorties('sorties-list-gestion');
-                    initCameraSorties(); // Activer la caméra pour la section Gestion des Sorties
+                    initCameraSorties();
                 } else if (button.dataset.tab === 'surveillant') {
                     initCameraSurveillant();
                     afficherHistoriqueSorties('sorties-list');
@@ -845,15 +791,14 @@
                 const eleve = eleves.find(e => e.id === demande.eleveId);
                 if (eleve) {
                     const qrData = {
+                        id: demande.id,
+                        code: genererCodeUnique(),
                         nom: eleve.nom,
-                        prenom: eleve.prenom,
-                        dateNaissance: eleve.dateNaissance,
-                        immeuble: eleve.immeuble,
-                        surveillant: eleve.surveillant,
-                        oustaz: eleve.oustaz,
-                        recupPhoto: demande.recupPhoto || ''
+                        prenom: eleve.prenom
                     };
                     demande.qrData = qrData;
+                    genererQRParent(qrData, 'qr-info');
+                    genererQRParent(qrData, 'qr-recuperation');
                 }
                 localStorage.setItem('demandes', JSON.stringify(demandes));
                 afficherDemandes();
@@ -989,12 +934,12 @@
             const qrText = JSON.stringify(data);
             new QRCode(qrElement, {
                 text: qrText,
-                width: 128,
-                height: 128,
+                width: 256,
+                height: 256,
                 colorDark: "#000000",
-                colorLight: "#ffffff"
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
             });
-            qrElement.classList.add(`immeuble-${data.immeuble}`);
         }
 
         function initCameraSurveillant() {
@@ -1024,7 +969,9 @@
                             canvas.height = video.videoHeight;
                             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+                            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                                inversionAttempts: 'dontInvert'
+                            });
 
                             if (code) {
                                 try {
@@ -1033,7 +980,7 @@
                                     stream.getTracks().forEach(track => track.stop());
                                     return;
                                 } catch (e) {
-                                    resultDiv.innerHTML = '<p>QR code invalide</p>';
+                                    resultDiv.innerHTML = '<p>QR code invalide. Assurez-vous qu\'il est bien centré et éclairé.</p>';
                                     resultDiv.classList.add('animation-failure');
                                     setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
                                 }
@@ -1079,7 +1026,9 @@
                             canvas.height = video.videoHeight;
                             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
                             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                            const code = jsQR(imageData.data, imageData.width, imageData.height);
+                            const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                                inversionAttempts: 'dontInvert'
+                            });
 
                             if (code) {
                                 try {
@@ -1088,7 +1037,7 @@
                                     stream.getTracks().forEach(track => track.stop());
                                     return;
                                 } catch (e) {
-                                    resultDiv.innerHTML = '<p>QR code invalide</p>';
+                                    resultDiv.innerHTML = '<p>QR code invalide. Assurez-vous qu\'il est bien centré et éclairé.</p>';
                                     resultDiv.classList.add('animation-failure');
                                     setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
                                 }
@@ -1125,7 +1074,7 @@
                 afficherHistoriqueSorties('sorties-list');
                 afficherHistoriqueSorties('sorties-list-gestion');
             } else {
-                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé</p>';
+                resultDiv.innerHTML = '<p>QR code invalide ou déjà utilisé. Vérifiez l\'éclairage et la mise au point.</p>';
                 resultDiv.classList.add('animation-failure');
             }
             setTimeout(() => resultDiv.classList.remove('animation-success', 'animation-failure'), 1000);
@@ -1167,7 +1116,7 @@
                 docType: document.getElementById('type-doc').value,
                 docNum: document.getElementById('doc-identity').value,
                 code,
-                statut: 'en-attente'
+                statut: 'validee' // Changé à 'validee' pour compatibilité avec validerQR
             };
             autorisations.push(autorisation);
             localStorage.setItem('autorisations', JSON.stringify(autorisations));
@@ -1185,8 +1134,11 @@
             document.getElementById('qrcode').innerHTML = '';
             new QRCode(document.getElementById('qrcode'), {
                 text: JSON.stringify({id: autorisation.id, code, eleve: `${eleve.nom} ${eleve.prenom}`}),
-                width: 128,
-                height: 128
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
             });
             
             document.getElementById('autorisation-result').style.display = 'block';
