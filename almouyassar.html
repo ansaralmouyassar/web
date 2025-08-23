@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion de l'Internat - Sorties</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -670,19 +671,19 @@
             </div>
             
             <div class="scan-section">
-                <h3>Valider une Sortie avec QR Code</h3>
-                <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
-                
-                <div class="camera-feed">
-                    <p>Simulation de caméra - En production, intégration avec API de scan QR</p>
-                </div>
-                
-                <div class="form-group">
-                    <label for="manual-code">Ou saisir manuellement le code:</label>
-                    <input type="text" id="manual-code" placeholder="Saisir le code de validation">
-                    <button onclick="validerSortieManuelle()">Valider la sortie</button>
-                </div>
-            </div>
+    <h3>Valider une Sortie avec QR Code</h3>
+    <p>Scannez le QR Code pour enregistrer la sortie de l'élève</p>
+    <div class="camera-feed">
+        <video id="video" autoplay style="width: 100%; max-width: 400px; border-radius: 5px;"></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+    </div>
+    <div id="scan-result"></div>
+    <div class="form-group">
+        <label for="manual-code">Ou saisir manuellement le code:</label>
+        <input type="text" id="manual-code" placeholder="Saisir le code de validation">
+        <button onclick="validerSortieManuelle()">Valider la sortie</button>
+    </div>
+</div>
             
             <div class="historique-sorties">
                 <h3>Historique des Sorties</h3>
@@ -1033,25 +1034,65 @@ document.getElementById('recuperation-form').addEventListener('submit', function
         }
 
         // Init caméra surveillant (simulation)
-     function initCameraSurveillant() {
-    const cameraFeed = document.getElementById('camera-feed');
-    cameraFeed.innerHTML = '<p>Caméra active - En attente de scan QR</p>';
+    function initCameraSurveillant() {
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
     const resultDiv = document.getElementById('scan-result');
 
-    if (autorisations.length === 0) {
-        resultDiv.innerHTML = '<p>Aucune autorisation disponible pour le scan</p>';
+    // Vérifier si l'accès à la caméra est disponible
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        resultDiv.innerHTML = '<p>Caméra non supportée par ce navigateur</p>';
         resultDiv.classList.add('animation-failure');
         setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
         return;
     }
 
-    // Simulation de scan QR
-    setTimeout(() => {
-        const scannedData = JSON.parse(`{"id": "${autorisations[0].id}", "code": "${autorisations[0].code}", "eleve": "${eleves.find(e => e.id == autorisations[0].eleveId)?.nom} ${eleves.find(e => e.id == autorisations[0].eleveId)?.prenom}"}`);
-        validerQR(scannedData);
-    }, 2000);
-}
+    // Accéder à la caméra
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+        .then(stream => {
+            video.srcObject = stream;
+            video.play();
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
 
+            const ctx = canvas.getContext('2d');
+
+            // Scanner les QR codes en continu
+            function scanQR() {
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+                    if (code) {
+                        try {
+                            const scannedData = JSON.parse(code.data);
+                            validerQR(scannedData);
+                            // Arrêter la caméra après un scan réussi
+                            stream.getTracks().forEach(track => track.stop());
+                            return;
+                        } catch (e) {
+                            resultDiv.innerHTML = '<p>QR code invalide</p>';
+                            resultDiv.classList.add('animation-failure');
+                            setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+                        }
+                    }
+                }
+                requestAnimationFrame(scanQR);
+            }
+
+            scanQR();
+        })
+        .catch(err => {
+            console.error('Erreur d’accès à la caméra:', err);
+            resultDiv.innerHTML = '<p>Erreur d’accès à la caméra</p>';
+            resultDiv.classList.add('animation-failure');
+            setTimeout(() => resultDiv.classList.remove('animation-failure'), 1000);
+        });
+}
+ 
         // Valider QR
     function validerQR(data) {
     const resultDiv = document.getElementById('scan-result');
@@ -1172,28 +1213,49 @@ document.getElementById('recuperation-form').addEventListener('submit', function
             }
         };
 
-        // Afficher historique
-       function afficherHistoriqueSorties(tbodyId) {
+     // Modifier la fonction afficherHistoriqueSorties pour gérer le cas où il n'y a pas d'autorisations
+function afficherHistoriqueSorties(tbodyId) {
     const tbody = document.getElementById(tbodyId);
     tbody.innerHTML = '';
-    if (autorisations.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5">Aucune sortie enregistrée</td></tr>';
+    
+    if (!autorisations || autorisations.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 20px;">Aucune sortie enregistrée</td></tr>';
         return;
     }
+    
     autorisations.forEach(auth => {
         const eleve = eleves.find(e => e.id == auth.eleveId);
         if (!eleve) return;
+        
         const tr = document.createElement('tr');
         tr.innerHTML = `
-            <td>${eleve.nom} ${eleve.prenom}</td>
-            <td>${auth.personne} (${auth.lien})</td>
-            <td>${new Date(auth.dateSortie).toLocaleString()}</td>
-            <td>${new Date(auth.dateRetour).toLocaleString()}</td>
-            <td>${auth.statut}</td>
+            <td>${eleve.matricule || 'N/A'}</td>
+            <td>${auth.personne || 'N/A'} (${auth.lien || 'N/A'})</td>
+            <td>${auth.dateSortie ? new Date(auth.dateSortie).toLocaleString() : 'N/A'}</td>
+            <td>${auth.dateRetour ? new Date(auth.dateRetour).toLocaleString() : 'N/A'}</td>
+            <td>${auth.statut || 'N/A'}</td>
         `;
         tbody.appendChild(tr);
     });
 }
+
+// Modifier la fonction initCameraSurveillant pour éviter les erreurs
+function initCameraSurveillant() {
+    const cameraFeed = document.getElementById('camera-feed');
+    const resultDiv = document.getElementById('scan-result');
+    
+    cameraFeed.innerHTML = '<p>Caméra active - En attente de scan QR</p>';
+    resultDiv.innerHTML = '';
+    
+    // Simulation de scan QR - seulement s'il y a des autorisations
+    if (autorisations && autorisations.length > 0) {
+        setTimeout(() => {
+            const scannedData = JSON.parse(`{"id": "${autorisations[0].id}", "code": "${autorisations[0].code}", "eleve": "${eleves.find(e => e.id == autorisations[0].eleveId)?.nom} ${eleves.find(e => e.id == autorisations[0].eleveId)?.prenom}"}`);
+            validerQR(scannedData);
+        }, 2000);
+    }
+}
+ 
         // Init
         afficherEleves();
         afficherDemandes();
